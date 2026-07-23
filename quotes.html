@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quotes Library & Studio — Quotebook</title>
+  <meta name="description" content="Explore over 39,000 curated quotes across 57 categories paired with live photography from Pixabay.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Caveat:wght@600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body class="light-theme quotes-page">
+
+  <!-- Ambient Light Mesh Background -->
+  <div class="ambient-bg-container" id="ambientBg">
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+    <div class="glow-orb orb-3"></div>
+  </div>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo" id="brandLogo">
+        <div class="logo-icon"><img src="data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+        <div class="logo-text">
+          <span class="logo-title">Quotebook</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Loading 39,000+ quotes...</span>
+        </div>
+      </a>
+
+      <div class="header-search">
+        <div class="search-input-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" placeholder="Search 39,000+ quotes by author, topic, or keyword..." autocomplete="off">
+          <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <a href="index.html" class="icon-btn-text" title="Go to Home Landing">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <button class="icon-btn-text" id="btnRandomQuote" title="Get Random Quote">
+          <i class="fa-solid fa-shuffle"></i>
+          <span>Random</span>
+        </button>
+        <button class="icon-btn-text" id="btnZenMode" title="Enter Fullscreen Zen Mode">
+          <i class="fa-solid fa-expand"></i>
+          <span>Zen Mode</span>
+        </button>
+        <button class="icon-btn-text highlight" id="btnOpenBookmarks" title="View Bookmarked Quotes">
+          <i class="fa-solid fa-bookmark"></i>
+          <span>Saved</span>
+          <span class="badge" id="bookmarkCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Category Navigation Pills -->
+  <nav class="category-nav">
+    <div class="category-nav-container">
+      <button class="scroll-arrow left" id="catScrollLeft"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="category-pills" id="categoryPills">
+        <button class="category-pill active" data-category="all">
+          <i class="fa-solid fa-layer-group"></i> All Quotes
+        </button>
+      </div>
+      <button class="scroll-arrow right" id="catScrollRight"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </nav>
+
+  <!-- Main Content Layout -->
+  <main class="main-container">
+
+    <!-- Hero Featured Spotlight Banner -->
+    <section class="hero-spotlight" id="heroSpotlight">
+      <div class="hero-backdrop-image" id="heroBackdrop"></div>
+      <div class="hero-glass-card">
+        <div class="hero-top-meta">
+          <span class="spotlight-tag" id="heroCategoryTag"><i class="fa-solid fa-sparkles"></i> Quote of the Day</span>
+          <span class="hero-author-tag" id="heroAuthorTag">Mark Twain</span>
+        </div>
+
+        <blockquote class="hero-quote-text" id="heroQuoteText">
+          "The man who does not read has no advantage over the man who cannot read."
+        </blockquote>
+
+        <div class="hero-bottom-actions">
+          <div class="hero-tags" id="heroTagsList">
+            <span class="tag-chip">Reading</span>
+            <span class="tag-chip">Wisdom</span>
+          </div>
+
+          <div class="action-btn-group">
+            <button class="action-btn" id="heroBtnCopy" title="Copy to Clipboard">
+              <i class="fa-regular fa-copy"></i>
+            </button>
+            <button class="action-btn" id="heroBtnSpeak" title="Read Aloud">
+              <i class="fa-solid fa-volume-high"></i>
+            </button>
+            <button class="action-btn" id="heroBtnBookmark" title="Bookmark Quote">
+              <i class="fa-regular fa-heart"></i>
+            </button>
+            <button class="action-btn primary-action" id="heroBtnPoster" title="Generate Quote Poster">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <span>Create Poster</span>
+            </button>
+            <button class="action-btn circle-btn" id="heroBtnNext" title="Next Featured Quote">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filters & Sort Control Toolbar -->
+    <section class="toolbar-section">
+      <div class="toolbar-info">
+        <h2 class="section-heading" id="currentSectionTitle">Featured Quotes</h2>
+        <span class="results-count" id="resultsCount">Showing 24 quotes</span>
+      </div>
+
+      <div class="toolbar-controls">
+        <div class="control-group">
+          <label for="authorSelect"><i class="fa-solid fa-user-pen"></i> Author:</label>
+          <select id="authorSelect">
+            <option value="all">All Authors</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="sortSelect"><i class="fa-solid fa-arrow-down-short-wide"></i> Sort:</label>
+          <select id="sortSelect">
+            <option value="popular">Most Popular</option>
+            <option value="random">Randomized</option>
+            <option value="alphabetical">Author A-Z</option>
+            <option value="quoteLength">Quote Length</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quotes Masonry Grid -->
+    <section class="quotes-grid-container">
+      <div class="quotes-grid" id="quotesGrid">
+        <div class="quote-card-skeleton"></div>
+        <div class="quote-card-skeleton"></div>
+        <div class="quote-card-skeleton"></div>
+        <div class="quote-card-skeleton"></div>
+        <div class="quote-card-skeleton"></div>
+        <div class="quote-card-skeleton"></div>
+      </div>
+
+      <!-- Empty / No Results View -->
+      <div class="no-results-view hidden" id="noResultsView">
+        <div class="empty-icon"><i class="fa-solid fa-quote-left"></i></div>
+        <h3>No quotes found matching your search</h3>
+        <p>Try adjusting your search keywords or switching category filters.</p>
+        <button class="btn-secondary" id="btnResetFilters"><i class="fa-solid fa-rotate-left"></i> Reset Filters</button>
+      </div>
+
+      <!-- Pagination / Load More Bar -->
+      <div class="load-more-container" id="loadMoreContainer">
+        <button class="btn-load-more" id="btnLoadMore">
+          <span>Load More Quotes</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Poster Studio Modal -->
+  <div class="modal-backdrop hidden" id="posterModal">
+    <div class="poster-studio-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-palette"></i> Quote Poster Studio
+        </div>
+        <button class="close-modal-btn" id="closePosterModal"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="poster-studio-body">
+        <div class="poster-preview-panel">
+          <div class="canvas-wrapper">
+            <canvas id="posterCanvas" width="1080" height="1080"></canvas>
+          </div>
+          <div class="preview-note">High Resolution PNG Export (1080 × 1080)</div>
+        </div>
+
+        <div class="poster-controls-panel">
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-image"></i> Pixabay Image Background</label>
+            <div class="pixabay-search-box">
+              <input type="text" id="pixabayQueryInput" placeholder="Search Pixabay photos (e.g. sunset, mountains, library)...">
+              <button id="btnSearchPixabay"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="pixabay-thumbs-scroll" id="pixabayThumbs">
+              <div class="pixabay-thumb-item loading">Fetching photos...</div>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-sliders"></i> Image Overlay Tint & Blur</label>
+            <div class="overlay-presets" id="overlayPresets">
+              <button class="preset-chip active" data-overlay="light-glass">Light Glass</button>
+              <button class="preset-chip" data-overlay="warm-sun">Warm Gold</button>
+              <button class="preset-chip" data-overlay="soft-rose">Soft Rose</button>
+              <button class="preset-chip" data-overlay="serene-teal">Serene Teal</button>
+              <button class="preset-chip" data-overlay="dark-contrast">Dark Contrast</button>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-font"></i> Typography Style</label>
+            <div class="font-presets" id="fontPresets">
+              <button class="font-chip active" data-font="Cormorant Garamond">Classic Serif</button>
+              <button class="font-chip" data-font="Playfair Display">Editorial</button>
+              <button class="font-chip" data-font="Outfit">Modern Clean</button>
+              <button class="font-chip" data-font="Caveat">Handwritten</button>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-vector-square"></i> Aspect Ratio</label>
+            <div class="ratio-selector" id="ratioSelector">
+              <button class="ratio-chip active" data-ratio="1:1">1:1 Square</button>
+              <button class="ratio-chip" data-ratio="4:5">4:5 Portrait</button>
+              <button class="ratio-chip" data-ratio="16:9">16:9 Landscape</button>
+            </div>
+          </div>
+
+          <div class="poster-download-box">
+            <button class="btn-download-poster" id="btnDownloadPoster">
+              <i class="fa-solid fa-download"></i> Download Poster (PNG)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Zen Slideshow Modal -->
+  <div class="modal-backdrop hidden" id="zenModal">
+    <div class="zen-container">
+      <div class="zen-bg-slide" id="zenBgSlide"></div>
+      <div class="zen-overlay"></div>
+
+      <button class="zen-close-btn" id="closeZenModal"><i class="fa-solid fa-xmark"></i> Close Zen Mode</button>
+
+      <div class="zen-content">
+        <span class="zen-category" id="zenCategory">Philosophy & Thinking</span>
+        <blockquote class="zen-quote" id="zenQuote">
+          "The unexamined life is not worth living."
+        </blockquote>
+        <div class="zen-author" id="zenAuthor">— Socrates</div>
+      </div>
+
+      <div class="zen-controls">
+        <button class="zen-ctrl-btn" id="zenBtnPrev"><i class="fa-solid fa-chevron-left"></i></button>
+        <button class="zen-ctrl-btn play" id="zenBtnPlay"><i class="fa-solid fa-pause"></i></button>
+        <button class="zen-ctrl-btn" id="zenBtnNext"><i class="fa-solid fa-chevron-right"></i></button>
+        <button class="zen-ctrl-btn" id="zenBtnAudio" title="Toggle Speech Aloud"><i class="fa-solid fa-volume-high"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Saved Bookmarks Drawer -->
+  <div class="drawer-backdrop hidden" id="bookmarksDrawerBackdrop">
+    <aside class="bookmarks-drawer" id="bookmarksDrawer">
+      <div class="drawer-header">
+        <h3><i class="fa-solid fa-heart text-danger"></i> Saved Quotes</h3>
+        <button class="close-drawer-btn" id="closeBookmarksDrawer"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="drawer-body" id="bookmarksList">
+        <div class="empty-drawer">
+          <i class="fa-regular fa-bookmark"></i>
+          <p>No bookmarked quotes yet. Click the heart icon on any quote to save it here!</p>
+        </div>
+      </div>
+
+      <div class="drawer-footer">
+        <button class="btn-secondary danger" id="btnClearBookmarks"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+        <button class="btn-primary" id="btnExportBookmarks"><i class="fa-solid fa-file-export"></i> Export JSON</button>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Scripts -->
+  <script src="src/js/poster.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+</html>
