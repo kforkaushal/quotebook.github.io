@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -130,7 +141,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"She bats her eyelashes like I’m throwing baseballs at them. I must be as romantic as Pete Rose’s last name."</blockquote>
+          <blockquote class="card-quote-text">"She bats her eyelashes like I&#039;m throwing baseballs at them. I must be as romantic as Pete Rose&#039;s last name."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -145,7 +156,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"She bats her eyelashes like I’m throwing baseballs at them. I must be as romantic as Pete Rose’s last name."</blockquote>
+          <blockquote class="card-quote-text">"She bats her eyelashes like I&#039;m throwing baseballs at them. I must be as romantic as Pete Rose&#039;s last name."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -160,7 +171,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"She bats her eyelashes like I’m throwing baseballs at them. I must be as romantic as Pete Rose’s last name."</blockquote>
+          <blockquote class="card-quote-text">"She bats her eyelashes like I&#039;m throwing baseballs at them. I must be as romantic as Pete Rose&#039;s last name."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -190,7 +201,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn’t mean everyone should be indifferent to each other."</blockquote>
+          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn&#039;t mean everyone should be indifferent to each other."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -205,7 +216,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -220,7 +231,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -235,7 +246,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn’t mean everyone should be indifferent to each other."</blockquote>
+          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn&#039;t mean everyone should be indifferent to each other."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -250,7 +261,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn’t mean everyone should be indifferent to each other."</blockquote>
+          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn&#039;t mean everyone should be indifferent to each other."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -265,7 +276,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -280,7 +291,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -310,7 +321,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -325,7 +336,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"To catch affection, try being efficient by using a fishing net. You can’t sit back and wait for romance to grow on trees."</blockquote>
+          <blockquote class="card-quote-text">"To catch affection, try being efficient by using a fishing net. You can&#039;t sit back and wait for romance to grow on trees."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -355,7 +366,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn’t mean everyone should be indifferent to each other."</blockquote>
+          <blockquote class="card-quote-text">"Everyone is different from each other, but that doesn&#039;t mean everyone should be indifferent to each other."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -370,7 +381,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -400,7 +411,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cry, but not for myself. There’s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
+          <blockquote class="card-quote-text">"I cry, but not for myself. There&#039;s too much sadness in this world to waste a moment with self-pity, when making others smile will also make me smile."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -415,7 +426,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"When stuck in outer space, moonwalk home. I can dance as well as any hitchhiker in the galaxy, and you can 42 off if you don’t believe me."</blockquote>
+          <blockquote class="card-quote-text">"When stuck in outer space, moonwalk home. I can dance as well as any hitchhiker in the galaxy, and you can 42 off if you don&#039;t believe me."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -430,7 +441,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"When stuck in outer space, moonwalk home. I can dance as well as any hitchhiker in the galaxy, and you can 42 off if you don’t believe me."</blockquote>
+          <blockquote class="card-quote-text">"When stuck in outer space, moonwalk home. I can dance as well as any hitchhiker in the galaxy, and you can 42 off if you don&#039;t believe me."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -460,7 +471,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"To catch affection, try being efficient by using a fishing net. You can’t sit back and wait for romance to grow on trees."</blockquote>
+          <blockquote class="card-quote-text">"To catch affection, try being efficient by using a fishing net. You can&#039;t sit back and wait for romance to grow on trees."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -520,7 +531,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I predict that love will burst forth on the Fourth of July. That’s tomorrow, so I’d better prepare tonight for massive fireworks of the heart."</blockquote>
+          <blockquote class="card-quote-text">"I predict that love will burst forth on the Fourth of July. That&#039;s tomorrow, so I&#039;d better prepare tonight for massive fireworks of the heart."</blockquote>
           <span class="card-author">- Jarod Kintz,  Write like no one is reading 3</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

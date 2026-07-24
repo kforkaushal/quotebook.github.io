@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -68,7 +79,7 @@
       <div class="toolbar-info" style="max-width:800px;">
         <h1 class="section-heading" style="margin-bottom:0.75rem;">Love Quotes for Girlfriend</h1>
         <p class="section-desc" style="font-size:1.05rem; line-height:1.6; color:var(--text-secondary); font-family:var(--font-sans);">
-          Find inspiration instantly with this premium compilation of 30 romantic love quotes for your girlfriend. Read, copy, listen, or download them as high-quality visual poster cards using the Quotebook Studio tool.
+          Words have power. Here is a curated selection of 30 romantic love quotes for your girlfriend to help you express exactly what you feel. Pair them with HD photography from our Poster Studio or share them directly on WhatsApp and Instagram.
         </p>
       </div>
       <div style="margin-top:1rem;">
@@ -295,7 +306,7 @@
         
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My girlfriend bought me a collared shirt for my birthday, mainly so I don’t get too far ahead of her when she takes me for a walk."</blockquote>
+          <blockquote class="card-quote-text">"My girlfriend bought me a collared shirt for my birthday, mainly so I don&#039;t get too far ahead of her when she takes me for a walk."</blockquote>
           <span class="card-author">&mdash; Jarod Kintz,  This Book is Not FOR SALE</span>
         </div>
 
@@ -318,7 +329,7 @@
         
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My girlfriend bought me a collared shirt for my birthday, mainly so I don’t get too far ahead of her when she takes me for a walk."</blockquote>
+          <blockquote class="card-quote-text">"My girlfriend bought me a collared shirt for my birthday, mainly so I don&#039;t get too far ahead of her when she takes me for a walk."</blockquote>
           <span class="card-author">&mdash; Jarod Kintz,  This Book is Not FOR SALE</span>
         </div>
 
@@ -433,7 +444,7 @@
         
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Hey, look—your girlfriend is saying something.&quot;Artemis had a vast mental reserve of scathing comebacks at his disposal, but none of them covered girlfriend insults. He wasn&#039;t even sure if it was an insult. And if it was, who was being insulted? Him or the girl?"</blockquote>
+          <blockquote class="card-quote-text">"Hey, look--your girlfriend is saying something.&quot;Artemis had a vast mental reserve of scathing comebacks at his disposal, but none of them covered girlfriend insults. He wasn&#039;t even sure if it was an insult. And if it was, who was being insulted? Him or the girl?"</blockquote>
           <span class="card-author">&mdash; Eoin Colfer</span>
         </div>
 
@@ -663,7 +674,7 @@
         
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love is like a forest, I think as I kill trees by squandering toilet paper while “decorating” my ex girlfriend’s front yard."</blockquote>
+          <blockquote class="card-quote-text">"Love is like a forest, I think as I kill trees by squandering toilet paper while &#039;decorating&#039; my ex girlfriend&#039;s front yard."</blockquote>
           <span class="card-author">&mdash; Jarod Kintz,  This Book Has No Title</span>
         </div>
 
@@ -755,7 +766,7 @@
         
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Annabeth realized that if six of them went on these two quests, it would leave Percy alone on the ship with Coach Hedge, which was maybe not a situation a caring girlfriend should put him in. Nor was she eager to let Percy out of her sight again—not after they’d been apart for so many months."</blockquote>
+          <blockquote class="card-quote-text">"Annabeth realized that if six of them went on these two quests, it would leave Percy alone on the ship with Coach Hedge, which was maybe not a situation a caring girlfriend should put him in. Nor was she eager to let Percy out of her sight again--not after they&#039;d been apart for so many months."</blockquote>
           <span class="card-author">&mdash; Rick Riordan,  The Mark of Athena</span>
         </div>
 

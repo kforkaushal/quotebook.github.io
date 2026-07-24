@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -325,7 +336,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Books are the ultimate Dumpees: put them down and they’ll wait for you forever; pay attention to them and they always love you back."</blockquote>
+          <blockquote class="card-quote-text">"Books are the ultimate Dumpees: put them down and they&#039;ll wait for you forever; pay attention to them and they always love you back."</blockquote>
           <span class="card-author">- John Green,  An Abundance of Katherines</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

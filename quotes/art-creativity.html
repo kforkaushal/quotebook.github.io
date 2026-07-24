@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -370,7 +381,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"For instance, on the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much—the wheel, New York, wars and so on—whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man—for precisely the same reasons."</blockquote>
+          <blockquote class="card-quote-text">"For instance, on the planet Earth, man had always assumed that he was more intelligent than dolphins because he had achieved so much--the wheel, New York, wars and so on--whilst all the dolphins had ever done was muck about in the water having a good time. But conversely, the dolphins had always believed that they were far more intelligent than man--for precisely the same reasons."</blockquote>
           <span class="card-author">- Douglas Adams,  The Hitchhiker&#039;s Guide to the Galaxy</span>
         </div>
         <div class="quote-card-footer">
@@ -520,7 +531,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"The loneliest moment in someone’s life is when they are watching their whole world fall apart, and all they can do is stare blankly."</blockquote>
+          <blockquote class="card-quote-text">"The loneliest moment in someone&#039;s life is when they are watching their whole world fall apart, and all they can do is stare blankly."</blockquote>
           <span class="card-author">- F. Scott Fitzgerald,  The Great Gatsby</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

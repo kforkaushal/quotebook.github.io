@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -85,7 +96,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I would pour you a glass of wine, but wouldn’t it be more romantic if you sipped it out of my armpit?"</blockquote>
+          <blockquote class="card-quote-text">"I would pour you a glass of wine, but wouldn&#039;t it be more romantic if you sipped it out of my armpit?"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -100,7 +111,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I would pour you a glass of wine, but wouldn’t it be more romantic if you sipped it out of my armpit?"</blockquote>
+          <blockquote class="card-quote-text">"I would pour you a glass of wine, but wouldn&#039;t it be more romantic if you sipped it out of my armpit?"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -115,7 +126,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I would pour you a glass of wine, but wouldn’t it be more romantic if you sipped it out of my armpit?"</blockquote>
+          <blockquote class="card-quote-text">"I would pour you a glass of wine, but wouldn&#039;t it be more romantic if you sipped it out of my armpit?"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -130,7 +141,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"The sunset faded and blended from pink to peach to mango in a smoothie in the sky. For as long as she doesn’t love me, I will love her."</blockquote>
+          <blockquote class="card-quote-text">"The sunset faded and blended from pink to peach to mango in a smoothie in the sky. For as long as she doesn&#039;t love me, I will love her."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -145,7 +156,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"The sunset faded and blended from pink to peach to mango in a smoothie in the sky. For as long as she doesn’t love me, I will love her."</blockquote>
+          <blockquote class="card-quote-text">"The sunset faded and blended from pink to peach to mango in a smoothie in the sky. For as long as she doesn&#039;t love me, I will love her."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -160,7 +171,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"The sunset faded and blended from pink to peach to mango in a smoothie in the sky. For as long as she doesn’t love me, I will love her."</blockquote>
+          <blockquote class="card-quote-text">"The sunset faded and blended from pink to peach to mango in a smoothie in the sky. For as long as she doesn&#039;t love me, I will love her."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -175,7 +186,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love is something to be treated with awe. Or should it be aww? People don’t know my capacity for love. If you tried to bottle it up, I’m sure it would take at least three thermoses to contain it. And if it did get contained, would you drink my love black, or would you add cream and sugar?"</blockquote>
+          <blockquote class="card-quote-text">"Love is something to be treated with awe. Or should it be aww? People don&#039;t know my capacity for love. If you tried to bottle it up, I&#039;m sure it would take at least three thermoses to contain it. And if it did get contained, would you drink my love black, or would you add cream and sugar?"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -190,7 +201,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love is something to be treated with awe. Or should it be aww? People don’t know my capacity for love. If you tried to bottle it up, I’m sure it would take at least three thermoses to contain it. And if it did get contained, would you drink my love black, or would you add cream and sugar?"</blockquote>
+          <blockquote class="card-quote-text">"Love is something to be treated with awe. Or should it be aww? People don&#039;t know my capacity for love. If you tried to bottle it up, I&#039;m sure it would take at least three thermoses to contain it. And if it did get contained, would you drink my love black, or would you add cream and sugar?"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -205,7 +216,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love means never having to say you’re sorry for a minor stab wound."</blockquote>
+          <blockquote class="card-quote-text">"Love means never having to say you&#039;re sorry for a minor stab wound."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -220,7 +231,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love means never having to say you’re sorry for a minor stab wound."</blockquote>
+          <blockquote class="card-quote-text">"Love means never having to say you&#039;re sorry for a minor stab wound."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -265,7 +276,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"A poem for Beth: Roses are red, Violets are blue, I didn’t know what love meant, until I looked it up in the dictionary."</blockquote>
+          <blockquote class="card-quote-text">"A poem for Beth: Roses are red, Violets are blue, I didn&#039;t know what love meant, until I looked it up in the dictionary."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -280,7 +291,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"A poem for Beth: Roses are red, Violets are blue, I didn’t know what love meant, until I looked it up in the dictionary."</blockquote>
+          <blockquote class="card-quote-text">"A poem for Beth: Roses are red, Violets are blue, I didn&#039;t know what love meant, until I looked it up in the dictionary."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -295,7 +306,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"A poem for Beth: Roses are red, Violets are blue, I didn’t know what love meant, until I looked it up in the dictionary."</blockquote>
+          <blockquote class="card-quote-text">"A poem for Beth: Roses are red, Violets are blue, I didn&#039;t know what love meant, until I looked it up in the dictionary."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -355,7 +366,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I’m a romantic. I like cold coffee and orgasms that arrive fifteen minutes after I’ve put on my clothes and paid the lady."</blockquote>
+          <blockquote class="card-quote-text">"I&#039;m a romantic. I like cold coffee and orgasms that arrive fifteen minutes after I&#039;ve put on my clothes and paid the lady."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -370,7 +381,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I believe the love shared between two people shouldn’t be secretly shared with a third. Not even if I am vacationing on the moon, and that third person is my clone."</blockquote>
+          <blockquote class="card-quote-text">"I believe the love shared between two people shouldn&#039;t be secretly shared with a third. Not even if I am vacationing on the moon, and that third person is my clone."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -385,7 +396,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I believe the love shared between two people shouldn’t be secretly shared with a third. Not even if I am vacationing on the moon, and that third person is my clone."</blockquote>
+          <blockquote class="card-quote-text">"I believe the love shared between two people shouldn&#039;t be secretly shared with a third. Not even if I am vacationing on the moon, and that third person is my clone."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -430,7 +441,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Napoleon made war like I make love—from a height of about 68 centimeters. (I wear platform shoes while I’m on my knees)"</blockquote>
+          <blockquote class="card-quote-text">"Napoleon made war like I make love--from a height of about 68 centimeters. (I wear platform shoes while I&#039;m on my knees)"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -445,7 +456,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Napoleon made war like I make love—from a height of about 68 centimeters. (I wear platform shoes while I’m on my knees)"</blockquote>
+          <blockquote class="card-quote-text">"Napoleon made war like I make love--from a height of about 68 centimeters. (I wear platform shoes while I&#039;m on my knees)"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -460,7 +471,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Napoleon made war like I make love—from a height of about 68 centimeters. (I wear platform shoes while I’m on my knees)"</blockquote>
+          <blockquote class="card-quote-text">"Napoleon made war like I make love--from a height of about 68 centimeters. (I wear platform shoes while I&#039;m on my knees)"</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -520,7 +531,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I don’t need love. I live in a forest. The quiet is my companion. The cold is my warmth. My heart once suffered from frostbite, but I removed and replaced it with a fuel pump."</blockquote>
+          <blockquote class="card-quote-text">"I don&#039;t need love. I live in a forest. The quiet is my companion. The cold is my warmth. My heart once suffered from frostbite, but I removed and replaced it with a fuel pump."</blockquote>
           <span class="card-author">- Jarod Kintz,  A Story That Talks about Talking Is Like Chatter to Chattering Teeth, and Every Set of Dentures Can Attest to the Fact That No..</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

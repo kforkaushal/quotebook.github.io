@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -85,7 +96,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"She looked like the kind of woman I could fall in love with. Trouble is, she was standing next to the kind of woman I’d like to make love to."</blockquote>
+          <blockquote class="card-quote-text">"She looked like the kind of woman I could fall in love with. Trouble is, she was standing next to the kind of woman I&#039;d like to make love to."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -100,7 +111,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"She looked like the kind of woman I could fall in love with. Trouble is, she was standing next to the kind of woman I’d like to make love to."</blockquote>
+          <blockquote class="card-quote-text">"She looked like the kind of woman I could fall in love with. Trouble is, she was standing next to the kind of woman I&#039;d like to make love to."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -370,7 +381,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love is like a forest, I think as I kill trees by squandering toilet paper while “decorating” my ex girlfriend’s front yard."</blockquote>
+          <blockquote class="card-quote-text">"Love is like a forest, I think as I kill trees by squandering toilet paper while &#039;decorating&#039; my ex girlfriend&#039;s front yard."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -385,7 +396,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Love is like a door knob that I’ve mistaken for a shower handle, and I’m trying to turn up the heat on our relationship, but the handle won’t turn and I’ve got shampoo in my eyes and my wetsuit is dry and I started crying just as the zookeeper asked me to leave."</blockquote>
+          <blockquote class="card-quote-text">"Love is like a door knob that I&#039;ve mistaken for a shower handle, and I&#039;m trying to turn up the heat on our relationship, but the handle won&#039;t turn and I&#039;ve got shampoo in my eyes and my wetsuit is dry and I started crying just as the zookeeper asked me to leave."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -400,7 +411,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I cried so hard after I put my cat to sleep. I guess I shouldn’t have cried so hard, because with all my sobbing, I ended up waking it up."</blockquote>
+          <blockquote class="card-quote-text">"I cried so hard after I put my cat to sleep. I guess I shouldn&#039;t have cried so hard, because with all my sobbing, I ended up waking it up."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -415,7 +426,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn’t arrived yet."</blockquote>
+          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn&#039;t arrived yet."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -430,7 +441,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn’t arrived yet."</blockquote>
+          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn&#039;t arrived yet."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -445,7 +456,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn’t arrived yet."</blockquote>
+          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn&#039;t arrived yet."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -460,7 +471,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn’t arrived yet."</blockquote>
+          <blockquote class="card-quote-text">"I fell in love with her the moment she was late, though neither one of us knew it at the time because she hadn&#039;t arrived yet."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -490,7 +501,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There’s truth in only having a bicycle seat. I used to skip class and just hold it out in the hallway. When teachers would ask me what I was doing, I’d hold it up and say, “Sorry I’m late."</blockquote>
+          <blockquote class="card-quote-text">"There&#039;s truth in only having a bicycle seat. I used to skip class and just hold it out in the hallway. When teachers would ask me what I was doing, I&#039;d hold it up and say, &#039;Sorry I&#039;m late."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -505,7 +516,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There’s truth in only having a bicycle seat. I used to skip class and just hold it out in the hallway. When teachers would ask me what I was doing, I’d hold it up and say, “Sorry I’m late."</blockquote>
+          <blockquote class="card-quote-text">"There&#039;s truth in only having a bicycle seat. I used to skip class and just hold it out in the hallway. When teachers would ask me what I was doing, I&#039;d hold it up and say, &#039;Sorry I&#039;m late."</blockquote>
           <span class="card-author">- Jarod Kintz,  This Book Has No Title</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -85,7 +96,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Never rearrange your life in order to meet Mr. Darcy half way. If he couldn’t see your worth at the moment you met then he won’t two years later. May the halls of Pemberly be filled with his regrets and your life filled with thankfulness because of this revelation."</blockquote>
+          <blockquote class="card-quote-text">"Never rearrange your life in order to meet Mr. Darcy half way. If he couldn&#039;t see your worth at the moment you met then he won&#039;t two years later. May the halls of Pemberly be filled with his regrets and your life filled with thankfulness because of this revelation."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -100,7 +111,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -115,7 +126,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -130,7 +141,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -145,7 +156,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -160,7 +171,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -175,7 +186,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -190,7 +201,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -205,7 +216,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn’t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
+          <blockquote class="card-quote-text">"There are no coincidences in life. What person that wandered in and out of your life was there for some purpose, even if they caused you harm. Sometimes, it doesn&#039;t make sense the short periods of time we get with people, or the outcomes from their choices. However, if you turn it over to God he promises that you will see the big picture in the hereafter. Nothing is too small to be a mistake."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -250,7 +261,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Sometimes the best and worst times of your life can coincide. It is a talent of the soul to discover the joy in pain—-thinking of moments you long for, and knowing you’ll never have them again. The beautiful ghosts of our past haunt us, and yet we still can’t decide if the pain they caused us out weighs the tender moments when they touched our soul. This is the irony of love."</blockquote>
+          <blockquote class="card-quote-text">"Sometimes the best and worst times of your life can coincide. It is a talent of the soul to discover the joy in pain---thinking of moments you long for, and knowing you&#039;ll never have them again. The beautiful ghosts of our past haunt us, and yet we still can&#039;t decide if the pain they caused us out weighs the tender moments when they touched our soul. This is the irony of love."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -265,7 +276,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Sometimes the best and worst times of your life can coincide. It is a talent of the soul to discover the joy in pain—-thinking of moments you long for, and knowing you’ll never have them again. The beautiful ghosts of our past haunt us, and yet we still can’t decide if the pain they caused us out weighs the tender moments when they touched our soul. This is the irony of love."</blockquote>
+          <blockquote class="card-quote-text">"Sometimes the best and worst times of your life can coincide. It is a talent of the soul to discover the joy in pain---thinking of moments you long for, and knowing you&#039;ll never have them again. The beautiful ghosts of our past haunt us, and yet we still can&#039;t decide if the pain they caused us out weighs the tender moments when they touched our soul. This is the irony of love."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -280,7 +291,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Sometimes the best and worst times of your life can coincide. It is a talent of the soul to discover the joy in pain—-thinking of moments you long for, and knowing you’ll never have them again. The beautiful ghosts of our past haunt us, and yet we still can’t decide if the pain they caused us out weighs the tender moments when they touched our soul. This is the irony of love."</blockquote>
+          <blockquote class="card-quote-text">"Sometimes the best and worst times of your life can coincide. It is a talent of the soul to discover the joy in pain---thinking of moments you long for, and knowing you&#039;ll never have them again. The beautiful ghosts of our past haunt us, and yet we still can&#039;t decide if the pain they caused us out weighs the tender moments when they touched our soul. This is the irony of love."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -415,7 +426,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Reputation is what others think of us; character is what God knows of us. When you have spent what feels like eternity trying to repair a few moments of time that destroyed the view others once had of you then you must ask yourself if you have the problem or is it really them? God doesn’t make us try so hard, only enemies do."</blockquote>
+          <blockquote class="card-quote-text">"Reputation is what others think of us; character is what God knows of us. When you have spent what feels like eternity trying to repair a few moments of time that destroyed the view others once had of you then you must ask yourself if you have the problem or is it really them? God doesn&#039;t make us try so hard, only enemies do."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -430,7 +441,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Reputation is what others think of us; character is what God knows of us. When you have spent what feels like eternity trying to repair a few moments of time that destroyed the view others once had of you then you must ask yourself if you have the problem or is it really them? God doesn’t make us try so hard, only enemies do."</blockquote>
+          <blockquote class="card-quote-text">"Reputation is what others think of us; character is what God knows of us. When you have spent what feels like eternity trying to repair a few moments of time that destroyed the view others once had of you then you must ask yourself if you have the problem or is it really them? God doesn&#039;t make us try so hard, only enemies do."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -445,7 +456,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Reputation is what others think of us; character is what God knows of us. When you have spent what feels like eternity trying to repair a few moments of time that destroyed the view others once had of you then you must ask yourself if you have the problem or is it really them? God doesn’t make us try so hard, only enemies do."</blockquote>
+          <blockquote class="card-quote-text">"Reputation is what others think of us; character is what God knows of us. When you have spent what feels like eternity trying to repair a few moments of time that destroyed the view others once had of you then you must ask yourself if you have the problem or is it really them? God doesn&#039;t make us try so hard, only enemies do."</blockquote>
           <span class="card-author">- Shannon L. Alder</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

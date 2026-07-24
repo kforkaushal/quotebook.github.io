@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -85,7 +96,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"It’s absolutely unfair for women to say that guys only want one thing: sex. We also want food."</blockquote>
+          <blockquote class="card-quote-text">"It&#039;s absolutely unfair for women to say that guys only want one thing: sex. We also want food."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -190,7 +201,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"The way I wrestle five-year-olds makes me think if I were ever attacked by a pack of midgets, I’d be OK."</blockquote>
+          <blockquote class="card-quote-text">"The way I wrestle five-year-olds makes me think if I were ever attacked by a pack of midgets, I&#039;d be OK."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -205,7 +216,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"When anybody honks at me in traffic, I blush, wave, and shout, “Thanks for being a fan.” Being a celebrity is a 24/7 thing."</blockquote>
+          <blockquote class="card-quote-text">"When anybody honks at me in traffic, I blush, wave, and shout, &#039;Thanks for being a fan.&#039; Being a celebrity is a 24/7 thing."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -220,7 +231,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"When anybody honks at me in traffic, I blush, wave, and shout, “Thanks for being a fan.” Being a celebrity is a 24/7 thing."</blockquote>
+          <blockquote class="card-quote-text">"When anybody honks at me in traffic, I blush, wave, and shout, &#039;Thanks for being a fan.&#039; Being a celebrity is a 24/7 thing."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -250,7 +261,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"A stationary bike is a device that epitomizes the phrase “hurry up and wait."</blockquote>
+          <blockquote class="card-quote-text">"A stationary bike is a device that epitomizes the phrase &#039;hurry up and wait."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -265,7 +276,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I’m very close to my dad. He’s about six inches away right now and snoring in my ears."</blockquote>
+          <blockquote class="card-quote-text">"I&#039;m very close to my dad. He&#039;s about six inches away right now and snoring in my ears."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -280,7 +291,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I’m very close to my dad. He’s about six inches away right now and snoring in my ears."</blockquote>
+          <blockquote class="card-quote-text">"I&#039;m very close to my dad. He&#039;s about six inches away right now and snoring in my ears."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -295,7 +306,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I’m very close to my dad. He’s about six inches away right now and snoring in my ears."</blockquote>
+          <blockquote class="card-quote-text">"I&#039;m very close to my dad. He&#039;s about six inches away right now and snoring in my ears."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -310,7 +321,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"The only reason my wife agreed to marry me is because Christian Bale wasn’t around to propose to her."</blockquote>
+          <blockquote class="card-quote-text">"The only reason my wife agreed to marry me is because Christian Bale wasn&#039;t around to propose to her."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -325,7 +336,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I haven’t been feeling like myself lately. No, I’ve been feeling like my clone."</blockquote>
+          <blockquote class="card-quote-text">"I haven&#039;t been feeling like myself lately. No, I&#039;ve been feeling like my clone."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -370,7 +381,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"You’re disoriented. You just woke up. You’re in the future. You’ve been asleep for eight hours."</blockquote>
+          <blockquote class="card-quote-text">"You&#039;re disoriented. You just woke up. You&#039;re in the future. You&#039;ve been asleep for eight hours."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -415,7 +426,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"She asked if I wanted to spoon with her, and I told her I didn’t want to stir things up."</blockquote>
+          <blockquote class="card-quote-text">"She asked if I wanted to spoon with her, and I told her I didn&#039;t want to stir things up."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -430,7 +441,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I like to vote, but not be voted on. I don’t mind losing one on one, but to lose through a vote means the majority think I’m a loser."</blockquote>
+          <blockquote class="card-quote-text">"I like to vote, but not be voted on. I don&#039;t mind losing one on one, but to lose through a vote means the majority think I&#039;m a loser."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -445,7 +456,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I called an insurance company to get a quote. They gave me one of Oscar Wilde’s best."</blockquote>
+          <blockquote class="card-quote-text">"I called an insurance company to get a quote. They gave me one of Oscar Wilde&#039;s best."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -460,7 +471,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"I feel like I could be the best, but I’m not going to openly admit that. At least not to any of my clones."</blockquote>
+          <blockquote class="card-quote-text">"I feel like I could be the best, but I&#039;m not going to openly admit that. At least not to any of my clones."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -520,7 +531,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"If sharks really can smell blood, then I’d imagine they’re all salivating over my erection right now."</blockquote>
+          <blockquote class="card-quote-text">"If sharks really can smell blood, then I&#039;d imagine they&#039;re all salivating over my erection right now."</blockquote>
           <span class="card-author">- Jarod Kintz,  $3.33</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

@@ -39,28 +39,39 @@
 <body class="light-theme quotes-page page-loaded">
     <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
-          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
-      <div class="header-actions">
-        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
-          <i class="fa-solid fa-leaf"></i>
-          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
-        </button>
+      <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
         <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
-          <span>Explore</span>
+          <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item highlight">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
   <main class="main-container">
@@ -85,7 +96,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -100,7 +111,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -115,7 +126,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -130,7 +141,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -145,7 +156,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -160,7 +171,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -175,7 +186,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -190,7 +201,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -205,7 +216,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -220,7 +231,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -235,7 +246,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -250,7 +261,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"V-Day…if you need this one day in a year to show everyone else you truly care for “your loved one” I think it’s quite stupid. I hate this commercialism. It’s all artificial, and has nothing to do with real love."</blockquote>
+          <blockquote class="card-quote-text">"V-Day...if you need this one day in a year to show everyone else you truly care for &#039;your loved one&#039; I think it&#039;s quite stupid. I hate this commercialism. It&#039;s all artificial, and has nothing to do with real love."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -265,7 +276,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -280,7 +291,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -295,7 +306,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -310,7 +321,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -325,7 +336,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -340,7 +351,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -355,7 +366,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -370,7 +381,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -385,7 +396,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -400,7 +411,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -415,7 +426,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -430,7 +441,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"My head’ll explode if I continue with this escapism."</blockquote>
+          <blockquote class="card-quote-text">"My head&#039;ll explode if I continue with this escapism."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -445,7 +456,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we’ll be entwined / aimless in this sexless foreplay."</blockquote>
+          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we&#039;ll be entwined / aimless in this sexless foreplay."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -460,7 +471,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we’ll be entwined / aimless in this sexless foreplay."</blockquote>
+          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we&#039;ll be entwined / aimless in this sexless foreplay."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -475,7 +486,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we’ll be entwined / aimless in this sexless foreplay."</blockquote>
+          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we&#039;ll be entwined / aimless in this sexless foreplay."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -490,7 +501,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we’ll be entwined / aimless in this sexless foreplay."</blockquote>
+          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we&#039;ll be entwined / aimless in this sexless foreplay."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -505,7 +516,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we’ll be entwined / aimless in this sexless foreplay."</blockquote>
+          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we&#039;ll be entwined / aimless in this sexless foreplay."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -520,7 +531,7 @@
         </div>
         <div class="card-quote-body">
           <div class="quote-icon-watermark">&ldquo;</div>
-          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we’ll be entwined / aimless in this sexless foreplay."</blockquote>
+          <blockquote class="card-quote-text">"Maybe you could be mine / or maybe we&#039;ll be entwined / aimless in this sexless foreplay."</blockquote>
           <span class="card-author">- Jess C. Scott,  EyeLeash: A Blog Novel</span>
         </div>
         <div class="quote-card-footer">
@@ -554,5 +565,6 @@
       <p>Â© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
+  <script src="../src/js/app.js"></script>
 </body>
 </html>

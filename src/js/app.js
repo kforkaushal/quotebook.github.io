@@ -1097,6 +1097,12 @@ function setupEventListeners() {
     if (drawer) drawer.classList.remove('hidden');
   });
 
+  on('btnOpenBookmarksMobile', 'click', () => {
+    renderBookmarksList();
+    const drawer = document.getElementById('bookmarksDrawerBackdrop');
+    if (drawer) drawer.classList.remove('hidden');
+  });
+
   on('closeBookmarksDrawer', 'click', () => {
     const drawer = document.getElementById('bookmarksDrawerBackdrop');
     if (drawer) drawer.classList.add('hidden');
@@ -1137,12 +1143,21 @@ function setupEventListeners() {
     }
   });
 
+  on('mobileSearchTriggerStrip', 'click', () => {
+    const search = document.getElementById('headerSearch');
+    if (search) {
+      search.classList.add('active');
+      const input = document.getElementById('searchInput');
+      if (input) input.focus();
+    }
+  });
+
   on('closeSearchBtn', 'click', () => {
     const search = document.getElementById('headerSearch');
     if (search) search.classList.remove('active');
   });
 
-  // Mobile Menu Toggle Event Listener
+  // Mobile Menu Toggle Event Listener (Home Page)
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
   const homeNavLinks = document.getElementById('homeNavLinks');
   if (mobileMenuToggle && homeNavLinks) {
@@ -1156,6 +1171,71 @@ function setupEventListeners() {
         homeNavLinks.classList.remove('active');
       };
     });
+  }
+
+  // Mobile Drawer Toggle Event Listener (Quotes Page)
+  const quotesMenuToggle = document.getElementById('quotesMenuToggle');
+  const quotesMobileDrawer = document.getElementById('quotesMobileDrawer');
+  
+  function closeQuotesMobileMenu() {
+    if (!quotesMenuToggle || !quotesMobileDrawer) return;
+    quotesMenuToggle.setAttribute('aria-expanded', 'false');
+    quotesMobileDrawer.classList.remove('active');
+  }
+
+  if (quotesMenuToggle && quotesMobileDrawer) {
+    quotesMenuToggle.addEventListener('click', () => {
+      const isExpanded = quotesMenuToggle.getAttribute('aria-expanded') === 'true';
+      quotesMenuToggle.setAttribute('aria-expanded', !isExpanded);
+      quotesMobileDrawer.classList.toggle('active', !isExpanded);
+    });
+  }
+
+  // Bind Quotes Drawer Buttons
+  on('drawerBtnRandom', 'click', () => {
+    if (state.allQuotes.length > 0) selectHeroQuote();
+    closeQuotesMobileMenu();
+  });
+
+  on('drawerBtnZen', 'click', () => {
+    openZenMode();
+    closeQuotesMobileMenu();
+  });
+
+  on('drawerBtnBookmarks', 'click', () => {
+    renderBookmarksList();
+    const drawer = document.getElementById('bookmarksDrawerBackdrop');
+    if (drawer) drawer.classList.remove('hidden');
+    closeQuotesMobileMenu();
+  });
+
+  // Mobile Drawer Search Logic
+  const drawerSearchInput = document.getElementById('drawerSearchInput');
+  const drawerSearchSubmit = document.getElementById('drawerSearchSubmit');
+  
+  const executeDrawerSearch = () => {
+    if (!drawerSearchInput) return;
+    const val = drawerSearchInput.value.trim();
+    if (val) {
+      const mainSearchInput = document.getElementById('searchInput');
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (mainSearchInput) mainSearchInput.value = val;
+      state.searchQuery = val;
+      if (clearBtn) clearBtn.classList.add('active');
+      state.currentPage = 1;
+      applyFilters();
+      closeQuotesMobileMenu();
+      drawerSearchInput.value = '';
+    }
+  };
+
+  if (drawerSearchInput) {
+    drawerSearchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') executeDrawerSearch();
+    });
+  }
+  if (drawerSearchSubmit) {
+    drawerSearchSubmit.addEventListener('click', executeDrawerSearch);
   }
 
   // Data Saver Toggle Click Event Delegation
