@@ -647,8 +647,10 @@ body.page-loaded {
 
 .quote-card-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
 }
 
 .quote-category-tag {
@@ -710,6 +712,8 @@ body.page-loaded {
   justify-content: space-between;
   border-top: 1px solid var(--border-light);
   padding-top: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
 
 .card-tags {
@@ -729,7 +733,8 @@ body.page-loaded {
 .card-actions {
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
 }
 
 .mini-action-btn {
@@ -941,6 +946,7 @@ body.page-loaded {
 
 .poster-controls-panel {
   padding: 1.75rem;
+  padding-bottom: 3.5rem;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   display: flex;
@@ -3503,6 +3509,15 @@ body.page-loaded {
     margin: 0 auto 2rem auto;
   }
   .home-hero-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+    width: 100%;
+  }
+  
+  .home-hero-buttons .btn-hero-primary, 
+  .home-hero-buttons .btn-hero-secondary {
+    width: 100%;
     justify-content: center;
   }
   .dual-devices-wrapper {
@@ -3524,6 +3539,64 @@ body.page-loaded {
   .device-mockup-frame.desktop {
     width: 100%;
     height: 440px;
+  }
+
+  /* Comprehensive Mobile Optimization */
+  .features-section,
+  .category-highlights-section,
+  .home-cta-section,
+  .todays-quotes-section,
+  .stats-banner-section,
+  .device-showcase-section {
+    padding: 3.5rem 1.25rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .popular-cats-grid {
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1rem;
+  }
+  
+  .cat-highlight-card {
+    padding: 1.5rem 1rem;
+  }
+
+  .cat-card-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.25rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .cat-card-name {
+    font-size: 1rem;
+  }
+
+  .home-cta-container {
+    padding: 2.5rem 1.25rem;
+    border-radius: 1.5rem;
+  }
+  
+  .home-cta-container h2 {
+    font-size: 1.8rem;
+  }
+  
+  .todays-quotes-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .today-quote-actions {
+    flex-wrap: wrap;
+  }
+  
+  .today-action-btn {
+    flex: 1 1 calc(50% - 0.5rem);
+    padding: 0.5rem;
   }
 }
 
@@ -3554,6 +3627,23 @@ body.page-loaded {
   }
   .logo-title {
     font-size: 1.35rem;
+  }
+
+  .stat-card {
+    width: 100%;
+  }
+
+  .popular-cats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .marquee-track {
+    gap: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .marquee-track span {
+    font-size: 0.95rem;
   }
 }
 
