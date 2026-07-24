@@ -22,7 +22,8 @@ const state = {
   zenInterval: null,
   zenIsPlaying: false,
   zenCurrentIndex: 0,
-  speechSynth: window.speechSynthesis || null
+  speechSynth: window.speechSynthesis || null,
+  dataSaver: localStorage.getItem('dataSaverEnabled') === 'true'
 };
 
 // Category to Pixabay Keyword Mapping
@@ -83,11 +84,20 @@ const categoryImageMap = {
 let posterStudioInstance = null;
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Page load fade-in
+  document.body.classList.add('page-loaded');
+  initPageTransitions();
+  
   initApp();
 });
 
 async function initApp() {
   setupEventListeners();
+
+  if (state.dataSaver) {
+    document.body.classList.add('data-saver-active');
+  }
+  updateDataSaverButtonUI();
 
   const isQuotesPage = document.body.classList.contains('quotes-page');
   const isHomePage = document.body.classList.contains('home-page');
@@ -141,6 +151,12 @@ async function initApp() {
     
     // Set up listeners for Today's Quotes section on landing page
     setupTodaysQuotesListeners();
+    
+    // Run scroll-reveal on static cards
+    initScrollReveal();
+
+    // Bind listeners to statically rendered cards on pSEO pages
+    bindStaticCardListeners();
   } catch (err) {
     console.error("Failed to load quotes dataset:", err);
     showToast("Error loading quotes dataset. Please refresh.");
@@ -284,7 +300,7 @@ async function updateHomeDeviceQuote() {
     const query = categoryImageMap[q.category] || q.category;
     const images = await fetchPixabayImages(query, 3);
     if (images.length > 0) {
-      const bgUrl = images[Math.floor(Math.random() * images.length)].largeImageURL;
+      const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
       setSmoothBackgroundImage(bgEl, bgUrl);
     }
   }
@@ -444,13 +460,16 @@ async function selectHeroQuote(quote = null) {
   const query = categoryImageMap[h.category] || h.category;
   const images = await fetchPixabayImages(query, 5);
   if (images.length > 0) {
-    const bgUrl = images[Math.floor(Math.random() * images.length)].largeImageURL;
+    const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
     setSmoothBackgroundImage(document.getElementById('heroBackdrop'), bgUrl);
   }
 }
 
 // 5. Pixabay API Integration
 async function fetchPixabayImages(query, perPage = 10) {
+  if (state.dataSaver) {
+    return []; // Disable API request in Lite Mode to save user bandwidth
+  }
   const cleanQuery = query.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
   if (state.pixabayCache[cleanQuery]) {
     return state.pixabayCache[cleanQuery];
@@ -507,6 +526,25 @@ function applyFilters() {
 
   state.filteredQuotes = list;
   renderQuotesGrid();
+
+  // Dynamic SEO meta updates
+  if (state.activeCategory !== 'all') {
+    updateSEO(
+      `Explore ${state.activeCategory} Quotes — Quotebook`,
+      `Discover and read curated ${state.activeCategory} quotes by timeless authors. Pair quotes with photography live from Pixabay.`,
+      state.activeCategory
+    );
+  } else if (state.searchQuery) {
+    updateSEO(
+      `Search: "${state.searchQuery}" Quotes — Quotebook`,
+      `Find curated quotes matching search query "${state.searchQuery}". Browse, read aloud, and generate canvas posters.`
+    );
+  } else {
+    updateSEO(
+      `Quotes Library & Canvas Poster Studio — Quotebook`,
+      `Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution quote posters.`
+    );
+  }
 }
 
 function renderQuotesGrid() {
@@ -543,9 +581,9 @@ function renderQuotesGrid() {
         </div>
         
         <div class="card-quote-body">
-          <div class="quote-icon-watermark">“</div>
+          <div class="quote-icon-watermark">&ldquo;</div>
           <blockquote class="card-quote-text">"${q.quote}"</blockquote>
-          <span class="card-author">— ${q.author}</span>
+          <span class="card-author">&mdash; ${q.author}</span>
         </div>
 
         <div class="quote-card-footer">
@@ -581,6 +619,9 @@ function renderQuotesGrid() {
     card.querySelector('.card-btn-bookmark').addEventListener('click', (e) => toggleBookmark(qObj, e.currentTarget));
     card.querySelector('.card-btn-poster').addEventListener('click', () => openPosterStudio(qObj));
   });
+
+  // Trigger staggered reveals for newly loaded/rendered cards
+  initScrollReveal();
 }
 
 // 7. Actions: Copy, Speak, Bookmark
@@ -710,6 +751,24 @@ async function openPosterStudio(qObj) {
 
 async function loadPixabayThumbs(query) {
   const thumbsContainer = document.getElementById('pixabayThumbs');
+  if (state.dataSaver) {
+    thumbsContainer.innerHTML = `
+      <div class="data-saver-notice" style="text-align:center; padding:1.5rem; color:var(--text-secondary); font-family:var(--font-sans);">
+        <i class="fa-solid fa-leaf" style="color:var(--orange-600); font-size:1.75rem; margin-bottom:0.75rem; display:block;"></i>
+        <p style="margin-bottom:0.75rem; font-size:0.9rem; font-weight:500;">Lite Mode is active. Photos are blocked to save internet data.</p>
+        <button class="cta-header-btn" id="btnDisableLiteMode" style="padding:0.4rem 0.8rem; font-size:0.8rem; margin:0 auto; display:block; border-radius:8px;">Disable Lite Mode</button>
+      </div>
+    `;
+    const btn = document.getElementById('btnDisableLiteMode');
+    if (btn) {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleDataSaverMode();
+      });
+    }
+    return;
+  }
+
   thumbsContainer.innerHTML = `<div class="pixabay-thumb-item loading">Searching Pixabay photos...</div>`;
 
   const photos = await fetchPixabayImages(query, 12);
@@ -719,11 +778,11 @@ async function loadPixabayThumbs(query) {
   }
 
   // Set first image as background
-  posterStudioInstance.setBgImage(photos[0].largeImageURL);
+  posterStudioInstance.setBgImage(photos[0].webformatURL);
 
   let thumbsHtml = '';
   photos.forEach((photo, idx) => {
-    thumbsHtml += `<img src="${photo.previewURL}" class="pixabay-thumb ${idx === 0 ? 'active' : ''}" data-full="${photo.largeImageURL}" alt="${photo.tags}">`;
+    thumbsHtml += `<img src="${photo.previewURL}" class="pixabay-thumb ${idx === 0 ? 'active' : ''}" data-full="${photo.webformatURL}" alt="${photo.tags}">`;
   });
 
   thumbsContainer.innerHTML = thumbsHtml;
@@ -745,7 +804,11 @@ function openZenMode() {
   state.zenCurrentIndex = 0;
   state.zenIsPlaying = true;
   updateZenSlide();
+  restartZenTimer();
+}
 
+function restartZenTimer() {
+  if (state.zenInterval) clearInterval(state.zenInterval);
   state.zenInterval = setInterval(() => {
     if (state.zenIsPlaying) {
       state.zenCurrentIndex = (state.zenCurrentIndex + 1) % state.filteredQuotes.length;
@@ -754,26 +817,52 @@ function openZenMode() {
   }, 8000);
 }
 
-async function updateZenSlide() {
-  const q = state.filteredQuotes[state.zenCurrentIndex] || state.allQuotes[0];
-  if (!q) return;
-
-  document.getElementById('zenQuote').textContent = `"${q.quote}"`;
-  document.getElementById('zenAuthor').textContent = `— ${q.author}`;
-  document.getElementById('zenCategory').textContent = q.category;
-
-  const query = categoryImageMap[q.category] || q.category;
-  const images = await fetchPixabayImages(query, 4);
-  if (images.length > 0) {
-    const bgUrl = images[Math.floor(Math.random() * images.length)].largeImageURL;
-    setSmoothBackgroundImage(document.getElementById('zenBgSlide'), bgUrl);
+function resetZenProgressBar() {
+  const bar = document.getElementById('zenProgressBar');
+  if (!bar) return;
+  bar.style.transition = 'none';
+  bar.style.width = '0';
+  // Force browser layout reflow
+  bar.offsetHeight;
+  if (state.zenIsPlaying) {
+    bar.style.transition = 'width 8000ms linear';
+    bar.style.width = '100%';
   }
+}
+
+async function updateZenSlide() {
+  const content = document.querySelector('.zen-content');
+  if (content) content.classList.add('fade-out');
+
+  setTimeout(async () => {
+    const q = state.filteredQuotes[state.zenCurrentIndex] || state.allQuotes[0];
+    if (!q) return;
+
+    document.getElementById('zenQuote').textContent = `"${q.quote}"`;
+    document.getElementById('zenAuthor').textContent = `— ${q.author}`;
+    document.getElementById('zenCategory').textContent = q.category.toUpperCase();
+
+    const query = categoryImageMap[q.category] || q.category;
+    const images = await fetchPixabayImages(query, 4);
+    if (images.length > 0) {
+      const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
+      setSmoothBackgroundImage(document.getElementById('zenBgSlide'), bgUrl);
+    }
+    
+    if (content) content.classList.remove('fade-out');
+    resetZenProgressBar();
+  }, 400);
 }
 
 function closeZenMode() {
   document.getElementById('zenModal').classList.add('hidden');
   if (state.zenInterval) clearInterval(state.zenInterval);
   state.zenIsPlaying = false;
+  const bar = document.getElementById('zenProgressBar');
+  if (bar) {
+    bar.style.transition = 'none';
+    bar.style.width = '0';
+  }
 }
 
 // 10. Bookmarks Drawer
@@ -901,11 +990,13 @@ function setupEventListeners() {
   on('zenBtnPrev', 'click', () => {
     state.zenCurrentIndex = (state.zenCurrentIndex - 1 + state.filteredQuotes.length) % state.filteredQuotes.length;
     updateZenSlide();
+    restartZenTimer();
   });
 
   on('zenBtnNext', 'click', () => {
     state.zenCurrentIndex = (state.zenCurrentIndex + 1) % state.filteredQuotes.length;
     updateZenSlide();
+    restartZenTimer();
   });
 
   const playBtn = document.getElementById('zenBtnPlay');
@@ -913,6 +1004,17 @@ function setupEventListeners() {
     playBtn.addEventListener('click', () => {
       state.zenIsPlaying = !state.zenIsPlaying;
       playBtn.innerHTML = state.zenIsPlaying ? `<i class="fa-solid fa-pause"></i>` : `<i class="fa-solid fa-play"></i>`;
+      if (state.zenIsPlaying) {
+        restartZenTimer();
+        updateZenSlide();
+      } else {
+        if (state.zenInterval) clearInterval(state.zenInterval);
+        const bar = document.getElementById('zenProgressBar');
+        if (bar) {
+          bar.style.transition = 'none';
+          bar.style.width = '0';
+        }
+      }
     });
   }
 
@@ -997,8 +1099,14 @@ function setupEventListeners() {
 
   on('closeBookmarksDrawer', 'click', () => {
     const drawer = document.getElementById('bookmarksDrawerBackdrop');
-    if (drawer) drawer.classList.remove('hidden');
     if (drawer) drawer.classList.add('hidden');
+  });
+
+  on('bookmarksDrawerBackdrop', 'click', (e) => {
+    const backdrop = document.getElementById('bookmarksDrawerBackdrop');
+    if (e.target === backdrop) {
+      backdrop.classList.add('hidden');
+    }
   });
 
   on('btnClearBookmarks', 'click', () => {
@@ -1019,6 +1127,21 @@ function setupEventListeners() {
     link.click();
   });
 
+  // Mobile Search Overlay Controls
+  on('mobileSearchTrigger', 'click', () => {
+    const search = document.getElementById('headerSearch');
+    if (search) {
+      search.classList.add('active');
+      const input = document.getElementById('searchInput');
+      if (input) input.focus();
+    }
+  });
+
+  on('closeSearchBtn', 'click', () => {
+    const search = document.getElementById('headerSearch');
+    if (search) search.classList.remove('active');
+  });
+
   // Mobile Menu Toggle Event Listener
   const mobileMenuToggle = document.getElementById('mobileMenuToggle');
   const homeNavLinks = document.getElementById('homeNavLinks');
@@ -1034,11 +1157,83 @@ function setupEventListeners() {
       };
     });
   }
+
+  // Data Saver Toggle Click Event Delegation
+  document.addEventListener('click', (e) => {
+    const toggle = e.target.closest('.lite-mode-toggle-btn');
+    if (toggle) {
+      e.preventDefault();
+      toggleDataSaverMode();
+    }
+  });
+}
+
+function updateDataSaverButtonUI() {
+  const toggles = document.querySelectorAll('.lite-mode-toggle-btn');
+  toggles.forEach(toggle => {
+    const statusEl = toggle.querySelector('.lite-status');
+    if (state.dataSaver) {
+      toggle.classList.add('active');
+      if (statusEl) statusEl.textContent = 'On';
+    } else {
+      toggle.classList.remove('active');
+      if (statusEl) statusEl.textContent = 'Off';
+    }
+  });
+}
+
+function toggleDataSaverMode() {
+  state.dataSaver = !state.dataSaver;
+  localStorage.setItem('dataSaverEnabled', state.dataSaver);
+  
+  if (state.dataSaver) {
+    document.body.classList.add('data-saver-active');
+    
+    // Clear backdrops in DOM immediately to stop showing images
+    const heroBg = document.getElementById('heroBackdrop');
+    if (heroBg) {
+      heroBg.style.backgroundImage = 'none';
+      heroBg.style.opacity = '1';
+    }
+    const zenBg = document.getElementById('zenBgSlide');
+    if (zenBg) {
+      zenBg.style.backgroundImage = 'none';
+      zenBg.style.opacity = '1';
+    }
+    const deviceBg = document.getElementById('mockupZenBg');
+    if (deviceBg) {
+      deviceBg.style.backgroundImage = 'none';
+      deviceBg.style.opacity = '1';
+    }
+    if (posterStudioInstance) {
+      posterStudioInstance.setBgImage(null); // fallback to gradient
+    }
+    showToast('Lite Mode active. Data saving enabled.');
+  } else {
+    document.body.classList.remove('data-saver-active');
+    
+    // Reload backgrounds
+    if (state.heroQuote) {
+      selectHeroQuote(state.heroQuote);
+    }
+    updateHomeDeviceQuote();
+    showToast('Lite Mode disabled. Photos enabled.');
+  }
+  
+  updateDataSaverButtonUI();
+  
+  // Reload Poster Studio list if it's currently open
+  const modal = document.getElementById('posterModal');
+  if (modal && !modal.classList.contains('hidden')) {
+    const input = document.getElementById('pixabayQueryInput');
+    if (input) loadPixabayThumbs(input.value || 'nature');
+  }
 }
 
 // 12. Helper Toast Notification
 function showToast(message) {
   const container = document.getElementById('toastContainer');
+  if (!container) return;
   const toast = document.createElement('div');
   toast.className = 'toast-msg';
   toast.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${message}`;
@@ -1048,4 +1243,244 @@ function showToast(message) {
     toast.style.opacity = '0';
     setTimeout(() => toast.remove(), 300);
   }, 3000);
+}
+
+// 13. Page-Level Transitions
+function initPageTransitions() {
+  document.querySelectorAll('a').forEach(link => {
+    const href = link.getAttribute('href');
+    if (href && (href.startsWith('index.html') || href.startsWith('quotes.html') || href === 'index.html' || href === 'quotes.html')) {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.remove('page-loaded');
+        setTimeout(() => {
+          window.location.href = href;
+        }, 180);
+      });
+    }
+  });
+}
+
+// 14. Scroll-Triggered Reveal Animations
+function initScrollReveal() {
+  const elements = document.querySelectorAll('.quote-card, .feature-card, .popular-cats-grid a, .poster-preview-card, .today-quote-card');
+  if (elements.length === 0) return;
+
+  elements.forEach(el => {
+    // Only apply if not already revealed
+    if (!el.classList.contains('revealed')) {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(12px)';
+      el.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      el.classList.add('scroll-item');
+    }
+  });
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry, idx) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          entry.target.classList.add('revealed');
+        }, idx * 40);
+        obs.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.05,
+    rootMargin: '0px 0px -30px 0px'
+  });
+
+  elements.forEach(el => {
+    if (!el.classList.contains('revealed')) {
+      observer.observe(el);
+    }
+  });
+}
+
+// 15. Dynamic Marquee Categories Ticker Sourced from Live Data
+function updateDynamicMarquee() {
+  const track = document.querySelector('.marquee-track');
+  if (!track) return;
+  
+  const categories = Object.keys(state.categoriesMap);
+  if (categories.length === 0) return;
+  
+  let marqueeHtml = '';
+  // Repeat list twice for seamless infinite scrolling loop
+  for (let loop = 0; loop < 2; loop++) {
+    categories.forEach(cat => {
+      const count = state.categoriesMap[cat].count || state.categoriesMap[cat].quotes.length;
+      let icon = 'fa-solid fa-quote-left';
+      if (cat.includes('Wisdom') || cat.includes('Mind')) icon = 'fa-solid fa-brain';
+      else if (cat.includes('Books') || cat.includes('Reading')) icon = 'fa-solid fa-book-open';
+      else if (cat.includes('Love') || cat.includes('Relationships')) icon = 'fa-solid fa-heart';
+      else if (cat.includes('Motivation') || cat.includes('Inspiration')) icon = 'fa-solid fa-fire';
+      else if (cat.includes('Philosophy') || cat.includes('Thinking')) icon = 'fa-solid fa-landmark';
+      else if (cat.includes('Art') || cat.includes('Music') || cat.includes('Creativity')) icon = 'fa-solid fa-palette';
+      else if (cat.includes('Nature') || cat.includes('Environment')) icon = 'fa-solid fa-leaf';
+      else if (cat.includes('Science') || cat.includes('Discovery')) icon = 'fa-solid fa-atom';
+      
+      marqueeHtml += `<span><i class="${icon}"></i> ${cat} (${count})</span>`;
+    });
+  }
+  track.innerHTML = marqueeHtml;
+}
+
+// 16. Dynamic SEO & Social Metadata Updates with JSON-LD Schema Integration
+function updateSEO(pageTitle, pageDesc, categoryName = null) {
+  document.title = pageTitle;
+
+  let metaDesc = document.querySelector('meta[name="description"]');
+  if (!metaDesc) {
+    metaDesc = document.createElement('meta');
+    metaDesc.name = "description";
+    document.head.appendChild(metaDesc);
+  }
+  metaDesc.content = pageDesc;
+
+  let canonical = document.querySelector('link[rel="canonical"]');
+  if (!canonical) {
+    canonical = document.createElement('link');
+    canonical.rel = "canonical";
+    document.head.appendChild(canonical);
+  }
+  const currentUrl = window.location.origin + window.location.pathname;
+  canonical.href = categoryName 
+    ? `${currentUrl}?category=${encodeURIComponent(categoryName)}` 
+    : currentUrl;
+
+  // Open Graph and Twitter Card tags
+  const metaProperties = {
+    'og:title': pageTitle,
+    'og:description': pageDesc,
+    'og:url': window.location.href,
+    'og:type': 'website',
+    'twitter:title': pageTitle,
+    'twitter:description': pageDesc,
+    'twitter:card': 'summary_large_image'
+  };
+
+  Object.entries(metaProperties).forEach(([prop, val]) => {
+    let meta = document.querySelector(`meta[property="${prop}"]`) || document.querySelector(`meta[name="${prop}"]`);
+    if (!meta) {
+      meta = document.createElement('meta');
+      if (prop.startsWith('og:')) {
+        meta.setAttribute('property', prop);
+      } else {
+        meta.name = prop;
+      }
+      document.head.appendChild(meta);
+    }
+    meta.content = val;
+  });
+
+  // Inject JSON-LD Schema
+  let schemaScript = document.getElementById('jsonLdSchema');
+  if (!schemaScript) {
+    schemaScript = document.createElement('script');
+    schemaScript.type = "application/ld+json";
+    schemaScript.id = "jsonLdSchema";
+    document.head.appendChild(schemaScript);
+  }
+
+  const schemaData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": pageTitle,
+    "description": pageDesc,
+    "url": window.location.href
+  };
+
+  if (document.body.classList.contains('home-page')) {
+    schemaData["@type"] = "WebSite";
+    schemaData["potentialAction"] = {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${window.location.origin}/quotes.html?search={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    };
+  } else if (categoryName && state.categoriesMap[categoryName]) {
+    schemaData["breadcrumb"] = {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": `${window.location.origin}/index.html`
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Explore",
+          "item": `${window.location.origin}/quotes.html`
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": categoryName,
+          "item": window.location.href
+        }
+      ]
+    };
+  }
+
+  schemaScript.textContent = JSON.stringify(schemaData, null, 2);
+}
+
+// 17. Progressive Enhancement Binder for Statically Rendered Quotes on pSEO Pages
+function bindStaticCardListeners() {
+  const staticCards = document.querySelectorAll('.quotes-grid .quote-card');
+  if (staticCards.length === 0) return;
+
+  staticCards.forEach(card => {
+    const textEl = card.querySelector('.card-quote-text');
+    const authorEl = card.querySelector('.card-author');
+    const catEl = card.querySelector('.quote-category-tag');
+    
+    const quoteText = textEl ? textEl.textContent.replace(/^"|"$/g, '') : '';
+    const quoteAuthor = authorEl ? authorEl.textContent.replace(/^—\s*/, '') : 'Unknown';
+    const quoteCat = catEl ? catEl.textContent : 'General';
+    
+    const quoteObj = {
+      quote: quoteText,
+      author: quoteAuthor,
+      category: quoteCat,
+      tags: []
+    };
+
+    const copyBtn = card.querySelector('.card-btn-copy');
+    const speakBtn = card.querySelector('.card-btn-speak');
+    const bookmarkBtn = card.querySelector('.card-btn-bookmark');
+    const posterBtn = card.querySelector('.card-btn-poster');
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        copyToClipboard(quoteText, quoteAuthor);
+      });
+    }
+    if (speakBtn) {
+      speakBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        speakQuote(quoteText, quoteAuthor);
+      });
+    }
+    if (bookmarkBtn) {
+      bookmarkBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleBookmark(quoteObj, e.currentTarget);
+      });
+    }
+    if (posterBtn) {
+      posterBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openPosterStudio(quoteObj);
+      });
+    }
+  });
 }

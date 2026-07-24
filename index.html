@@ -5,11 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quotebook — Timeless Quotes & Visual Poster Studio</title>
   <meta name="description" content="Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+  
+  <!-- Canonical & Social Meta -->
+  <link rel="canonical" href="https://quotebook.example.com/index.html">
+  <meta property="og:title" content="Quotebook — Timeless Quotes & Visual Poster Studio">
+  <meta property="og:description" content="Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+  <meta property="og:url" content="https://quotebook.example.com/index.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://quotebook.example.com/data/img/logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400;1,700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -50,6 +59,10 @@
       </nav>
 
       <div class="header-actions">
+        <button class="lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
+          <i class="fa-solid fa-leaf"></i>
+          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
+        </button>
         <a href="quotes.html" class="cta-header-btn">
           <span>Explore 39,000+ Quotes</span>
           <i class="fa-solid fa-arrow-right"></i>
@@ -60,10 +73,10 @@
 
   <!-- Hero Home Section -->
   <section class="home-hero-section">
-    <div class="home-hero-container centered-hero">
+    <div class="home-hero-container">
       
-      <!-- Centered Hero Text & Badge -->
-      <div class="hero-text-col centered-text fade-in-up">
+      <!-- Left-Weighted Hero Text & Badge -->
+      <div class="hero-text-col fade-in-up">
         <div class="hero-badge-pill">
           <span class="pulse-dot"></span>
           <span>39,531+ Curated Quotes & Pixabay Photography</span>
@@ -71,7 +84,7 @@
         
         <h1 class="home-hero-title">
           Timeless Wisdom. <br>
-          <span class="text-highlight-orange">Breathtaking Visuals.</span>
+          <span class="text-highlight-primary">Breathtaking Visuals.</span>
         </h1>
 
         <p class="home-hero-desc">
@@ -310,41 +323,66 @@
         <p class="title-desc">Everything you need to discover, listen to, and share quotes seamlessly.</p>
       </div>
 
-      <div class="features-grid">
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
-          <h3>57 Categorized Topics</h3>
-          <p>From Philosophy, Books, and Wisdom to Love, Success, and Nature — find quotes matching any mood or state of mind.</p>
+      <div class="features-mixed-layout">
+        <!-- Large visual featured blocks -->
+        <div class="large-features-container">
+          <div class="feature-card large-feature poster-studio-hero">
+            <div class="large-feature-content">
+              <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
+              <h3>Canvas Poster Studio</h3>
+              <p>Design customizable high-resolution quote posters in seconds. Commit to beautiful typography, configure aspect ratios (1:1, 4:5, 16:9), and overlay color tints with a 1-click PNG download.</p>
+            </div>
+            <div class="large-feature-visual poster-visual">
+              <div class="mini-canvas-preview">
+                <div class="mini-canvas-bg" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="mini-canvas-overlay"></div>
+                <div class="mini-canvas-text">“The earth has music for those who listen.”</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card large-feature zen-mode-hero">
+            <div class="large-feature-content">
+              <div class="feature-icon"><i class="fa-solid fa-expand"></i></div>
+              <h3>Distraction-Free Zen Mode</h3>
+              <p>Immerse yourself in a full-screen, auto-playing quote slideshow. Crossfading high-resolution backgrounds and subtle typographic transitions help you find calm and focus.</p>
+            </div>
+            <div class="large-feature-visual zen-visual">
+              <div class="mini-zen-preview">
+                <div class="mini-zen-bg" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="mini-zen-overlay"></div>
+                <div class="mini-zen-text">“Silence is a source of great strength.”</div>
+                <div class="mini-zen-progress"></div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-image"></i></div>
-          <h3>Pixabay Photography</h3>
-          <p>Automatic category-to-keyword image matching fetches high-resolution photos live from Pixabay's photographic API.</p>
-        </div>
+        <!-- Tighter row of secondary features -->
+        <div class="secondary-features-grid">
+          <div class="feature-card small-feature">
+            <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <h3>57 Categorized Topics</h3>
+            <p>From Philosophy to Motivation — discover quotes matching any state of mind.</p>
+          </div>
 
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
-          <h3>Canvas Poster Studio</h3>
-          <p>Design customizable quote posters in seconds with custom typography, tint overlays, and 1-click PNG image export.</p>
-        </div>
+          <div class="feature-card small-feature">
+            <div class="feature-icon"><i class="fa-solid fa-image"></i></div>
+            <h3>Pixabay Integration</h3>
+            <p>Automated keyword lookup matches quote categories to beautiful images.</p>
+          </div>
 
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-volume-high"></i></div>
-          <h3>Speech Synthesis Aloud</h3>
-          <p>Listen to any quote read aloud with integrated text-to-speech audio for a soothing auditory experience.</p>
-        </div>
+          <div class="feature-card small-feature">
+            <div class="feature-icon"><i class="fa-solid fa-volume-high"></i></div>
+            <h3>Audio Synthesis</h3>
+            <p>Natural text-to-speech reads quotes aloud with clear pronunciation.</p>
+          </div>
 
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-expand"></i></div>
-          <h3>Distraction-Free Zen Mode</h3>
-          <p>Immerse yourself in a full-screen slideshow with crossfading photography backdrops and gentle auto-play controls.</p>
-        </div>
-
-        <div class="feature-card">
-          <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
-          <h3>Bookmarks & Saved Collections</h3>
-          <p>Save your favorite quotes locally with 1-click bookmarking and export your collection as a JSON file anytime.</p>
+          <div class="feature-card small-feature">
+            <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
+            <h3>Bookmarks Drawer</h3>
+            <p>Save your favorite wisdom locally with one click and export as JSON.</p>
+          </div>
         </div>
       </div>
     </div>

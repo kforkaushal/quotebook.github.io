@@ -5,11 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quotes Library & Studio — Quotebook</title>
   <meta name="description" content="Explore over 39,000 curated quotes across 57 categories paired with live photography from Pixabay.">
+  
+  <!-- Canonical & Social Meta -->
+  <link rel="canonical" href="https://quotebook.example.com/quotes.html">
+  <meta property="og:title" content="Explore 39,000+ Curated Quotes & Studio — Quotebook">
+  <meta property="og:description" content="Explore over 39,000 curated quotes across 57 categories paired with live photography from Pixabay and custom poster studio.">
+  <meta property="og:url" content="https://quotebook.example.com/quotes.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://quotebook.example.com/data/img/logo.svg">
+  <meta name="twitter:card" content="summary_large_image">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,400&family=Caveat:wght@600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -36,15 +45,24 @@
         </div>
       </a>
 
-      <div class="header-search">
+      <div class="header-search" id="headerSearch">
         <div class="search-input-wrapper">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <input type="text" id="searchInput" placeholder="Search 39,000+ quotes by author, topic, or keyword..." autocomplete="off">
           <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+          <button class="close-search-btn" id="closeSearchBtn" aria-label="Close Search"><i class="fa-solid fa-arrow-left"></i></button>
         </div>
       </div>
 
       <div class="header-actions">
+        <button class="icon-btn-text mobile-search-trigger-btn" id="mobileSearchTrigger" title="Search Quotes">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <span>Search</span>
+        </button>
+        <button class="icon-btn-text lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
+          <i class="fa-solid fa-leaf"></i>
+          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
+        </button>
         <a href="index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
@@ -126,7 +144,7 @@
     <!-- Filters & Sort Control Toolbar -->
     <section class="toolbar-section">
       <div class="toolbar-info">
-        <h2 class="section-heading" id="currentSectionTitle">Featured Quotes</h2>
+        <h1 class="section-heading" id="currentSectionTitle">Featured Quotes</h1>
         <span class="results-count" id="resultsCount">Showing 24 quotes</span>
       </div>
 
@@ -194,6 +212,10 @@
         <div class="poster-preview-panel">
           <div class="canvas-wrapper">
             <canvas id="posterCanvas" width="1080" height="1080"></canvas>
+            <div class="canvas-loader hidden" id="canvasLoader">
+              <div class="loader-spinner"></div>
+              <span>Loading backdrop...</span>
+            </div>
           </div>
           <div class="preview-note">High Resolution PNG Export (1080 × 1080)</div>
         </div>
@@ -214,8 +236,8 @@
             <label class="control-label"><i class="fa-solid fa-sliders"></i> Image Overlay Tint & Blur</label>
             <div class="overlay-presets" id="overlayPresets">
               <button class="preset-chip active" data-overlay="light-glass">Light Glass</button>
-              <button class="preset-chip" data-overlay="warm-sun">Warm Gold</button>
-              <button class="preset-chip" data-overlay="soft-rose">Soft Rose</button>
+              <button class="preset-chip" data-overlay="warm-sun">Terracotta Warm</button>
+              <button class="preset-chip" data-overlay="soft-rose">Soft Clay</button>
               <button class="preset-chip" data-overlay="serene-teal">Serene Teal</button>
               <button class="preset-chip" data-overlay="dark-contrast">Dark Contrast</button>
             </div>
@@ -225,7 +247,7 @@
             <label class="control-label"><i class="fa-solid fa-font"></i> Typography Style</label>
             <div class="font-presets" id="fontPresets">
               <button class="font-chip active" data-font="Cormorant Garamond">Classic Serif</button>
-              <button class="font-chip" data-font="Playfair Display">Editorial</button>
+              <button class="font-chip" data-font="Georgia">Editorial Serif</button>
               <button class="font-chip" data-font="Outfit">Modern Clean</button>
               <button class="font-chip" data-font="Caveat">Handwritten</button>
             </div>
@@ -255,6 +277,7 @@
     <div class="zen-container">
       <div class="zen-bg-slide" id="zenBgSlide"></div>
       <div class="zen-overlay"></div>
+      <div class="zen-progress-bar" id="zenProgressBar"></div>
 
       <button class="zen-close-btn" id="closeZenModal"><i class="fa-solid fa-xmark"></i> Close Zen Mode</button>
 
