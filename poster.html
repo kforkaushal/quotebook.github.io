@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Quotebook — Poster Studio</title>
+  <meta name="description"
+    content="Design customizable high-resolution quote posters from scratch in seconds.">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="src/css/style.css">  <link rel="icon" type="image/png" sizes="32x32" href="data/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="data/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="data/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="data/img/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="data/img/android-chrome-512x512.png">
+</head>
+
+<body class="light-theme poster-page-body">
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon"><img src="data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+        <div class="logo-text">
+          <span class="logo-title">Quotebook</span>
+          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+        </div>
+      </a>
+
+      <!-- Burger Menu Toggle Button for Mobile -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+
+      <nav class="home-nav-links" id="homeNavLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="quotes.html" class="nav-link">Explore Quotes</a>
+        <a href="poster.html" class="nav-link active">Poster Studio</a>
+        <a href="quotes.html" class="nav-link mobile-only-cta">Explore 39,000+ Quotes</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
+          <i class="fa-solid fa-leaf"></i>
+          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="poster-page-layout">
+    <div class="poster-page-container">
+      
+      <div class="poster-studio-body full-page-editor">
+        <div class="poster-preview-panel">
+          <div class="canvas-wrapper">
+            <canvas id="posterCanvas" width="1080" height="1080"></canvas>
+            <div class="canvas-loader hidden" id="canvasLoader">
+              <div class="loader-spinner"></div>
+              <span>Loading backdrop...</span>
+            </div>
+          </div>
+          <div class="preview-note">High Resolution PNG Export (1080 × 1080)</div>
+        </div>
+
+        <div class="poster-controls-panel scrollable-controls">
+          <div class="editor-header">
+            <h1>Poster Studio</h1>
+            <p>Design your custom quote poster</p>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-list"></i> Quote Presets</label>
+            <select id="quotePresetsSelect" class="custom-text-input">
+              <option value="">-- Choose a pre-made quote --</option>
+              <option value="The man who does not read has no advantage over the man who cannot read.|Mark Twain">Mark Twain - Reading</option>
+              <option value="The only way to do great work is to love what you do.|Steve Jobs">Steve Jobs - Great Work</option>
+              <option value="In three words I can sum up everything I've learned about life: it goes on.|Robert Frost">Robert Frost - Life</option>
+              <option value="Be yourself; everyone else is already taken.|Oscar Wilde">Oscar Wilde - Be Yourself</option>
+              <option value="Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.|Albert Einstein">Albert Einstein - Universe</option>
+            </select>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-face-smile"></i> Add Emoji</label>
+            <div class="emoji-grid" id="emojiGrid">
+              <button class="emoji-btn" data-emoji="✨">✨</button>
+              <button class="emoji-btn" data-emoji="❤️">❤️</button>
+              <button class="emoji-btn" data-emoji="🔥">🔥</button>
+              <button class="emoji-btn" data-emoji="⭐">⭐</button>
+              <button class="emoji-btn" data-emoji="💡">💡</button>
+              <button class="emoji-btn" data-emoji="🌿">🌿</button>
+              <button class="emoji-btn" data-emoji="🦋">🦋</button>
+              <button class="emoji-btn" data-emoji="☕">☕</button>
+              <button class="emoji-btn" data-emoji="📚">📚</button>
+              <button class="emoji-btn" data-emoji="🎨">🎨</button>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-icons"></i> Add Icon (FontAwesome)</label>
+            <div class="emoji-grid icon-grid" id="iconGrid">
+              <button class="icon-btn" data-icon="f004" title="Heart"><i class="fa-solid fa-heart"></i></button>
+              <button class="icon-btn" data-icon="f005" title="Star"><i class="fa-solid fa-star"></i></button>
+              <button class="icon-btn" data-icon="f10d" title="Quote Left"><i class="fa-solid fa-quote-left"></i></button>
+              <button class="icon-btn" data-icon="f10e" title="Quote Right"><i class="fa-solid fa-quote-right"></i></button>
+              <button class="icon-btn" data-icon="f02d" title="Book"><i class="fa-solid fa-book"></i></button>
+              <button class="icon-btn" data-icon="f0eb" title="Lightbulb"><i class="fa-solid fa-lightbulb"></i></button>
+              <button class="icon-btn" data-icon="f06d" title="Fire"><i class="fa-solid fa-fire"></i></button>
+              <button class="icon-btn" data-icon="f18c" title="Bug"><i class="fa-solid fa-bug"></i></button>
+            </div>
+            <div class="preview-note" style="margin-top: 0.5rem;">Icons will be appended to your text.</div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-pen-nib"></i> Quote Text</label>
+            <textarea id="customQuoteInput" class="custom-text-input" rows="3" placeholder="Enter your custom quote here..."></textarea>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-user-pen"></i> Author</label>
+            <input type="text" id="customAuthorInput" class="custom-text-input" placeholder="e.g. Unknown">
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-image"></i> Pixabay Image Background</label>
+            <div class="pixabay-search-box">
+              <input type="text" id="pixabayQueryInput" placeholder="Search Pixabay photos (e.g. sunset, mountains)...">
+              <button id="btnSearchPixabay"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+            <div class="pixabay-thumbs-scroll" id="pixabayThumbs">
+              <div class="pixabay-thumb-item loading">Fetching photos...</div>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-sliders"></i> Image Overlay Tint & Blur</label>
+            <div class="overlay-presets" id="overlayPresets">
+              <button class="preset-chip active" data-overlay="light-glass">Light Glass</button>
+              <button class="preset-chip" data-overlay="warm-sun">Terracotta Warm</button>
+              <button class="preset-chip" data-overlay="soft-rose">Soft Clay</button>
+              <button class="preset-chip" data-overlay="serene-teal">Serene Teal</button>
+              <button class="preset-chip" data-overlay="dark-contrast">Dark Contrast</button>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-font"></i> Typography Style</label>
+            <div class="font-presets" id="fontPresets">
+              <button class="font-chip active" data-font="Cormorant Garamond">Classic Serif</button>
+              <button class="font-chip" data-font="Georgia">Editorial Serif</button>
+              <button class="font-chip" data-font="Outfit">Modern Clean</button>
+              <button class="font-chip" data-font="Caveat">Handwritten</button>
+            </div>
+          </div>
+
+          <div class="control-section">
+            <label class="control-label"><i class="fa-solid fa-vector-square"></i> Aspect Ratio</label>
+            <div class="ratio-selector" id="ratioSelector">
+              <button class="ratio-chip active" data-ratio="1:1">1:1 Square</button>
+              <button class="ratio-chip" data-ratio="4:5">4:5 Portrait</button>
+              <button class="ratio-chip" data-ratio="16:9">16:9 Landscape</button>
+            </div>
+          </div>
+
+          <div class="poster-download-box">
+            <button class="btn-download-poster" id="btnDownloadPoster">
+              <i class="fa-solid fa-download"></i> Download Poster (PNG)
+            </button>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </main>
+
+  <!-- Scripts -->
+  <script src="src/js/poster.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+</html>

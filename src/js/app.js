@@ -101,9 +101,13 @@ async function initApp() {
 
   const isQuotesPage = document.body.classList.contains('quotes-page');
   const isHomePage = document.body.classList.contains('home-page');
+  const isPosterPage = document.body.classList.contains('poster-page-body');
 
-  if (isQuotesPage) {
+  if (isQuotesPage || isPosterPage) {
     initPosterStudio();
+  }
+  
+  if (isQuotesPage) {
     updateBookmarkBadge();
   }
 
@@ -734,6 +738,60 @@ function initPosterStudio() {
         if (q) loadPixabayThumbs(q);
       }
     };
+  }
+
+  // Custom text inputs for standalone poster.html page
+  const customQuoteInput = document.getElementById('customQuoteInput');
+  const customAuthorInput = document.getElementById('customAuthorInput');
+  
+  if (customQuoteInput && customAuthorInput) {
+    const updateCustomQuote = () => {
+      const q = customQuoteInput.value || "Your custom quote here...";
+      const a = customAuthorInput.value || "Unknown";
+      posterStudioInstance.setQuote(q, a, "Custom");
+    };
+    customQuoteInput.addEventListener('input', updateCustomQuote);
+    customAuthorInput.addEventListener('input', updateCustomQuote);
+    
+    // Quotes Presets
+    const presetsSelect = document.getElementById('quotePresetsSelect');
+    if (presetsSelect) {
+      presetsSelect.addEventListener('change', (e) => {
+        if (!e.target.value) return;
+        const [text, author] = e.target.value.split('|');
+        customQuoteInput.value = text;
+        customAuthorInput.value = author;
+        updateCustomQuote();
+      });
+    }
+
+    // Emojis
+    document.querySelectorAll('.emoji-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        customQuoteInput.value += btn.dataset.emoji;
+        updateCustomQuote();
+      });
+    });
+
+    // Icons (Native Symbol Map)
+    const iconMap = {
+      'f004': '❤', // Heart
+      'f005': '★', // Star
+      'f10d': '❝', // Quote Left
+      'f10e': '❞', // Quote Right
+      'f02d': '📖', // Book
+      'f0eb': '💡', // Lightbulb
+      'f06d': '🔥', // Fire
+      'f18c': '🐛'  // Bug
+    };
+    
+    document.querySelectorAll('.icon-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const symbol = iconMap[btn.dataset.icon] || '';
+        customQuoteInput.value += symbol;
+        updateCustomQuote();
+      });
+    });
   }
 }
 

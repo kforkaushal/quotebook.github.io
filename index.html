@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quotebook — Timeless Quotes & Visual Poster Studio</title>
-  <meta name="description" content="Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
-  
+  <meta name="description"
+    content="Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+
   <!-- Canonical & Social Meta -->
   <link rel="canonical" href="https://quotebook.example.com/index.html">
   <meta property="og:title" content="Quotebook — Timeless Quotes & Visual Poster Studio">
-  <meta property="og:description" content="Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+  <meta property="og:description"
+    content="Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
   <meta property="og:url" content="https://quotebook.example.com/index.html">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://quotebook.example.com/data/img/logo.svg">
@@ -18,13 +21,20 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap"
+    rel="stylesheet">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="stylesheet" href="src/css/style.css">  <link rel="icon" type="image/png" sizes="32x32" href="data/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="data/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="data/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="data/img/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="data/img/android-chrome-512x512.png">
 </head>
+
 <body class="light-theme home-page">
 
   <!-- Ambient Animated Light Mesh Background -->
@@ -53,6 +63,7 @@
       <nav class="home-nav-links" id="homeNavLinks">
         <a href="index.html" class="nav-link active">Home</a>
         <a href="quotes.html" class="nav-link">Explore Quotes</a>
+        <a href="poster.html" class="nav-link">Poster Studio</a>
         <a href="#posterGallery" class="nav-link">Poster Gallery</a>
         <a href="#features" class="nav-link">Features</a>
         <a href="quotes.html" class="nav-link mobile-only-cta">Explore 39,000+ Quotes</a>
@@ -74,21 +85,22 @@
   <!-- Hero Home Section -->
   <section class="home-hero-section">
     <div class="home-hero-container">
-      
+
       <!-- Left-Weighted Hero Text & Badge -->
       <div class="hero-text-col fade-in-up">
         <div class="hero-badge-pill">
           <span class="pulse-dot"></span>
           <span>39,531+ Curated Quotes & Pixabay Photography</span>
         </div>
-        
+
         <h1 class="home-hero-title">
           Timeless Wisdom. <br>
           <span class="text-highlight-primary">Breathtaking Visuals.</span>
         </h1>
 
         <p class="home-hero-desc">
-          Step into an immersive collection of daily inspiration. Pair quotes with high-resolution photography, listen with natural speech synthesis, or design custom posters.
+          Step into an immersive collection of daily inspiration. Pair quotes with high-resolution photography, listen
+          with natural speech synthesis, or design custom posters.
         </p>
 
         <div class="home-hero-buttons">
@@ -105,17 +117,7 @@
 
       <!-- Center-Stage Interactive Device Switcher -->
       <div class="hero-showcase-wrapper fade-in-up delay-1">
-        <div class="device-switcher-bar">
-          <button class="device-tab-btn active" data-device="mobile">
-            <i class="fa-solid fa-mobile-screen-button"></i> Mobile View
-          </button>
-          <button class="device-tab-btn" data-device="tablet">
-            <i class="fa-solid fa-tablet-screen-button"></i> Tablet View
-          </button>
-          <button class="device-tab-btn" data-device="desktop">
-            <i class="fa-solid fa-laptop"></i> Desktop View
-          </button>
-        </div>
+
 
         <!-- Interactive Mockup Window -->
         <div class="device-mockup-frame mobile" id="deviceMockupFrame">
@@ -132,7 +134,7 @@
           <div class="mockup-screen" id="mockupScreen">
             <div class="mockup-zen-bg" id="mockupZenBg"></div>
             <div class="mockup-zen-overlay"></div>
-            
+
             <div class="mockup-zen-content">
               <span class="mockup-tag" id="mockupTag">ZEN MODE • WISDOM</span>
               <blockquote class="mockup-quote" id="mockupQuote">
@@ -176,7 +178,7 @@
       <span><i class="fa-solid fa-palette"></i> Art & Creativity</span>
     </div>
   </div>
-  
+
   <!-- Today's Quotes Section -->
   <section class="todays-quotes-section" id="todaysQuotes">
     <div class="todays-quotes-container">
@@ -195,9 +197,13 @@
             <cite class="today-quote-author">— Socrates</cite>
           </div>
           <div class="today-quote-actions">
-            <button class="today-action-btn btn-copy" data-quote="The only true wisdom is in knowing you know nothing." data-author="Socrates" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy</button>
-            <button class="today-action-btn btn-speak" data-quote="The only true wisdom is in knowing you know nothing." data-author="Socrates" title="Read Aloud"><i class="fa-solid fa-volume-high"></i> Listen</button>
-            <button class="today-action-btn btn-poster" data-quote="The only true wisdom is in knowing you know nothing." data-author="Socrates" data-cat="Wisdom" title="Create Poster"><i class="fa-solid fa-palette"></i> Poster</button>
+            <button class="today-action-btn btn-copy" data-quote="The only true wisdom is in knowing you know nothing."
+              data-author="Socrates" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy</button>
+            <button class="today-action-btn btn-speak" data-quote="The only true wisdom is in knowing you know nothing."
+              data-author="Socrates" title="Read Aloud"><i class="fa-solid fa-volume-high"></i> Listen</button>
+            <button class="today-action-btn btn-poster"
+              data-quote="The only true wisdom is in knowing you know nothing." data-author="Socrates" data-cat="Wisdom"
+              title="Create Poster"><i class="fa-solid fa-palette"></i> Poster</button>
           </div>
         </div>
 
@@ -208,9 +214,13 @@
             <cite class="today-quote-author">— Nelson Mandela</cite>
           </div>
           <div class="today-quote-actions">
-            <button class="today-action-btn btn-copy" data-quote="It always seems impossible until it's done." data-author="Nelson Mandela" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy</button>
-            <button class="today-action-btn btn-speak" data-quote="It always seems impossible until it's done." data-author="Nelson Mandela" title="Read Aloud"><i class="fa-solid fa-volume-high"></i> Listen</button>
-            <button class="today-action-btn btn-poster" data-quote="It always seems impossible until it's done." data-author="Nelson Mandela" data-cat="Motivation & Inspiration" title="Create Poster"><i class="fa-solid fa-palette"></i> Poster</button>
+            <button class="today-action-btn btn-copy" data-quote="It always seems impossible until it's done."
+              data-author="Nelson Mandela" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy</button>
+            <button class="today-action-btn btn-speak" data-quote="It always seems impossible until it's done."
+              data-author="Nelson Mandela" title="Read Aloud"><i class="fa-solid fa-volume-high"></i> Listen</button>
+            <button class="today-action-btn btn-poster" data-quote="It always seems impossible until it's done."
+              data-author="Nelson Mandela" data-cat="Motivation & Inspiration" title="Create Poster"><i
+                class="fa-solid fa-palette"></i> Poster</button>
           </div>
         </div>
 
@@ -221,9 +231,13 @@
             <cite class="today-quote-author">— Pablo Picasso</cite>
           </div>
           <div class="today-quote-actions">
-            <button class="today-action-btn btn-copy" data-quote="Everything you can imagine is real." data-author="Pablo Picasso" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy</button>
-            <button class="today-action-btn btn-speak" data-quote="Everything you can imagine is real." data-author="Pablo Picasso" title="Read Aloud"><i class="fa-solid fa-volume-high"></i> Listen</button>
-            <button class="today-action-btn btn-poster" data-quote="Everything you can imagine is real." data-author="Pablo Picasso" data-cat="Art & Creativity" title="Create Poster"><i class="fa-solid fa-palette"></i> Poster</button>
+            <button class="today-action-btn btn-copy" data-quote="Everything you can imagine is real."
+              data-author="Pablo Picasso" title="Copy to Clipboard"><i class="fa-solid fa-copy"></i> Copy</button>
+            <button class="today-action-btn btn-speak" data-quote="Everything you can imagine is real."
+              data-author="Pablo Picasso" title="Read Aloud"><i class="fa-solid fa-volume-high"></i> Listen</button>
+            <button class="today-action-btn btn-poster" data-quote="Everything you can imagine is real."
+              data-author="Pablo Picasso" data-cat="Art & Creativity" title="Create Poster"><i
+                class="fa-solid fa-palette"></i> Poster</button>
           </div>
         </div>
       </div>
@@ -267,7 +281,9 @@
       <div class="poster-cards-grid">
         <!-- Sample Poster Card 1 -->
         <a href="quotes.html?action=poster" class="poster-preview-card">
-          <div class="poster-card-img" style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="poster-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80');">
+          </div>
           <div class="poster-card-overlay"></div>
           <div class="poster-card-content">
             <span class="poster-chip-tag">Nature & Serenity</span>
@@ -278,7 +294,9 @@
 
         <!-- Sample Poster Card 2 -->
         <a href="quotes.html?action=poster" class="poster-preview-card">
-          <div class="poster-card-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="poster-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80');">
+          </div>
           <div class="poster-card-overlay warm"></div>
           <div class="poster-card-content">
             <span class="poster-chip-tag">Wisdom</span>
@@ -289,18 +307,23 @@
 
         <!-- Sample Poster Card 3 -->
         <a href="quotes.html?action=poster" class="poster-preview-card">
-          <div class="poster-card-img" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="poster-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80');">
+          </div>
           <div class="poster-card-overlay dark"></div>
           <div class="poster-card-content">
             <span class="poster-chip-tag">Cosmos & Dreams</span>
-            <blockquote class="poster-text" style="color:#ffffff;">"Starry skies remind us of endless possibilities."</blockquote>
+            <blockquote class="poster-text" style="color:#ffffff;">"Starry skies remind us of endless possibilities."
+            </blockquote>
             <span class="poster-author" style="color:#e2e8f0;">— Carl Sagan</span>
           </div>
         </a>
 
         <!-- Sample Poster Card 4 -->
         <a href="quotes.html?action=poster" class="poster-preview-card">
-          <div class="poster-card-img" style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80');"></div>
+          <div class="poster-card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80');">
+          </div>
           <div class="poster-card-overlay teal"></div>
           <div class="poster-card-content">
             <span class="poster-chip-tag">Books & Knowledge</span>
@@ -330,11 +353,14 @@
             <div class="large-feature-content">
               <div class="feature-icon"><i class="fa-solid fa-palette"></i></div>
               <h3>Canvas Poster Studio</h3>
-              <p>Design customizable high-resolution quote posters in seconds. Commit to beautiful typography, configure aspect ratios (1:1, 4:5, 16:9), and overlay color tints with a 1-click PNG download.</p>
+              <p>Design customizable high-resolution quote posters in seconds. Commit to beautiful typography, configure
+                aspect ratios (1:1, 4:5, 16:9), and overlay color tints with a 1-click PNG download.</p>
             </div>
             <div class="large-feature-visual poster-visual">
               <div class="mini-canvas-preview">
-                <div class="mini-canvas-bg" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="mini-canvas-bg"
+                  style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=400&q=80');">
+                </div>
                 <div class="mini-canvas-overlay"></div>
                 <div class="mini-canvas-text">“The earth has music for those who listen.”</div>
               </div>
@@ -345,11 +371,14 @@
             <div class="large-feature-content">
               <div class="feature-icon"><i class="fa-solid fa-expand"></i></div>
               <h3>Distraction-Free Zen Mode</h3>
-              <p>Immerse yourself in a full-screen, auto-playing quote slideshow. Crossfading high-resolution backgrounds and subtle typographic transitions help you find calm and focus.</p>
+              <p>Immerse yourself in a full-screen, auto-playing quote slideshow. Crossfading high-resolution
+                backgrounds and subtle typographic transitions help you find calm and focus.</p>
             </div>
             <div class="large-feature-visual zen-visual">
               <div class="mini-zen-preview">
-                <div class="mini-zen-bg" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80');"></div>
+                <div class="mini-zen-bg"
+                  style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=80');">
+                </div>
                 <div class="mini-zen-overlay"></div>
                 <div class="mini-zen-text">“Silence is a source of great strength.”</div>
                 <div class="mini-zen-progress"></div>
@@ -439,13 +468,19 @@
 
   <!-- CTA Banner -->
   <section class="home-cta-section">
-    <div class="home-cta-container">
-      <h2>Ready to Find Your Next Favorite Quote?</h2>
-      <p>Dive into over 39,000 curated quotes or generate beautiful custom posters today.</p>
-      <a href="quotes.html" class="btn-hero-primary">
-        <span>Explore Quotes Library Now</span>
-        <i class="fa-solid fa-arrow-right"></i>
-      </a>
+    <div class="home-cta-container cta-split">
+      <div class="cta-content">
+        <h2>Ready to Find Your Next Favorite Quote?</h2>
+        <p>Dive into over 39,000 curated quotes or generate beautiful custom posters today.</p>
+        <a href="quotes.html" class="btn-hero-primary">
+          <span>Explore Quotes Library Now</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+      <div class="cta-illustration">
+        <img src="https://i.ibb.co/JFkKmsL4/pngtree-alot-of-books-illustration-png-image-11519708.png"
+          alt="Inspirational Workspace" class="cta-img" />
+      </div>
     </div>
   </section>
 
@@ -457,7 +492,8 @@
           <div class="logo-icon"><img src="data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
           <span class="logo-title">Quotebook</span>
         </div>
-        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters with Pixabay photography.</p>
+        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters
+          with Pixabay photography.</p>
       </div>
 
       <div class="footer-links">
@@ -490,4 +526,5 @@
   <!-- Scripts -->
   <script src="src/js/app.js"></script>
 </body>
+
 </html>
