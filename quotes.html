@@ -179,6 +179,15 @@
       </div>
     </section>
 
+    <!-- Author Stories Bar (Instagram Style) -->
+    <section class="story-bar-container" id="storyBarContainer" style="display: none;">
+      <button class="story-scroll-btn left" id="storyScrollLeft"><i class="fa-solid fa-chevron-left"></i></button>
+      <div class="story-bar-wrapper" id="storyBarWrapper">
+        <!-- Story rings injected via JS -->
+      </div>
+      <button class="story-scroll-btn right" id="storyScrollRight"><i class="fa-solid fa-chevron-right"></i></button>
+    </section>
+
     <!-- Filters & Sort Control Toolbar -->
     <section class="toolbar-section">
       <div class="toolbar-info">
@@ -334,6 +343,49 @@
         <button class="zen-ctrl-btn" id="zenBtnAudio" title="Toggle Speech Aloud"><i class="fa-solid fa-volume-high"></i></button>
       </div>
     </div>
+  </div>
+
+  <!-- Fullscreen Zen Mode Modal -->
+  <div class="modal-overlay zen-mode hidden" id="zenModeModal">
+    <button class="close-modal-btn" id="closeZenModal"><i class="fa-solid fa-xmark"></i></button>
+    <div class="zen-controls">
+      <button class="icon-btn-text" id="zenBtnPrev"><i class="fa-solid fa-chevron-left"></i></button>
+      <button class="icon-btn-text" id="zenBtnNext"><i class="fa-solid fa-chevron-right"></i></button>
+      <button class="icon-btn-text" id="zenBtnPlayPause"><i class="fa-solid fa-pause"></i></button>
+    </div>
+    <div class="zen-quote-display">
+      <blockquote id="zenQuoteText"></blockquote>
+      <span id="zenQuoteAuthor"></span>
+    </div>
+    <div class="zen-progress-bar">
+      <div class="zen-progress-fill" id="zenProgressFill"></div>
+    </div>
+  </div>
+
+  <!-- Author Stories Modal (Instagram Style) -->
+  <div class="modal-overlay story-mode hidden" id="storyViewerModal">
+    <div class="story-progress-container" id="storyProgressContainer">
+      <!-- Segmented progress bars injected via JS -->
+    </div>
+    <button class="close-modal-btn" id="closeStoryModal"><i class="fa-solid fa-xmark"></i></button>
+    
+    <div class="story-header" id="storyHeader">
+      <img src="" alt="Author" class="story-header-avatar" id="storyHeaderAvatar">
+      <span class="story-header-name" id="storyHeaderName">Author Name</span>
+    </div>
+
+    <div class="story-content" id="storyContent">
+      <blockquote class="story-quote-text" id="storyQuoteText">Quote goes here</blockquote>
+    </div>
+    
+    <div class="story-cta-content hidden" id="storyCtaContent">
+      <h2 class="story-cta-title">Read more quotes from <span id="storyCtaAuthor"></span></h2>
+      <a href="#" class="btn-primary" id="storyCtaBtn">View Author Profile <i class="fa-solid fa-arrow-right"></i></a>
+    </div>
+
+    <!-- Tap zones -->
+    <div class="story-tap-zone left" id="storyTapLeft"></div>
+    <div class="story-tap-zone right" id="storyTapRight"></div>
   </div>
 
   <!-- Saved Bookmarks Drawer -->

@@ -338,6 +338,8 @@ foreach ($author in $sortedAuthorsList) {
       </div>
     </section>
 
+    <div id="authorProfileWidget" data-author="$(Escape-Html $author)"></div>
+
     <section class="quotes-grid-container">
       <div class="quotes-grid">
         $quotesListHtml

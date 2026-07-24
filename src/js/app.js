@@ -1564,3 +1564,305 @@ function bindStaticCardListeners() {
     }
   });
 }
+
+/* ==========================================================================
+   DYNAMIC AUTHOR PROFILES (Wikipedia REST API)
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const authorWidget = document.getElementById('authorProfileWidget');
+  if (authorWidget) {
+    const authorName = authorWidget.getAttribute('data-author');
+    if (authorName) {
+      loadAuthorProfile(authorName, authorWidget);
+    }
+  }
+});
+
+async function loadAuthorProfile(authorName, container) {
+  // Add skeleton loader immediately
+  container.className = 'author-profile-card skeleton';
+  container.innerHTML = `
+    <div class="author-avatar">
+      <div class="author-avatar-img"></div>
+    </div>
+    <div class="author-bio">
+      <div class="author-bio-title"></div>
+      <div class="author-bio-extract"></div>
+      <div class="author-bio-extract" style="width: 80%"></div>
+    </div>
+  `;
+
+  try {
+    // MediaWiki REST API v1
+    const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(authorName)}`;
+    const response = await fetch(endpoint, {
+      headers: {
+        'User-Agent': 'QuotebookApp/1.0 (https://example.com; contact@example.com)'
+      }
+    });
+
+    if (!response.ok) {
+      // Graceful fallback if not found
+      container.style.display = 'none';
+      return;
+    }
+
+    const data = await response.json();
+    
+    // Check if it's a disambiguation page or missing extract
+    if (data.type === 'disambiguation' || !data.extract) {
+      container.style.display = 'none';
+      return;
+    }
+
+    // Build the real profile
+    // URL-encoded SVG to avoid breaking HTML attributes with quotes
+    const defaultAvatar = 'data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%25238C8079%22%3E%3Cpath%20d%3D%22M12%202C6.48%202%202%206.48%202%2012s4.48%2010%2010%2010%2010-4.48%2010-10S17.52%202%2012%202zm0%203c1.66%200%203%201.34%203%203s-1.34%203-3%203-3-1.34-3-3%201.34-3%203-3zm0%2014.2c-2.5%200-4.71-1.28-6-3.22.03-1.99%204-3.08%206-3.08%201.99%200%205.97%201.09%206%203.08-1.29%201.94-3.5%203.22-6%203.22z%22%2F%3E%3C%2Fsvg%3E';
+    const imgSrc = data.thumbnail ? data.thumbnail.source : defaultAvatar;
+    
+    container.classList.remove('skeleton');
+    container.innerHTML = `
+      <div class="author-avatar">
+        <img src="${imgSrc}" alt="${authorName}" class="author-avatar-img" onerror="this.src='${defaultAvatar}'; this.onerror=null;">
+      </div>
+      <div class="author-bio">
+        <h2 class="author-bio-title">${data.title}</h2>
+        <p class="author-bio-extract">${data.extract}</p>
+        <a href="${data.content_urls.desktop.page}" target="_blank" rel="noopener noreferrer" class="author-bio-link">
+          Read full biography on Wikipedia <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </a>
+      </div>
+    `;
+  } catch (error) {
+    console.error('Error fetching author profile:', error);
+    container.style.display = 'none'; // Hide gracefully on error
+  }
+}
+
+/* ==========================================================================
+   AUTHOR STORIES (INSTAGRAM STYLE)
+   ========================================================================== */
+document.addEventListener('DOMContentLoaded', () => {
+  const storyBarContainer = document.getElementById('storyBarContainer');
+  const storyBarWrapper = document.getElementById('storyBarWrapper');
+  const storyModal = document.getElementById('storyViewerModal');
+  
+  if (!storyBarContainer || !storyBarWrapper || !storyModal) return;
+
+  // Wait for state.allQuotes to populate
+  const checkInterval = setInterval(() => {
+    if (state && state.allQuotes && state.allQuotes.length > 0) {
+      clearInterval(checkInterval);
+      initStories();
+    }
+  }, 500);
+
+  let storyAuthors = [];
+  let currentStoryAuthorIndex = 0;
+  let currentSlideIndex = 0;
+  let slideTimer;
+  const slideDuration = 5000;
+  let authorQuotes = [];
+
+  async function initStories() {
+    // 1. Get Top Authors by quote count
+    const authorCounts = {};
+    state.allQuotes.forEach(q => {
+      if (q.author && q.author !== "Unknown") {
+        authorCounts[q.author] = (authorCounts[q.author] || 0) + 1;
+      }
+    });
+
+    // Sort descending and take top 100 to evaluate
+    let topAuthors = Object.keys(authorCounts)
+      .sort((a, b) => authorCounts[b] - authorCounts[a])
+      .slice(0, 100);
+
+    const wikiOverrides = {
+      "Dalai Lama": "14th_Dalai_Lama",
+      "Lao Tzu": "Laozi"
+    };
+
+    storyAuthors = [];
+    
+    for (let author of topAuthors) {
+      if (storyAuthors.length >= 20) break; // Limit to 20 stories
+
+      let cleanAuthor = author.includes(',') ? author.split(',')[0].trim() : author.trim();
+      let queryName = wikiOverrides[cleanAuthor] ? wikiOverrides[cleanAuthor] : cleanAuthor;
+
+      try {
+        const res = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(queryName)}`);
+        if (!res.ok) continue;
+        const data = await res.json();
+        
+        if (data.thumbnail && data.thumbnail.source) {
+          storyAuthors.push({
+            originalName: author,
+            cleanName: cleanAuthor,
+            displayName: cleanAuthor.split(' ')[0],
+            imgSrc: data.thumbnail.source
+          });
+        }
+      } catch (e) {}
+    }
+
+    if (storyAuthors.length === 0) return;
+    
+    storyBarContainer.style.display = 'block';
+    
+    // Render the rings
+    storyAuthors.forEach((authorData, index) => {
+      const el = document.createElement('div');
+      el.className = 'story-item';
+      el.innerHTML = `
+        <div class="story-ring">
+          <img src="${authorData.imgSrc}" alt="${authorData.cleanName}" class="story-avatar" id="storyAvatar-${index}">
+        </div>
+        <span class="story-author-name">${authorData.displayName}</span>
+      `;
+      el.addEventListener('click', () => openStory(index));
+      storyBarWrapper.appendChild(el);
+    });
+
+    // Hook up scroll buttons
+    const btnLeft = document.getElementById('storyScrollLeft');
+    const btnRight = document.getElementById('storyScrollRight');
+    
+    if (btnLeft && btnRight) {
+      btnLeft.addEventListener('click', () => {
+        storyBarWrapper.scrollBy({ left: -200, behavior: 'smooth' });
+      });
+      btnRight.addEventListener('click', () => {
+        storyBarWrapper.scrollBy({ left: 200, behavior: 'smooth' });
+      });
+    }
+  }
+
+  function openStory(authorIndex) {
+    currentStoryAuthorIndex = authorIndex;
+    const authorData = storyAuthors[currentStoryAuthorIndex];
+    const author = authorData.originalName;
+    let cleanAuthor = authorData.cleanName;
+    
+    // Mark as viewed
+    storyBarWrapper.children[currentStoryAuthorIndex].classList.add('viewed');
+
+    // Get random 3 quotes from this author
+    const allAuthorQuotes = state.allQuotes.filter(q => q.author === author);
+    // Shuffle
+    allAuthorQuotes.sort(() => 0.5 - Math.random());
+    authorQuotes = allAuthorQuotes.slice(0, 3);
+    
+    currentSlideIndex = 0;
+    
+    storyModal.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+    
+    // Set Header
+    document.getElementById('storyHeaderName').textContent = cleanAuthor;
+    document.getElementById('storyHeaderAvatar').src = document.getElementById(`storyAvatar-${currentStoryAuthorIndex}`).src;
+    
+    renderSlide();
+  }
+
+  function renderSlide() {
+    const progressContainer = document.getElementById('storyProgressContainer');
+    progressContainer.innerHTML = '';
+    
+    // Create 4 segments
+    for (let i = 0; i < 4; i++) {
+      const segment = document.createElement('div');
+      segment.className = 'story-progress-segment';
+      const fill = document.createElement('div');
+      fill.className = 'story-progress-fill';
+      fill.id = `storyProgressFill-${i}`;
+      if (i < currentSlideIndex) fill.classList.add('completed');
+      segment.appendChild(fill);
+      progressContainer.appendChild(segment);
+    }
+    
+    const contentBox = document.getElementById('storyContent');
+    const ctaBox = document.getElementById('storyCtaContent');
+    const quoteText = document.getElementById('storyQuoteText');
+    const ctaAuthor = document.getElementById('storyCtaAuthor');
+    const ctaBtn = document.getElementById('storyCtaBtn');
+
+    if (currentSlideIndex < 3) {
+      // Show Quote
+      contentBox.classList.remove('hidden');
+      ctaBox.classList.add('hidden');
+      
+      if (authorQuotes[currentSlideIndex]) {
+        quoteText.textContent = `"${authorQuotes[currentSlideIndex].quote}"`;
+      }
+    } else {
+      // Show CTA (Slide 4)
+      contentBox.classList.add('hidden');
+      ctaBox.classList.remove('hidden');
+      ctaAuthor.textContent = storyAuthors[currentStoryAuthorIndex].cleanName;
+      
+      // Generate URL slug for the button
+      let slug = storyAuthors[currentStoryAuthorIndex].cleanName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      ctaBtn.href = `authors/${slug}.html`;
+    }
+
+    // Start Timer
+    clearTimeout(slideTimer);
+    
+    // Trigger animation next frame
+    requestAnimationFrame(() => {
+      const activeFill = document.getElementById(`storyProgressFill-${currentSlideIndex}`);
+      if (activeFill) {
+        // Reset without transition first to ensure it's at 0
+        activeFill.style.transition = 'none';
+        activeFill.style.width = '0%';
+        
+        requestAnimationFrame(() => {
+          activeFill.style.transition = `width ${slideDuration}ms linear`;
+          activeFill.style.width = '100%';
+        });
+      }
+    });
+
+    slideTimer = setTimeout(() => {
+      advanceSlide();
+    }, slideDuration);
+  }
+
+  function advanceSlide() {
+    currentSlideIndex++;
+    if (currentSlideIndex >= 4) {
+      // Next Author
+      currentStoryAuthorIndex++;
+      if (currentStoryAuthorIndex >= storyAuthors.length) {
+        closeStory(); // Reached the end
+      } else {
+        openStory(currentStoryAuthorIndex);
+      }
+    } else {
+      renderSlide();
+    }
+  }
+
+  function reverseSlide() {
+    if (currentSlideIndex > 0) {
+      currentSlideIndex--;
+      renderSlide();
+    } else if (currentStoryAuthorIndex > 0) {
+      // Previous author
+      openStory(currentStoryAuthorIndex - 1);
+    }
+  }
+
+  function closeStory() {
+    clearTimeout(slideTimer);
+    storyModal.classList.add('hidden');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('closeStoryModal')?.addEventListener('click', closeStory);
+  document.getElementById('storyTapRight')?.addEventListener('click', advanceSlide);
+  document.getElementById('storyTapLeft')?.addEventListener('click', reverseSlide);
+});
+
