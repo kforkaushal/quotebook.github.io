@@ -14,6 +14,8 @@
   /* Teal (reserved complementary — single deliberate use) */
   --teal-700: #12403F;
   --teal-100: #D9EDEA;
+  --accent-teal: var(--teal-700);
+  --accent-teal-soft: var(--teal-100);
 
   /* Neutrals */
   --ink-900: #211D1A;
@@ -123,10 +125,7 @@ body.page-loaded {
   color: var(--accent-primary);
 }
 
-/* Ambient Background Layer (De-AI'd and hidden) */
-.ambient-bg-container {
-  display: none;
-}
+
 
 /* App Header */
 .app-header {
@@ -4680,4 +4679,14 @@ body.data-saver-active .quote-card-header::before {
   background: var(--bg-secondary);
   border-color: var(--accent-primary);
   transform: translateY(-2px);
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

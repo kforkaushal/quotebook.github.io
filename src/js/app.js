@@ -18,7 +18,7 @@ const state = {
   bookmarks: JSON.parse(localStorage.getItem('qb_bookmarks') || '[]'),
   heroQuote: null,
   pixabayCache: {},
-  pixabayApiKey: '31635482-a6219e4788c28c0983dbc0cd0',
+  pixabayApiKey: 'YOUR_PIXABAY_API_KEY_HERE',
   zenInterval: null,
   zenIsPlaying: false,
   zenCurrentIndex: 0,
@@ -125,8 +125,15 @@ async function initApp() {
     }
 
     if (isQuotesPage) {
-      if (catParam && state.categoriesMap[catParam]) {
-        state.activeCategory = catParam;
+      if (catParam) {
+        if (state.categoriesMap[catParam]) {
+          state.activeCategory = catParam;
+        } else if (catParam.includes(' - ')) {
+          const baseCategory = catParam.split(' - ')[0].trim();
+          if (state.categoriesMap[baseCategory]) {
+            state.activeCategory = baseCategory;
+          }
+        }
       }
 
       renderCategoryPills();
@@ -323,7 +330,7 @@ function setSmoothBackgroundImage(element, imageUrl) {
   tempImg.src = imageUrl;
 }
 
-// 1. Optimized Two-Stage Data Loader (Sub-10ms Initial Load + Background Dataset Sync)
+// 1. Optimized Data Loader (Lazy-loading Category Chunks)
 async function loadQuotesData() {
   // Stage 1: Load lightweight featured dataset FIRST for instant sub-10ms UI render
   try {
@@ -333,29 +340,70 @@ async function loadQuotesData() {
       processDataset(featData);
     }
   } catch (err) {
-    console.warn("Featured dataset fetch warning, fallback to full dataset:", err);
+    console.warn("Featured dataset fetch warning:", err);
   }
 
-  // Stage 2: Load full 39,000+ dataset in background idle time without blocking the UI thread
+  // Stage 2: Load metadata to populate category dropdowns
   setTimeout(async () => {
     try {
-      const resFull = await fetch('data/quotes_8000_plus.json');
-      if (resFull.ok) {
-        const fullData = await resFull.json();
-        processDataset(fullData);
+      const resMeta = await fetch('data/metadata.json');
+      if (resMeta.ok) {
+        const metadata = await resMeta.json();
+        
+        // Initialize empty categories map from metadata
+        Object.keys(metadata.categories).forEach(catName => {
+          if (!state.categoriesMap[catName]) {
+            state.categoriesMap[catName] = { quotes: [], _meta: metadata.categories[catName], loaded: false };
+          }
+        });
 
         const badge = document.getElementById('quoteCountBadge');
-        if (badge) badge.textContent = `${state.allQuotes.length.toLocaleString()} Quotes Available`;
+        if (badge) {
+          let total = 0;
+          Object.values(metadata.categories).forEach(c => total += c.count);
+          badge.textContent = `${total.toLocaleString()} Quotes Available`;
+        }
 
         if (typeof renderCategoryPills === 'function') renderCategoryPills();
         if (typeof populateAuthorDropdown === 'function') populateAuthorDropdown();
-        if (typeof applyFilters === 'function') applyFilters();
       }
     } catch (err) {
-      console.warn("Full dataset background load notice:", err);
+      console.warn("Metadata background load notice:", err);
     }
   }, 100);
 }
+
+// Lazy load a specific category when selected
+window.lazyLoadCategory = async function(catName) {
+  const catObj = state.categoriesMap[catName];
+  if (!catObj || catObj.loaded || !catObj._meta) return true;
+  
+  try {
+    const res = await fetch(catObj._meta.file);
+    if (res.ok) {
+      const data = await res.json();
+      catObj.quotes = data.quotes || [];
+      catObj.loaded = true;
+      
+      // Append to allQuotes
+      catObj.quotes.forEach(q => {
+        state.allQuotes.push({
+          quote: q.quote,
+          author: q.author || 'Unknown',
+          tags: q.tags || [],
+          popularity: q.popularity || 0,
+          category: catName
+        });
+      });
+      
+      if (typeof populateAuthorDropdown === 'function') populateAuthorDropdown();
+      return true;
+    }
+  } catch (err) {
+    console.error(`Failed to lazy load category ${catName}:`, err);
+  }
+  return false;
+};
 
 function processDataset(dataObj) {
   state.quotesData = dataObj;
@@ -365,6 +413,7 @@ function processDataset(dataObj) {
   Object.keys(state.categoriesMap).forEach(catName => {
     const catObj = state.categoriesMap[catName];
     if (catObj && Array.isArray(catObj.quotes)) {
+      catObj.loaded = true;
       catObj.quotes.forEach(q => {
         quotesList.push({
           quote: q.quote,
@@ -405,10 +454,16 @@ function renderCategoryPills() {
 
   // Add click listeners to pills
   container.querySelectorAll('.category-pill').forEach(pill => {
-    pill.addEventListener('click', () => {
+    pill.addEventListener('click', async () => {
       container.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
       pill.classList.add('active');
       state.activeCategory = pill.dataset.category;
+      
+      // Lazy load the category if not "all"
+      if (state.activeCategory !== 'all') {
+        await window.lazyLoadCategory(state.activeCategory);
+      }
+      
       state.currentPage = 1;
       applyFilters();
     });
@@ -1248,6 +1303,7 @@ function setupEventListeners() {
     quotesMenuToggle.addEventListener('click', () => {
       const isExpanded = quotesMenuToggle.getAttribute('aria-expanded') === 'true';
       quotesMenuToggle.setAttribute('aria-expanded', !isExpanded);
+      quotesMenuToggle.classList.toggle('active', !isExpanded);
       quotesMobileDrawer.classList.toggle('active', !isExpanded);
     });
   }

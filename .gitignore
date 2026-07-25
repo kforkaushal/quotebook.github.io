@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.env
+
+# Ignored large data files
+data/quotes_8000_plus.json
+data/quotes_enriched.json

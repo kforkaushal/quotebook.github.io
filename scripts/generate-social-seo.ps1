@@ -73,7 +73,23 @@ $footerHtml = @"
           <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
           <span class="logo-title">Quotebook</span>
         </div>
-        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters.</p>
+        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters with Pixabay photography.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Home</a>
+          <a href="../quotes.html">Quotes Library</a>
+          <a href="../quotes.html?action=poster">Poster Studio</a>
+          <a href="../index.html#features">Features</a>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <a href="../quotes.html?category=Wisdom+%26+Knowledge">Wisdom</a>
+          <a href="../quotes.html?category=Philosophy+%26+Thinking">Philosophy</a>
+          <a href="../quotes.html?category=Books+%26+Reading">Books</a>
+          <a href="../quotes.html?category=Motivation+%26+Inspiration">Motivation</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -105,7 +121,7 @@ foreach ($catProp in $categories.psobject.properties) {
     
     foreach ($subProp in $catData.subcategories.psobject.properties) {
         $subName = $subProp.Name
-        $quotesList = $subProp.Value
+        $quotesList = $subProp.Value | Sort-Object -Unique -Property quote
         
         if ($quotesList.Count -lt 5) { continue }
         
@@ -113,8 +129,20 @@ foreach ($catProp in $categories.psobject.properties) {
         $cleanSub = ToTitleCase($subName)
         
         $slug = "$($catName.ToLower() -replace '_', '-')-$($subName.ToLower() -replace '_', '-')"
-        $pageTitle = "Explore $cleanCat - $cleanSub Quotes - Quotebook"
-        $pageDesc = "Discover curated quotes on $cleanSub $cleanCat. Pair with HD backgrounds and generate custom posters."
+        $quotesCount = $quotesList.Count
+        $currentYear = (Get-Date).Year
+        $pageTitle = "$quotesCount+ $cleanCat Quotes for $cleanSub ($currentYear)"
+        $randomIntro = "Discover curated quotes on $cleanCat for $cleanSub. Pair with HD backgrounds and generate custom posters."
+        # Use a rotating template if available, else fallback
+        $introTemplates = @(
+            "Looking for the perfect words? Discover our hand-picked collection of {count} {intent}. Whether you want to copy the text to clipboard, listen to it read aloud with speech synthesis, or design a custom card poster, we have you covered.",
+            "Words have power. Here is a curated selection of {count} {intent} to help you express exactly what you feel. Pair them with HD photography from our Poster Studio or share them directly on WhatsApp and Instagram.",
+            "Browse through {count} of the best {intent} sourced from our library. These hand-selected lines are designed to inspire, connect, and elevate your greeting card messages and social media bios.",
+            "Make an impact today. Explore {count} {intent} that resonate deeply. You can preview these quotes on canvas backgrounds, read them aloud, and bookmark your favorites for later.",
+            "Find inspiration instantly with this premium compilation of {count} {intent}. Read, copy, listen, or download them as high-quality visual poster cards using the Quotebook Studio tool."
+        )
+        $randomIntro = $introTemplates | Get-Random
+        $pageDesc = $randomIntro.Replace("{count}", $quotesCount).Replace("{intent}", "$cleanCat Quotes for $cleanSub")
         $canonicalUrl = "https://quotebook.example.com/quotes/$slug.html"
         
         $sitemapUrls.Add($canonicalUrl)
@@ -168,13 +196,24 @@ foreach ($catProp in $categories.psobject.properties) {
 
   <!-- JSON-LD -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "$pageTitle",
-    "description": "$pageDesc",
-    "url": "$canonicalUrl"
-  }
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "$pageTitle",
+      "description": "$pageDesc",
+      "url": "$canonicalUrl"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://quotebook.example.com/index.html"},
+        {"@type": "ListItem", "position": 2, "name": "Quotes", "item": "https://quotebook.example.com/quotes.html"},
+        {"@type": "ListItem", "position": 3, "name": "$pageTitle", "item": "$canonicalUrl"}
+      ]
+    }
+  ]
   </script>
 </head>
 <body class="light-theme quotes-page page-loaded">
@@ -184,7 +223,9 @@ foreach ($catProp in $categories.psobject.properties) {
     <section class="toolbar-section">
       <div class="toolbar-info">
         <h1 class="section-heading">$cleanCat &amp; $cleanSub Quotes</h1>
-        <span class="results-count">Showing $quotesCount featured quotes of $quotesCount total</span>
+        <p class="section-desc" style="font-size:1.05rem; line-height:1.6; color:var(--text-secondary); font-family:var(--font-sans);">
+          $pageDesc
+        </p>
       </div>
       <div>
         <a href="../quotes.html?category=$urlCat" class="icon-btn-text highlight" style="text-decoration:none;">

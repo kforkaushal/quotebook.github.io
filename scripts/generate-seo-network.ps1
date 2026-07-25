@@ -128,7 +128,23 @@ $footerHtml = @"
           <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
           <span class="logo-title">Quotebook</span>
         </div>
-        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters.</p>
+        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters with Pixabay photography.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Home</a>
+          <a href="../quotes.html">Quotes Library</a>
+          <a href="../quotes.html?action=poster">Poster Studio</a>
+          <a href="../index.html#features">Features</a>
+        </div>
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <a href="../quotes.html?category=Wisdom+%26+Knowledge">Wisdom</a>
+          <a href="../quotes.html?category=Philosophy+%26+Thinking">Philosophy</a>
+          <a href="../quotes.html?category=Books+%26+Reading">Books</a>
+          <a href="../quotes.html?category=Motivation+%26+Inspiration">Motivation</a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -162,14 +178,14 @@ foreach ($combo in $registry) {
             } else {
                 # Birthday Quotes - show friendship, love, or age quotes depending on relationship
                 if ($combo.relationship -eq "Friend" -or $combo.relationship -eq "Best Friend") {
-                    $ok = $ok -and ($cat -eq "friendship" -or $text -match "\b(friend|friendship)\b")
+                    $ok = $ok -and ($text -match "\b(friend|friendship)\b")
                 } elseif ($combo.relationship -eq "Brother" -or $combo.relationship -eq "Sister" -or $combo.relationship -eq "Mother" -or $combo.relationship -eq "Father") {
                     $relWord = $combo.relationship.ToLower()
                     if ($relWord -eq "mother") { $relWord = "(mother|mom)" }
                     if ($relWord -eq "father") { $relWord = "(father|dad)" }
-                    $ok = $ok -and ($text -match "\b$relWord\b" -or $cat -eq "love")
+                    $ok = $ok -and ($text -match "\b$relWord\b")
                 } else {
-                    $ok = $ok -and ($cat -eq "friendship" -or $cat -eq "love")
+                    $ok = $ok -and ($text -match "\bbirthday\b")
                 }
             }
         }
@@ -193,7 +209,7 @@ foreach ($combo in $registry) {
             elseif ($relWord -eq "mother") { $relWord = "(mother|mom)" }
             elseif ($relWord -eq "father") { $relWord = "(father|dad)" }
             elseif ($relWord -eq "colleague") { $relWord = "(colleague|coworker|office|work)" }
-            $ok = $ok -and ($text -match "\b$relWord\b" -or $cat -eq "friendship" -or $cat -eq "love")
+            $ok = $ok -and ($text -match "\b$relWord\b")
         }
         
         # 3. Tone filtering
@@ -225,8 +241,8 @@ foreach ($combo in $registry) {
         continue
     }
 
-    # Select top 30 sorted by popularity score
-    $sortedQuotes = $matches | Sort-Object popularity -Descending | Select-Object -First 30
+    # Select top 30 sorted by popularity score (deduplicated)
+    $sortedQuotes = $matches | Sort-Object -Unique -Property quote | Sort-Object popularity -Descending | Select-Object -First 30
     
     $slug = $combo.slug
     $pageTitle = $combo.title
@@ -312,13 +328,24 @@ foreach ($combo in $registry) {
 
   <!-- JSON-LD Breadcrumb & Quotation Schema -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    "name": "$pageTitle",
-    "description": "$pageDesc",
-    "url": "$canonicalUrl"
-  }
+  [
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "$pageTitle",
+      "description": "$pageDesc",
+      "url": "$canonicalUrl"
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://quotebook.example.com/index.html"},
+        {"@type": "ListItem", "position": 2, "name": "Quotes", "item": "https://quotebook.example.com/quotes.html"},
+        {"@type": "ListItem", "position": 3, "name": "$pageTitle", "item": "$canonicalUrl"}
+      ]
+    }
+  ]
   </script>
 </head>
 <body class="light-theme quotes-page page-loaded">
