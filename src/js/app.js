@@ -25,7 +25,10 @@ const state = {
   speechSynth: window.speechSynthesis || null,
   dataSaver: localStorage.getItem('dataSaverEnabled') === 'true',
   searchIndex: null,
-  isSearchIndexLoading: false
+  isSearchIndexLoading: false,
+  workerSearchResults: [],
+  currentWorkerQuery: '',
+  searchWorker: null
 };
 
 // Category to Pixabay Keyword Mapping
@@ -368,6 +371,30 @@ async function loadQuotesData() {
 
         if (typeof renderCategoryPills === 'function') renderCategoryPills();
         if (typeof populateAuthorDropdown === 'function') populateAuthorDropdown();
+        
+        // Initialize Web Worker for massive global searching
+        if (window.Worker && !state.searchWorker) {
+            state.searchWorker = new Worker('src/js/searchWorker.js');
+            const files = Object.values(metadata.categories).map(c => c.file);
+            state.searchWorker.postMessage({ type: 'INIT', payload: { files } });
+            
+            state.searchWorker.onmessage = function(e) {
+                const { type, payload } = e.data;
+                if (type === 'RESULTS') {
+                    // Append new unique results
+                    payload.results.forEach(r => {
+                        if (!state.workerSearchResults.some(existing => existing.quote === r.quote)) {
+                            state.workerSearchResults.push(r);
+                        }
+                    });
+                    
+                    // If still on the same query and in global view, re-render!
+                    if (state.activeCategory === 'all' && state.searchQuery && state.searchQuery === state.currentWorkerQuery) {
+                        applyFilters(true); // true = skip triggering a new search
+                    }
+                }
+            };
+        }
       }
     } catch (err) {
       console.warn("Metadata background load notice:", err);
@@ -406,23 +433,6 @@ window.lazyLoadCategory = async function(catName) {
   }
   return false;
 };
-
-// Lazy load the global search index on first search interaction
-async function loadSearchIndex() {
-  if (state.searchIndex || state.isSearchIndexLoading) return;
-  state.isSearchIndexLoading = true;
-  try {
-    const res = await fetch('data/search_index.json');
-    if (res.ok) {
-      state.searchIndex = await res.json();
-      // Re-apply filters immediately if there's an active query waiting
-      if (state.searchQuery) applyFilters();
-    }
-  } catch (err) {
-    console.error("Failed to load search index:", err);
-  }
-  state.isSearchIndexLoading = false;
-}
 
 
 function processDataset(dataObj) {
@@ -574,7 +584,7 @@ async function fetchPixabayImages(query, perPage = 10) {
 }
 
 // 6. Filtering & Rendering Logic
-function applyFilters() {
+function applyFilters(skipWorkerTrigger = false) {
   let list = [...state.allQuotes];
 
   // Category Filter
@@ -586,29 +596,32 @@ function applyFilters() {
   if (state.searchQuery) {
     const qLower = state.searchQuery.toLowerCase();
     
-    // Global Search: if we are in 'all' category and index is available
+    // Global Search: if we are in 'all' category
     if (state.activeCategory === 'all') {
-      if (state.searchIndex) {
-        const results = state.searchIndex.filter(item => 
-          item.q.toLowerCase().includes(qLower) ||
-          item.a.toLowerCase().includes(qLower)
-        );
-        list = results.map(r => ({
-          quote: r.q,
-          author: r.a,
-          category: r.c,
-          tags: [],
-          popularity: 0
-        }));
-      } else {
-        // Trigger load and show whatever we currently have in allQuotes as a fallback
-        loadSearchIndex();
-        list = list.filter(q => 
-          q.quote.toLowerCase().includes(qLower) ||
-          q.author.toLowerCase().includes(qLower) ||
-          (q.tags && q.tags.some(t => t.toLowerCase().includes(qLower)))
-        );
+      // Trigger Web Worker if it's a new query
+      if (!skipWorkerTrigger && state.searchWorker && state.searchQuery !== state.currentWorkerQuery) {
+          state.currentWorkerQuery = state.searchQuery;
+          state.workerSearchResults = []; // reset results
+          state.searchWorker.postMessage({ type: 'SEARCH', payload: { query: qLower } });
       }
+      
+      // Filter whatever is in allQuotes instantly
+      const localMatches = list.filter(q => 
+        q.quote.toLowerCase().includes(qLower) ||
+        q.author.toLowerCase().includes(qLower) ||
+        (q.tags && q.tags.some(t => t.toLowerCase().includes(qLower)))
+      );
+      
+      // Combine local matches with streamed worker matches
+      list = [...localMatches];
+      
+      // Add worker results avoiding duplicates
+      state.workerSearchResults.forEach(wr => {
+          if (!list.some(l => l.quote === wr.quote)) {
+              list.push(wr);
+          }
+      });
+      
     } else {
       // Local Category Search
       list = list.filter(q => 
@@ -962,8 +975,28 @@ async function loadPixabayThumbs(query) {
 
 // 9. Zen Mode Slideshow
 function openZenMode() {
+  if (state.filteredQuotes.length === 0) {
+    // Attempt to scrape from DOM for static SEO pages
+    const cards = document.querySelectorAll('.quote-card');
+    if (cards.length > 0) {
+      state.filteredQuotes = Array.from(cards).map(card => {
+        const textEl = card.querySelector('.card-quote-text');
+        const authorEl = card.querySelector('.card-author');
+        const catEl = card.querySelector('.quote-category-tag');
+        
+        return {
+          quote: textEl ? textEl.textContent.replace(/^"|"$/g, '').trim() : '',
+          author: authorEl ? authorEl.textContent.replace(/^— |^- |^—|-/g, '').trim() : 'Unknown',
+          category: catEl ? catEl.textContent : 'Inspiration'
+        };
+      });
+    }
+  }
+
+  if (state.filteredQuotes.length === 0 && state.allQuotes.length === 0) return;
+
   const modal = document.getElementById('zenModal');
-  modal.classList.remove('hidden');
+  if (modal) modal.classList.remove('hidden');
   state.zenCurrentIndex = 0;
   state.zenIsPlaying = true;
   updateZenSlide();
@@ -974,8 +1007,11 @@ function restartZenTimer() {
   if (state.zenInterval) clearInterval(state.zenInterval);
   state.zenInterval = setInterval(() => {
     if (state.zenIsPlaying) {
-      state.zenCurrentIndex = (state.zenCurrentIndex + 1) % state.filteredQuotes.length;
-      updateZenSlide();
+      const list = state.filteredQuotes.length > 0 ? state.filteredQuotes : state.allQuotes;
+      if (list && list.length > 0) {
+        state.zenCurrentIndex = (state.zenCurrentIndex + 1) % list.length;
+        updateZenSlide();
+      }
     }
   }, 8000);
 }
@@ -1085,7 +1121,6 @@ function setupEventListeners() {
       state.searchQuery = e.target.value.trim();
       clearBtn.classList.toggle('active', state.searchQuery.length > 0);
       state.currentPage = 1;
-      if (state.activeCategory === 'all' && !state.searchIndex) loadSearchIndex();
       applyFilters();
     });
 
@@ -1152,13 +1187,17 @@ function setupEventListeners() {
 
   // Zen Controls
   on('zenBtnPrev', 'click', () => {
-    state.zenCurrentIndex = (state.zenCurrentIndex - 1 + state.filteredQuotes.length) % state.filteredQuotes.length;
+    const list = state.filteredQuotes.length > 0 ? state.filteredQuotes : state.allQuotes;
+    if (!list || list.length === 0) return;
+    state.zenCurrentIndex = (state.zenCurrentIndex - 1 + list.length) % list.length;
     updateZenSlide();
     restartZenTimer();
   });
 
   on('zenBtnNext', 'click', () => {
-    state.zenCurrentIndex = (state.zenCurrentIndex + 1) % state.filteredQuotes.length;
+    const list = state.filteredQuotes.length > 0 ? state.filteredQuotes : state.allQuotes;
+    if (!list || list.length === 0) return;
+    state.zenCurrentIndex = (state.zenCurrentIndex + 1) % list.length;
     updateZenSlide();
     restartZenTimer();
   });
@@ -1388,7 +1427,6 @@ function setupEventListeners() {
       state.searchQuery = val;
       if (clearBtn) clearBtn.classList.add('active');
       state.currentPage = 1;
-      if (state.activeCategory === 'all' && !state.searchIndex) loadSearchIndex();
       applyFilters();
       closeQuotesMobileMenu();
       drawerSearchInput.value = '';

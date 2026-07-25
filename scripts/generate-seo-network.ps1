@@ -1,4 +1,4 @@
-$enrichedJsonPath = "data\quotes_enriched.json"
+﻿$enrichedJsonPath = "data\quotes_enriched.json"
 $quotesDir = "quotes"
 $sitemapPath = "sitemap.xml"
 
@@ -78,25 +78,25 @@ $headHtml = @"
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="../../src/css/style.css">
 "@
 
 $headerHtml = @"
   <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo" id="brandLogo">
-        <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+      <a href="../../index.html" class="brand-logo" id="brandLogo">
+        <div class="logo-icon"><img src="../../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
           <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom & Art</span>
         </div>
       </a>
       <div class="header-actions" id="headerActions">
-        <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
+        <a href="../../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
-        <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
+        <a href="../../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
           <span>Explore Quotes</span>
         </a>
@@ -107,11 +107,11 @@ $headerHtml = @"
     </div>
     <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
       <div class="drawer-inner">
-        <a href="../index.html" class="drawer-item">
+        <a href="../../index.html" class="drawer-item">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
-        <a href="../quotes.html" class="drawer-item highlight">
+        <a href="../../quotes.html" class="drawer-item highlight">
           <i class="fa-solid fa-compass"></i>
           <span>Explore Quotes</span>
         </a>
@@ -125,7 +125,7 @@ $footerHtml = @"
     <div class="footer-container">
       <div class="footer-brand">
         <div class="brand-logo">
-          <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+          <div class="logo-icon"><img src="../../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
           <span class="logo-title">Quotebook</span>
         </div>
         <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters with Pixabay photography.</p>
@@ -133,17 +133,17 @@ $footerHtml = @"
       <div class="footer-links">
         <div class="footer-col">
           <h4>Navigation</h4>
-          <a href="../index.html">Home</a>
-          <a href="../quotes.html">Quotes Library</a>
-          <a href="../quotes.html?action=poster">Poster Studio</a>
-          <a href="../index.html#features">Features</a>
+          <a href="../../index.html">Home</a>
+          <a href="../../quotes.html">Quotes Library</a>
+          <a href="../../quotes.html?action=poster">Poster Studio</a>
+          <a href="../../index.html#features">Features</a>
         </div>
         <div class="footer-col">
           <h4>Categories</h4>
-          <a href="../quotes.html?category=Wisdom+%26+Knowledge">Wisdom</a>
-          <a href="../quotes.html?category=Philosophy+%26+Thinking">Philosophy</a>
-          <a href="../quotes.html?category=Books+%26+Reading">Books</a>
-          <a href="../quotes.html?category=Motivation+%26+Inspiration">Motivation</a>
+          <a href="../../quotes.html?category=Wisdom+%26+Knowledge">Wisdom</a>
+          <a href="../../quotes.html?category=Philosophy+%26+Thinking">Philosophy</a>
+          <a href="../../quotes.html?category=Books+%26+Reading">Books</a>
+          <a href="../../quotes.html?category=Motivation+%26+Inspiration">Motivation</a>
         </div>
       </div>
     </div>
@@ -249,7 +249,7 @@ foreach ($combo in $registry) {
     $pageDesc = $combo.desc
     $h1Text = $combo.h1
     $intentText = $combo.intentText
-    $canonicalUrl = "https://quotebook.example.com/quotes/$slug.html"
+    $canonicalUrl = "https://quotebook.example.com/quotes/$catSlug/$slug.html"
     $sitemapUrls.Add($canonicalUrl)
 
     # 1. Select random intro template
@@ -360,7 +360,7 @@ foreach ($combo in $registry) {
         </p>
       </div>
       <div style="margin-top:1rem;">
-        <a href="../quotes.html" class="icon-btn-text highlight" style="text-decoration:none;">
+        <a href="../../quotes.html" class="icon-btn-text highlight" style="text-decoration:none;">
           <i class="fa-solid fa-compass"></i> Open Interactive Library
         </a>
       </div>
@@ -439,24 +439,30 @@ foreach ($combo in $registry) {
 
   $footerHtml
 
-  <script src="../src/js/poster.js"></script>
-  <script src="../src/js/app.js"></script>
+  <script src="../../src/js/poster.js"></script>
+  <script src="../../src/js/config.js"></script>`n  <script src="../../src/js/app.js"></script>
 </body>
 </html>
 "@
 
-    $outFilePath = Join-Path $quotesDir "$slug.html"
+        $catSlug = $catName.ToLower() -replace '_', '-' -replace ' & ', '-' -replace ' ', '-' -replace '[^\w-]', ''
+    $outDir = Join-Path $quotesDir $catSlug
+    if (-not (Test-Path $outDir)) { New-Item -ItemType Directory -Path $outDir | Out-Null }
+    $outFilePath = Join-Path $outDir "$slug.html"
     [System.IO.File]::WriteAllText($outFilePath, $htmlContent, [System.Text.Encoding]::UTF8)
     $generatedCount++
 }
 
 # Add all generated category files to sitemap index
 Write-Host "Appending category static pages to sitemap index..."
-foreach ($file in Get-ChildItem -Path $quotesDir -Filter "*.html") {
-    $fileSlug = $file.BaseName
-    $canonical = "https://quotebook.example.com/quotes/$fileSlug.html"
+foreach ($dir in Get-ChildItem -Path $quotesDir -Directory) {
+    foreach ($file in Get-ChildItem -Path $dir.FullName -Filter "*.html") {
+        $fileSlug = $file.BaseName
+        $catSlugFolder = $dir.Name
+        $canonical = "https://quotebook.example.com/quotes/$catSlugFolder/$fileSlug.html"
     if (!$sitemapUrls.Contains($canonical)) {
         $sitemapUrls.Add($canonical)
+    }
     }
 }
 
