@@ -386,6 +386,7 @@ function processDataset(dataObj) {
 // 2. Render Category Navigation Pills
 function renderCategoryPills() {
   const container = document.getElementById('categoryPills');
+  if (!container) return;
   const catNames = Object.keys(state.categoriesMap);
   
   let html = `<button class="category-pill ${state.activeCategory === 'all' ? 'active' : ''}" data-category="all">
@@ -417,6 +418,7 @@ function renderCategoryPills() {
 // 3. Populate Authors Filter Dropdown
 function populateAuthorDropdown() {
   const select = document.getElementById('authorSelect');
+  if (!select) return;
   const authorCounts = {};
   
   state.allQuotes.forEach(q => {
@@ -440,6 +442,9 @@ function populateAuthorDropdown() {
 
 // 4. Hero Featured Spotlight
 async function selectHeroQuote(quote = null) {
+  const textEl = document.getElementById('heroQuoteText');
+  if (!textEl) return;
+
   if (!quote) {
     // Pick a high popularity quote
     const popularQuotes = state.allQuotes.filter(q => q.popularity > 0.02);
@@ -452,7 +457,7 @@ async function selectHeroQuote(quote = null) {
   const h = state.heroQuote;
   if (!h) return;
 
-  document.getElementById('heroQuoteText').textContent = `"${h.quote}"`;
+  textEl.textContent = `"${h.quote}"`;
   document.getElementById('heroAuthorTag').textContent = `— ${h.author}`;
   document.getElementById('heroCategoryTag').innerHTML = `<i class="fa-solid fa-sparkles"></i> ${h.category}`;
 
@@ -558,6 +563,8 @@ function renderQuotesGrid() {
   const title = document.getElementById('currentSectionTitle');
   const count = document.getElementById('resultsCount');
 
+  if (!grid || !title || !count) return;
+
   // Update Section Title
   title.textContent = state.activeCategory === 'all' ? 'Featured Quotes' : state.activeCategory;
   count.textContent = `Showing ${Math.min(state.currentPage * state.pageSize, state.filteredQuotes.length)} of ${state.filteredQuotes.length.toLocaleString()} quotes`;
@@ -596,9 +603,7 @@ function renderQuotesGrid() {
           </div>
           <div class="card-actions">
             <button class="mini-action-btn card-btn-copy" title="Copy Text"><i class="fa-regular fa-copy"></i></button>
-            <button class="mini-action-btn card-btn-speak" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
             <button class="mini-action-btn card-btn-bookmark" title="Bookmark"><i class="${heartIcon}"></i></button>
-            <button class="mini-action-btn card-btn-poster" title="Create Poster"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
           </div>
         </div>
       </article>
@@ -619,9 +624,7 @@ function renderQuotesGrid() {
     const qObj = visibleQuotes[idx];
 
     card.querySelector('.card-btn-copy').addEventListener('click', () => copyToClipboard(qObj.quote, qObj.author));
-    card.querySelector('.card-btn-speak').addEventListener('click', () => speakQuote(qObj.quote, qObj.author));
     card.querySelector('.card-btn-bookmark').addEventListener('click', (e) => toggleBookmark(qObj, e.currentTarget));
-    card.querySelector('.card-btn-poster').addEventListener('click', () => openPosterStudio(qObj));
   });
 
   // Trigger staggered reveals for newly loaded/rendered cards
@@ -1592,9 +1595,7 @@ function bindStaticCardListeners() {
     };
 
     const copyBtn = card.querySelector('.card-btn-copy');
-    const speakBtn = card.querySelector('.card-btn-speak');
     const bookmarkBtn = card.querySelector('.card-btn-bookmark');
-    const posterBtn = card.querySelector('.card-btn-poster');
 
     if (copyBtn) {
       copyBtn.addEventListener('click', (e) => {
@@ -1602,22 +1603,10 @@ function bindStaticCardListeners() {
         copyToClipboard(quoteText, quoteAuthor);
       });
     }
-    if (speakBtn) {
-      speakBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        speakQuote(quoteText, quoteAuthor);
-      });
-    }
     if (bookmarkBtn) {
       bookmarkBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         toggleBookmark(quoteObj, e.currentTarget);
-      });
-    }
-    if (posterBtn) {
-      posterBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        openPosterStudio(quoteObj);
       });
     }
   });

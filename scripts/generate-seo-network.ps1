@@ -284,12 +284,6 @@ foreach ($combo in $registry) {
           <div class="card-tags">
             $tagsHtml
           </div>
-          <div class="card-actions">
-            <button class="mini-action-btn card-btn-copy" title="Copy Text"><i class="fa-regular fa-copy"></i></button>
-            <button class="mini-action-btn card-btn-speak" title="Read Aloud"><i class="fa-solid fa-volume-high"></i></button>
-            <button class="mini-action-btn card-btn-bookmark" title="Bookmark"><i class="fa-regular fa-heart"></i></button>
-            <button class="mini-action-btn card-btn-poster" title="Create Poster"><i class="fa-solid fa-wand-magic-sparkles"></i></button>
-          </div>
         </div>
       </article>
 "@
