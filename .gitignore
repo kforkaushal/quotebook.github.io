@@ -5,3 +5,4 @@ dist/
 # Ignored large data files
 data/quotes_8000_plus.json
 data/quotes_enriched.json
+src/js/config.js

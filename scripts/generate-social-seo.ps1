@@ -121,8 +121,7 @@ foreach ($catProp in $categories.psobject.properties) {
     
     foreach ($subProp in $catData.subcategories.psobject.properties) {
         $subName = $subProp.Name
-        $quotesList = $subProp.Value | Sort-Object -Unique -Property quote
-        
+        $quotesList = $subProp.Value | Sort-Object -Unique
         if ($quotesList.Count -lt 5) { continue }
         
         $cleanCat = ToTitleCase($catName)

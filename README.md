@@ -58,7 +58,7 @@ npx http-server ./ -p 8080
 ## 🎨 Technologies Used
 
 - **Frontend**: HTML5, CSS3 (Vanilla CSS variables, glassmorphism, flexbox/grid), ES6+ JavaScript.
-- **API Integration**: Pixabay Photographic Search API (`key: YOUR_PIXABAY_API_KEY_HERE`).
+- **API Integration**: Pixabay Photographic Search API (`key: YOUR_PIXABAY_API_KEY_HERE`). *Note: To enable background photography, create a file at `src/js/config.js` containing `window.CONFIG = { PIXABAY_API_KEY: "your_key" };`.*
 - **Canvas Engine**: Native HTML5 Canvas 2D rendering API.
 - **Typography**: Google Fonts (*Cormorant Garamond*, *Playfair Display*, *Outfit*, *Caveat*).
 - **Icons**: Font Awesome 6.

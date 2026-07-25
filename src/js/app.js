@@ -18,12 +18,14 @@ const state = {
   bookmarks: JSON.parse(localStorage.getItem('qb_bookmarks') || '[]'),
   heroQuote: null,
   pixabayCache: {},
-  pixabayApiKey: 'YOUR_PIXABAY_API_KEY_HERE',
+  pixabayApiKey: (window.CONFIG && window.CONFIG.PIXABAY_API_KEY) || 'YOUR_PIXABAY_API_KEY_HERE',
   zenInterval: null,
   zenIsPlaying: false,
   zenCurrentIndex: 0,
   speechSynth: window.speechSynthesis || null,
-  dataSaver: localStorage.getItem('dataSaverEnabled') === 'true'
+  dataSaver: localStorage.getItem('dataSaverEnabled') === 'true',
+  searchIndex: null,
+  isSearchIndexLoading: false
 };
 
 // Category to Pixabay Keyword Mapping
@@ -400,10 +402,28 @@ window.lazyLoadCategory = async function(catName) {
       return true;
     }
   } catch (err) {
-    console.error(`Failed to lazy load category ${catName}:`, err);
+    console.error("Failed to lazy load category:", err);
   }
   return false;
 };
+
+// Lazy load the global search index on first search interaction
+async function loadSearchIndex() {
+  if (state.searchIndex || state.isSearchIndexLoading) return;
+  state.isSearchIndexLoading = true;
+  try {
+    const res = await fetch('data/search_index.json');
+    if (res.ok) {
+      state.searchIndex = await res.json();
+      // Re-apply filters immediately if there's an active query waiting
+      if (state.searchQuery) applyFilters();
+    }
+  } catch (err) {
+    console.error("Failed to load search index:", err);
+  }
+  state.isSearchIndexLoading = false;
+}
+
 
 function processDataset(dataObj) {
   state.quotesData = dataObj;
@@ -565,11 +585,38 @@ function applyFilters() {
   // Search Input Query Filter
   if (state.searchQuery) {
     const qLower = state.searchQuery.toLowerCase();
-    list = list.filter(q => 
-      q.quote.toLowerCase().includes(qLower) ||
-      q.author.toLowerCase().includes(qLower) ||
-      q.tags.some(t => t.toLowerCase().includes(qLower))
-    );
+    
+    // Global Search: if we are in 'all' category and index is available
+    if (state.activeCategory === 'all') {
+      if (state.searchIndex) {
+        const results = state.searchIndex.filter(item => 
+          item.q.toLowerCase().includes(qLower) ||
+          item.a.toLowerCase().includes(qLower)
+        );
+        list = results.map(r => ({
+          quote: r.q,
+          author: r.a,
+          category: r.c,
+          tags: [],
+          popularity: 0
+        }));
+      } else {
+        // Trigger load and show whatever we currently have in allQuotes as a fallback
+        loadSearchIndex();
+        list = list.filter(q => 
+          q.quote.toLowerCase().includes(qLower) ||
+          q.author.toLowerCase().includes(qLower) ||
+          (q.tags && q.tags.some(t => t.toLowerCase().includes(qLower)))
+        );
+      }
+    } else {
+      // Local Category Search
+      list = list.filter(q => 
+        q.quote.toLowerCase().includes(qLower) ||
+        q.author.toLowerCase().includes(qLower) ||
+        (q.tags && q.tags.some(t => t.toLowerCase().includes(qLower)))
+      );
+    }
   }
 
   // Author Filter
@@ -1038,6 +1085,7 @@ function setupEventListeners() {
       state.searchQuery = e.target.value.trim();
       clearBtn.classList.toggle('active', state.searchQuery.length > 0);
       state.currentPage = 1;
+      if (state.activeCategory === 'all' && !state.searchIndex) loadSearchIndex();
       applyFilters();
     });
 
@@ -1340,6 +1388,7 @@ function setupEventListeners() {
       state.searchQuery = val;
       if (clearBtn) clearBtn.classList.add('active');
       state.currentPage = 1;
+      if (state.activeCategory === 'all' && !state.searchIndex) loadSearchIndex();
       applyFilters();
       closeQuotesMobileMenu();
       drawerSearchInput.value = '';
