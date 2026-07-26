@@ -583,7 +583,11 @@ async function fetchPixabayImages(query, perPage = 10) {
   if (state.dataSaver) {
     return []; // Disable API request in Lite Mode to save user bandwidth
   }
-  const cleanQuery = query.toLowerCase().replace(/[^a-z0-9 ]/g, '').trim();
+  
+  // Use first 2 words for maximum Pixabay search hits
+  const words = (query || '').toLowerCase().replace(/[^a-z0-9 ]/g, '').trim().split(/\s+/).filter(Boolean);
+  const cleanQuery = words.slice(0, 2).join(' ') || 'nature';
+
   if (state.pixabayCache[cleanQuery]) {
     return state.pixabayCache[cleanQuery];
   }
@@ -591,9 +595,20 @@ async function fetchPixabayImages(query, perPage = 10) {
   try {
     const url = `https://pixabay.com/api/?key=${state.pixabayApiKey}&q=${encodeURIComponent(cleanQuery)}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error('Pixabay API error');
+    if (!res.ok) throw new Error(`Pixabay API error HTTP ${res.status}`);
     const data = await res.json();
-    const hits = data.hits || [];
+    let hits = data.hits || [];
+    
+    // If no hits for specific query, fallback to scenic nature photography
+    if (hits.length === 0 && cleanQuery !== 'nature') {
+      const fallbackUrl = `https://pixabay.com/api/?key=${state.pixabayApiKey}&q=nature&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}`;
+      const fbRes = await fetch(fallbackUrl);
+      if (fbRes.ok) {
+        const fbData = await fbRes.json();
+        hits = fbData.hits || [];
+      }
+    }
+
     state.pixabayCache[cleanQuery] = hits;
     return hits;
   } catch (err) {
