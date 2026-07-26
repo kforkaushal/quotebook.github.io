@@ -59,7 +59,7 @@ const headHtml = `
 const headerHtml = `
   <header class="app-header">
     <div class="header-container">
-      <a href="../index.html" class="brand-logo">
+      <a href="../index" class="brand-logo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
@@ -71,11 +71,11 @@ const headerHtml = `
           <i class="fa-solid fa-leaf"></i>
           <span>Lite Mode: <strong class="lite-status">Off</strong></span>
         </button>
-        <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
+        <a href="../index" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>
         </a>
-        <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
+        <a href="../quotes" class="icon-btn-text highlight" title="Explore Quotes">
           <i class="fa-solid fa-compass"></i>
           <span>Explore</span>
         </a>
@@ -178,7 +178,7 @@ Object.keys(categories).forEach(catName => {
         <span class="results-count">Showing ${staticQuotes.length} featured quotes of ${quotes.length} total</span>
       </div>
       <div>
-        <a href="../quotes.html?category=${encodeURIComponent(catName)}" class="icon-btn-text highlight" style="text-decoration:none;">
+        <a href="../quotes?category=${encodeURIComponent(catName)}" class="icon-btn-text highlight" style="text-decoration:none;">
           <i class="fa-solid fa-compass"></i> Open Interactive Library
         </a>
       </div>
@@ -190,7 +190,7 @@ Object.keys(categories).forEach(catName => {
       </div>
       
       <div class="load-more-container">
-        <a href="../quotes.html?category=${encodeURIComponent(catName)}" class="btn-load-more" style="text-decoration:none;">
+        <a href="../quotes?category=${encodeURIComponent(catName)}" class="btn-load-more" style="text-decoration:none;">
           <span>Explore All ${quotes.length} Quotes in Library</span>
           <i class="fa-solid fa-arrow-right"></i>
         </a>
@@ -304,7 +304,7 @@ sortedAuthors.forEach(author => {
         <span class="results-count">Showing ${staticQuotes.length} featured quotes of ${quotes.length} total</span>
       </div>
       <div>
-        <a href="../quotes.html?author=${encodeURIComponent(author)}" class="icon-btn-text highlight" style="text-decoration:none;">
+        <a href="../quotes?author=${encodeURIComponent(author)}" class="icon-btn-text highlight" style="text-decoration:none;">
           <i class="fa-solid fa-compass"></i> Open Interactive Library
         </a>
       </div>
@@ -316,7 +316,7 @@ sortedAuthors.forEach(author => {
       </div>
       
       <div class="load-more-container">
-        <a href="../quotes.html?author=${encodeURIComponent(author)}" class="btn-load-more" style="text-decoration:none;">
+        <a href="../quotes?author=${encodeURIComponent(author)}" class="btn-load-more" style="text-decoration:none;">
           <span>Explore All ${quotes.length} Quotes in Library</span>
           <i class="fa-solid fa-arrow-right"></i>
         </a>

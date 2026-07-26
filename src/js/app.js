@@ -1,3 +1,12 @@
+// Auto-redirect any lingering .html visits to the clean URL — GitHub Pages
+// has no server-side 301, so this is the closest equivalent for real visitors.
+(function () {
+  if (window.location.pathname.endsWith('.html')) {
+    const clean = window.location.pathname.replace(/\.html$/, '') + window.location.search + window.location.hash;
+    window.location.replace(clean);
+  }
+})();
+
 /**
  * QUOTEBOOK - Main Application Logic
  * Integrates 39,000+ quotes JSON data, Pixabay API photography, Web Speech synthesis, and Poster Studio.
@@ -229,7 +238,7 @@ function setupTodaysQuotesListeners() {
       const q = e.currentTarget.dataset.quote;
       const a = e.currentTarget.dataset.author;
       const c = e.currentTarget.dataset.cat;
-      window.location.href = `quotes.html?action=poster&quote=${encodeURIComponent(q)}&author=${encodeURIComponent(a)}&category=${encodeURIComponent(c)}`;
+      window.location.href = `quotes?action=poster&quote=${encodeURIComponent(q)}&author=${encodeURIComponent(a)}&category=${encodeURIComponent(c)}`;
     });
   });
 }
@@ -1728,7 +1737,7 @@ function updateSEO(pageTitle, pageDesc, categoryName = null) {
       "@type": "SearchAction",
       "target": {
         "@type": "EntryPoint",
-        "urlTemplate": `${window.location.origin}/quotes.html?search={search_term_string}`
+        "urlTemplate": `${window.location.origin}/quotes?search={search_term_string}`
       },
       "query-input": "required name=search_term_string"
     };
@@ -1740,13 +1749,13 @@ function updateSEO(pageTitle, pageDesc, categoryName = null) {
           "@type": "ListItem",
           "position": 1,
           "name": "Home",
-          "item": `${window.location.origin}/index.html`
+          "item": `${window.location.origin}/`
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Explore",
-          "item": `${window.location.origin}/quotes.html`
+          "item": `${window.location.origin}/quotes`
         },
         {
           "@type": "ListItem",
