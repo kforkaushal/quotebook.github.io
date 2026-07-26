@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7WSN8P37J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-P7WSN8P37J');
+  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Quotebook</title>
+  <meta name="description"
+    content="Get in touch with the Quotebook team for feedback, support, or partnership inquiries.">
+
+  <!-- Canonical & Social Meta -->
+  <link rel="canonical" href="https://quotebook.me/contact.html">
+  <meta property="og:title" content="Contact Us — Quotebook">
+  <meta property="og:description"
+    content="Get in touch with the Quotebook team for feedback, support, or partnership inquiries.">
+  <meta property="og:url" content="https://quotebook.me/contact.html">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://quotebook.me/data/img/quotebook-index.jpg">
+  <meta property="og:image:secure_url" content="https://quotebook.me/data/img/quotebook-index.jpg">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact Us — Quotebook">
+  <meta name="twitter:description"
+    content="Get in touch with the Quotebook team for feedback, support, or partnership inquiries.">
+  <meta name="twitter:image" content="https://quotebook.me/data/img/quotebook-index.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap"
+    rel="stylesheet">
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="data/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="data/img/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="data/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="data/img/android-chrome-192x192.png">
+  <link rel="icon" type="image/png" sizes="512x512" href="data/img/android-chrome-512x512.png">
+  <style>
+    .page-content-wrapper {
+      max-width: 800px;
+      margin: 120px auto 60px;
+      padding: 0 2rem;
+      color: var(--text-primary);
+    }
+    
+    .page-title {
+      font-family: var(--font-serif);
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent-primary);
+      text-align: center;
+    }
+    
+    .page-subtitle {
+      text-align: center;
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 3rem;
+    }
+    
+    .contact-form {
+      background-color: var(--surface-card);
+      padding: 2.5rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      border: 1px solid var(--border-light);
+    }
+    
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: var(--text-primary);
+    }
+    
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 1rem;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      background-color: var(--bg-main);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(184, 151, 126, 0.2);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+    
+    .btn-submit {
+      width: 100%;
+      padding: 1rem;
+      background-color: var(--accent-primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: var(--font-sans);
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    
+    .btn-submit:hover {
+      background-color: var(--accent-primary-hover);
+      transform: translateY(-2px);
+    }
+
+    .contact-info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-top: 4rem;
+    }
+
+    .contact-info-card {
+      text-align: center;
+      padding: 2rem;
+      background: var(--surface-card);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+    }
+
+    .contact-info-card i {
+      font-size: 2rem;
+      color: var(--accent-primary);
+      margin-bottom: 1rem;
+    }
+
+    .contact-info-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      font-family: var(--font-serif);
+    }
+    
+    @media (max-width: 768px) {
+      .header-actions { display: none !important; }
+      .page-content-wrapper { margin: 90px auto 40px; padding: 0 1.25rem; }
+      .page-title { font-size: 2.2rem; }
+      .contact-form { padding: 1.5rem 1rem; }
+      .contact-form h2 { font-size: 1.8rem !important; }
+      .contact-form p { font-size: 1.05rem !important; }
+      .btn-submit { padding: 0.8rem 1.5rem !important; font-size: 1.05rem !important; }
+      .contact-info-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+      .contact-info-card { padding: 1.5rem; }
+    }
+  </style>
+</head>
+
+<body class="light-theme page-loaded">
+
+
+
+  <!-- App Header -->
+  <header class="app-header">
+
+    <div class="header-container">
+      <a href="index.html" class="brand-logo">
+        <div class="logo-icon"><img src="data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+        <div class="logo-text">
+          <span class="logo-title">Quotebook</span>
+          <span class="logo-subtitle">Timeless Wisdom & Art</span>
+        </div>
+      </a>
+
+      <!-- Burger Menu Toggle Button for Mobile -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+
+      <nav class="home-nav-links" id="homeNavLinks">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="quotes.html" class="nav-link">Explore Quotes</a>
+        <a href="poster.html" class="nav-link">Poster Studio</a>
+        <a href="about.html" class="nav-link">About</a>
+        <a href="contact.html" class="nav-link active">Contact</a>
+        <a href="quotes.html" class="nav-link mobile-only-cta">Explore 1 Million+ Quotes</a>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lite-mode-toggle-btn" id="toggleDataSaver" title="Toggle Lite Mode (Saves Internet)">
+          <i class="fa-solid fa-leaf"></i>
+          <span>Lite Mode: <strong class="lite-status">Off</strong></span>
+        </button>
+        <a href="quotes.html" class="cta-header-btn">
+          <span>Explore 1 Million+ Quotes</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-content-wrapper fade-in-up">
+    <h1 class="page-title">Get in Touch</h1>
+    <p class="page-subtitle">Have a question, feedback, or a quote suggestion? We'd love to hear from you.</p>
+    
+    <div class="contact-form" style="text-align: center;">
+      <h2 style="font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 1rem;">Let's Connect!</h2>
+      <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-muted); max-width: 600px; margin-left: auto; margin-right: auto; line-height: 1.6;">
+        Whether you want to suggest a new quote, report an issue, or just say hello, we are always excited to hear from you. Click the button below to open your email client, or copy our address directly.
+      </p>
+      
+      <p style="font-size: 1.3rem; margin-bottom: 2rem;">
+        <strong>Direct Email:</strong> <a href="mailto:info.mraaglave@gmail.com" style="color: var(--accent-primary); font-weight: 600;">info.mraaglave@gmail.com</a>
+      </p>
+      
+      <a href="mailto:info.mraaglave@gmail.com" class="btn-submit" style="display: inline-block; width: auto; padding: 1rem 3rem; text-decoration: none; background-color: var(--accent-primary); color: #ffffff !important; border-radius: 8px; font-weight: bold; font-size: 1.2rem; margin-top: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        <i class="fa-solid fa-paper-plane" style="margin-right: 0.5rem; color: #ffffff;"></i> Click Here to Mail Us
+      </a>
+    </div>
+
+    <div class="contact-info-grid">
+      <div class="contact-info-card">
+        <i class="fa-solid fa-envelope"></i>
+        <h3>Email</h3>
+        <p>info.mraaglave@gmail.com</p>
+      </div>
+      <div class="contact-info-card">
+        <i class="fa-solid fa-location-dot"></i>
+        <h3>Location</h3>
+        <p>Global (Remote)</p>
+      </div>
+      <div class="contact-info-card">
+        <i class="fa-solid fa-clock"></i>
+        <h3>Response Time</h3>
+        <p>Within 24-48 hours</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="logo-icon"><img src="data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+          <span class="logo-title">Quotebook</span>
+        </div>
+        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters
+          with Pixabay photography.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="index.html">Home</a>
+          <a href="quotes.html">Quotes Library</a>
+          <a href="quotes.html?action=poster">Poster Studio</a>
+          <a href="about.html">About Us</a>
+          <a href="contact.html">Contact</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <a href="quotes.html?category=Wisdom+%26+Knowledge">Wisdom</a>
+          <a href="quotes.html?category=Philosophy+%26+Thinking">Philosophy</a>
+          <a href="quotes.html?category=Books+%26+Reading">Books</a>
+          <a href="quotes.html?category=Motivation+%26+Inspiration">Motivation</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
+    </div>
+  </footer>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Scripts -->
+  <script src="src/js/config.js"></script>
+  <script src="src/js/app.js"></script>
+</body>
+
+</html>
