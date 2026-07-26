@@ -45,11 +45,22 @@
       </a>
 
       <div class="header-search" id="headerSearch">
-        <div class="search-input-wrapper">
+        <div class="search-input-wrapper" id="searchWrapper">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
           <input type="text" id="searchInput" placeholder="Search 39,000+ quotes by author, topic, or keyword..." autocomplete="off">
           <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
           <button class="close-search-btn" id="closeSearchBtn" aria-label="Close Search"><i class="fa-solid fa-arrow-left"></i></button>
+          <!-- Page Suggestion Dropdown -->
+          <div class="page-suggestions-dropdown" id="pageSuggestionsDropdown" role="listbox" aria-label="Page suggestions">
+            <div class="suggestions-header">
+              <i class="fa-solid fa-compass"></i>
+              <span>Jump to a collection</span>
+            </div>
+            <ul class="suggestions-list" id="suggestionsList"></ul>
+            <div class="suggestions-footer" id="suggestionsFooter">
+              <span id="suggestionsCount"></span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -88,11 +99,23 @@
     <!-- Mobile slide-down nav drawer -->
     <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
       <div class="drawer-inner">
-        <div class="drawer-search-box">
+        <div class="drawer-search-box" id="drawerSearchWrapper">
           <i class="fa-solid fa-magnifying-glass drawer-search-icon"></i>
           <input type="text" id="drawerSearchInput" placeholder="Search 39,000+ quotes..." autocomplete="off">
           <button id="drawerSearchSubmit" aria-label="Search"><i class="fa-solid fa-arrow-right"></i></button>
+          <!-- Drawer Page Suggestion Dropdown -->
+          <div class="page-suggestions-dropdown" id="drawerSuggestionsDropdown" role="listbox" aria-label="Page suggestions">
+            <div class="suggestions-header">
+              <i class="fa-solid fa-compass"></i>
+              <span>Jump to a collection</span>
+            </div>
+            <ul class="suggestions-list" id="drawerSuggestionsList"></ul>
+            <div class="suggestions-footer" id="drawerSuggestionsFooter">
+              <span id="drawerSuggestionsCount"></span>
+            </div>
+          </div>
         </div>
+
         <a href="index.html" class="drawer-item">
           <i class="fa-solid fa-house"></i>
           <span>Home</span>

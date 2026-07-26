@@ -1,44 +1,49 @@
-$ErrorActionPreference = "Stop"
+# generate-search-index.ps1
+# Builds data/search-index.json from all SEO HTML files in the quotes/ folder
+# Each entry: { title, path, category, keywords[] }
 
-Write-Host "Reading quotes_8000_plus.json..."
-$inputFile = Join-Path $PSScriptRoot "..\data\quotes_8000_plus.json"
-$dataset = Get-Content $inputFile | ConvertFrom-Json
+$quotesDir = "quotes"
+$outputPath = "data/search-index.json"
 
-$allSearchData = [System.Collections.Generic.List[hashtable]]::new()
-$uniqueQuotes = @{}
+Write-Host "Scanning SEO pages..."
 
-foreach ($catProp in $dataset.categories.psobject.properties) {
-    $catName = $catProp.Name
-    if ($catProp.Value.quotes) {
-        foreach ($q in $catProp.Value.quotes) {
-            $qText = ""
-            $qAuthor = "Unknown"
-            if ($q -is [string]) {
-                $qText = $q
-            } else {
-                $qText = $q.quote
-                if ($q.author) { $qAuthor = $q.author }
-            }
-            
-            if (![string]::IsNullOrWhiteSpace($qText)) {
-                $hash = $qText.Trim().ToLower()
-                if (-not $uniqueQuotes.ContainsKey($hash)) {
-                    $uniqueQuotes[$hash] = $true
-                    
-                    $allSearchData.Add(@{
-                        q = $qText
-                        a = $qAuthor
-                        c = $catName
-                    })
-                }
-            }
-        }
+$index = [System.Collections.Generic.List[PSObject]]::new()
+
+$files = Get-ChildItem -Path $quotesDir -Filter "*.html" -Recurse
+
+foreach ($file in $files) {
+    $content = Get-Content $file.FullName -Raw
+    
+    # Extract <title>
+    $titleMatch = [regex]::Match($content, '<title>([^<]+)</title>')
+    if (-not $titleMatch.Success) { continue }
+    $title = $titleMatch.Groups[1].Value.Trim()
+    
+    # Remove common suffix noise like "(2026)" and "- Quotebook"  
+    $cleanTitle = $title -replace '\s*\(\d{4}\)\s*', '' -replace '\s*-\s*Quotebook\s*', '' -replace '^\d+\+\s*', ''
+    $cleanTitle = $cleanTitle.Trim()
+    
+    # Build relative path from workspace root
+    $relativePath = $file.FullName.Replace((Get-Location).Path + "\", "").Replace("\", "/")
+    
+    # Derive category from folder name
+    $category = $file.Directory.Name
+    
+    # Build keyword array from slug words
+    $slug = $file.BaseName
+    $keywords = $slug -split '-' | Where-Object { $_.Length -gt 2 }
+    
+    $entry = [PSCustomObject]@{
+        title    = $cleanTitle
+        path     = $relativePath
+        category = $category
+        keywords = $keywords
     }
+    
+    $index.Add($entry)
 }
 
-Write-Host "Total unique quotes for search index: $($allSearchData.Count)"
+$indexJson = $index | ConvertTo-Json -Depth 3 -Compress
+[System.IO.File]::WriteAllText($outputPath, $indexJson, [System.Text.Encoding]::UTF8)
 
-$outPath = Join-Path $PSScriptRoot "..\data\search_index.json"
-$allSearchData | ConvertTo-Json -Compress | Out-File -FilePath $outPath -Encoding UTF8
-
-Write-Host "Saved search index to $outPath"
+Write-Host "Generated search index with $($index.Count) entries -> $outputPath"
