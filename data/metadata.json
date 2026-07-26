@@ -1,3 +1,232 @@
-version https://git-lfs.github.com/spec/v1
-oid sha256:4c455cd714aed0cf1af35431d703a07bb1567c905b98b0bfeb8d0177afd9d7d4
-size 16397
+﻿{
+    "categories":  {
+                       "Time \u0026 Patience":  {
+                                                    "count":  723,
+                                                    "file":  "data/category_quotes/time-patience.json"
+                                                },
+                       "Happiness \u0026 Joy":  {
+                                                    "count":  2494,
+                                                    "file":  "data/category_quotes/happiness-joy.json"
+                                                },
+                       "Family \u0026 Parenting":  {
+                                                       "count":  349,
+                                                       "file":  "data/category_quotes/family-parenting.json"
+                                                   },
+                       "Friendship \u0026 Companionship":  {
+                                                               "count":  1003,
+                                                               "file":  "data/category_quotes/friendship-companionship.json"
+                                                           },
+                       "Famous Quotes":  {
+                                             "count":  1219,
+                                             "file":  "data/category_quotes/famous-quotes.json"
+                                         },
+                       "Power \u0026 Leadership":  {
+                                                       "count":  370,
+                                                       "file":  "data/category_quotes/power-leadership.json"
+                                                   },
+                       "Dreams \u0026 Aspirations":  {
+                                                         "count":  519,
+                                                         "file":  "data/category_quotes/dreams-aspirations.json"
+                                                     },
+                       "Faith \u0026 Spirituality":  {
+                                                         "count":  4286,
+                                                         "file":  "data/category_quotes/faith-spirituality.json"
+                                                     },
+                       "Humor \u0026 Wit":  {
+                                                "count":  6166,
+                                                "file":  "data/category_quotes/humor-wit.json"
+                                            },
+                       "Failure \u0026 Resilience":  {
+                                                         "count":  323,
+                                                         "file":  "data/category_quotes/failure-resilience.json"
+                                                     },
+                       "Hope \u0026 Optimism":  {
+                                                    "count":  3247,
+                                                    "file":  "data/category_quotes/hope-optimism.json"
+                                                },
+                       "Purpose \u0026 Meaning":  {
+                                                      "count":  1198,
+                                                      "file":  "data/category_quotes/purpose-meaning.json"
+                                                  },
+                       "Peace \u0026 Harmony":  {
+                                                    "count":  351,
+                                                    "file":  "data/category_quotes/peace-harmony.json"
+                                                },
+                       "Death \u0026 Mortality":  {
+                                                      "count":  2041,
+                                                      "file":  "data/category_quotes/death-mortality.json"
+                                                  },
+                       "Wisdom \u0026 Knowledge":  {
+                                                       "count":  3040,
+                                                       "file":  "data/category_quotes/wisdom-knowledge.json"
+                                                   },
+                       "Courage \u0026 Bravery":  {
+                                                      "count":  267,
+                                                      "file":  "data/category_quotes/courage-bravery.json"
+                                                  },
+                       "War \u0026 Conflict":  {
+                                                   "count":  201,
+                                                   "file":  "data/category_quotes/war-conflict.json"
+                                               },
+                       "Fear \u0026 Courage":  {
+                                                   "count":  319,
+                                                   "file":  "data/category_quotes/fear-courage.json"
+                                               },
+                       "Books \u0026 Reading":  {
+                                                    "count":  1160,
+                                                    "file":  "data/category_quotes/books-reading.json"
+                                                },
+                       "Success \u0026 Achievement":  {
+                                                          "count":  2128,
+                                                          "file":  "data/category_quotes/success-achievement.json"
+                                                      },
+                       "Music \u0026 Art":  {
+                                                "count":  373,
+                                                "file":  "data/category_quotes/music-art.json"
+                                            },
+                       "Equality \u0026 Justice":  {
+                                                       "count":  89,
+                                                       "file":  "data/category_quotes/equality-justice.json"
+                                                   },
+                       "Poetry \u0026 Arts":  {
+                                                  "count":  2994,
+                                                  "file":  "data/category_quotes/poetry-arts.json"
+                                              },
+                       "Philosophy \u0026 Thinking":  {
+                                                          "count":  4231,
+                                                          "file":  "data/category_quotes/philosophy-thinking.json"
+                                                      },
+                       "Work \u0026 Career":  {
+                                                  "count":  417,
+                                                  "file":  "data/category_quotes/work-career.json"
+                                              },
+                       "Science \u0026 Discovery":  {
+                                                        "count":  993,
+                                                        "file":  "data/category_quotes/science-discovery.json"
+                                                    },
+                       "Age \u0026 Aging":  {
+                                                "count":  190,
+                                                "file":  "data/category_quotes/age-aging.json"
+                                            },
+                       "Truth \u0026 Honesty":  {
+                                                    "count":  2698,
+                                                    "file":  "data/category_quotes/truth-honesty.json"
+                                                },
+                       "Gratitude \u0026 Thankfulness":  {
+                                                             "count":  85,
+                                                             "file":  "data/category_quotes/gratitude-thankfulness.json"
+                                                         },
+                       "Freedom \u0026 Liberty":  {
+                                                      "count":  282,
+                                                      "file":  "data/category_quotes/freedom-liberty.json"
+                                                  },
+                       "Ambition \u0026 Goals":  {
+                                                     "count":  69,
+                                                     "file":  "data/category_quotes/ambition-goals.json"
+                                                 },
+                       "Character \u0026 Integrity":  {
+                                                          "count":  121,
+                                                          "file":  "data/category_quotes/character-integrity.json"
+                                                      },
+                       "Technology \u0026 Innovation":  {
+                                                            "count":  66,
+                                                            "file":  "data/category_quotes/technology-innovation.json"
+                                                        },
+                       "Kindness \u0026 Compassion":  {
+                                                          "count":  188,
+                                                          "file":  "data/category_quotes/kindness-compassion.json"
+                                                      },
+                       "Strength \u0026 Resilience":  {
+                                                          "count":  199,
+                                                          "file":  "data/category_quotes/strength-resilience.json"
+                                                      },
+                       "Life \u0026 Living":  {
+                                                  "count":  6922,
+                                                  "file":  "data/category_quotes/life-living.json"
+                                              },
+                       "Patience \u0026 Perseverance":  {
+                                                            "count":  90,
+                                                            "file":  "data/category_quotes/patience-perseverance.json"
+                                                        },
+                       "General":  {
+                                       "count":  3096,
+                                       "file":  "data/category_quotes/general.json"
+                                   },
+                       "Money \u0026 Wealth":  {
+                                                   "count":  459,
+                                                   "file":  "data/category_quotes/money-wealth.json"
+                                               },
+                       "Simplicity \u0026 Minimalism":  {
+                                                            "count":  60,
+                                                            "file":  "data/category_quotes/simplicity-minimalism.json"
+                                                        },
+                       "Change \u0026 Growth":  {
+                                                    "count":  337,
+                                                    "file":  "data/category_quotes/change-growth.json"
+                                                },
+                       "Past \u0026 Memory":  {
+                                                  "count":  161,
+                                                  "file":  "data/category_quotes/past-memory.json"
+                                              },
+                       "Nature \u0026 Environment":  {
+                                                         "count":  295,
+                                                         "file":  "data/category_quotes/nature-environment.json"
+                                                     },
+                       "Education \u0026 Learning":  {
+                                                         "count":  1237,
+                                                         "file":  "data/category_quotes/education-learning.json"
+                                                     },
+                       "Writing \u0026 Literature":  {
+                                                         "count":  1401,
+                                                         "file":  "data/category_quotes/writing-literature.json"
+                                                     },
+                       "Love \u0026 Relationships":  {
+                                                         "count":  7617,
+                                                         "file":  "data/category_quotes/love-relationships.json"
+                                                     },
+                       "Soul \u0026 Spirit":  {
+                                                  "count":  1519,
+                                                  "file":  "data/category_quotes/soul-spirit.json"
+                                              },
+                       "Beauty \u0026 Aesthetics":  {
+                                                        "count":  374,
+                                                        "file":  "data/category_quotes/beauty-aesthetics.json"
+                                                    },
+                       "Experience \u0026 Practice":  {
+                                                          "count":  199,
+                                                          "file":  "data/category_quotes/experience-practice.json"
+                                                      },
+                       "Art \u0026 Creativity":  {
+                                                     "count":  410,
+                                                     "file":  "data/category_quotes/art-creativity.json"
+                                                 },
+                       "Government \u0026 Law":  {
+                                                     "count":  293,
+                                                     "file":  "data/category_quotes/government-law.json"
+                                                 },
+                       "Future \u0026 Progress":  {
+                                                      "count":  276,
+                                                      "file":  "data/category_quotes/future-progress.json"
+                                                  },
+                       "Mind \u0026 Consciousness":  {
+                                                         "count":  1344,
+                                                         "file":  "data/category_quotes/mind-consciousness.json"
+                                                     },
+                       "Self \u0026 Identity":  {
+                                                    "count":  196,
+                                                    "file":  "data/category_quotes/self-identity.json"
+                                                },
+                       "Imagination \u0026 Creativity":  {
+                                                             "count":  165,
+                                                             "file":  "data/category_quotes/imagination-creativity.json"
+                                                         },
+                       "Motivation \u0026 Inspiration":  {
+                                                             "count":  7517,
+                                                             "file":  "data/category_quotes/motivation-inspiration.json"
+                                                         },
+                       "Health \u0026 Wellness":  {
+                                                      "count":  116,
+                                                      "file":  "data/category_quotes/health-wellness.json"
+                                                  }
+                   }
+}
