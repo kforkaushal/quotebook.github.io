@@ -1163,18 +1163,6 @@ function setupEventListeners() {
   setupDrawerToggle('quotesMenuToggle', 'quotesMobileDrawer');
   setupDrawerToggle('mobileMenuToggle', 'homeNavLinks');
 
-  // Close open mobile menu drawers when tapping outside
-  document.addEventListener('click', (e) => {
-    ['homeNavLinks', 'quotesMobileDrawer'].forEach(id => {
-      const drawer = document.getElementById(id);
-      if (drawer && drawer.classList.contains('active') && !drawer.contains(e.target)) {
-        const toggleBtn = id === 'homeNavLinks' ? document.getElementById('mobileMenuToggle') : document.getElementById('quotesMenuToggle');
-        if (toggleBtn && toggleBtn.contains(e.target)) return;
-        drawer.classList.remove('active');
-      }
-    });
-  });
-
   // Search Bar
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');

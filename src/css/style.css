@@ -2055,36 +2055,8 @@ body.page-loaded {
   color: var(--accent-primary);
 }
 
-@media (max-width: 900px) {
-  .mobile-menu-toggle {
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .home-nav-links {
-    display: none;
-  }
-
-  .home-nav-links.active {
-    display: flex !important;
-    flex-direction: column;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: var(--surface-header, rgba(250, 246, 240, 0.98));
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border-light);
-    padding: 1.5rem;
-    gap: 1.25rem;
-    box-shadow: var(--shadow-lg);
-    z-index: 100;
-  }
-
-  .home-nav-links.active .mobile-only-cta {
-    display: inline-flex !important;
-  }
+.mobile-only-cta {
+  display: none !important;
 }
 
 .cta-header-btn {
