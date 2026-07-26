@@ -700,7 +700,7 @@ function applyFilters(skipWorkerTrigger = false) {
   } else {
     updateSEO(
       `Quotes Library & Canvas Poster Studio — Quotebook`,
-      `Discover 39,000+ curated quotes, listen with speech synthesis, and create high-resolution quote posters.`
+      `Discover 1 Million+ curated quotes, listen with speech synthesis, and create high-resolution quote posters.`
     );
   }
 }

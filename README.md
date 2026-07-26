@@ -1,12 +1,12 @@
 # 📖 Quotebook — Timeless Quotes & Visual Poster Studio
 
-**Quotebook** is an ultra-modern, editorial web application featuring a curated dataset of over **39,000+ quotes across 57 categories** paired with high-resolution photography fetched live from the **Pixabay API**.
+**Quotebook** is an ultra-modern, editorial web application featuring a curated dataset of over **1 Million+ quotes across 57 categories** paired with high-resolution photography fetched live from the **Pixabay API**.
 
 ---
 
 ## 🌟 Key Features
 
-- **39,000+ Curated Quotes**: Instant search by author, keyword, or topic with multi-faceted filtering and popularity sorting.
+- **1 Million+ Curated Quotes**: Instant search by author, keyword, or topic with multi-faceted filtering and popularity sorting.
 - **Pixabay HD Photography**: Context-aware photography automatically matched to quote categories (*Wisdom*, *Nature*, *Books*, *Philosophy*, *Love*, *Motivation*, etc.).
 - **HTML5 Canvas Poster Studio**: Design customizable quote posters with custom typography, glassmorphism tint overlays, aspect ratio selectors (1:1, 4:5, 16:9), and 1-click PNG image export.
 - **Text-to-Speech Synthesis**: Listen to any quote read aloud with natural speech pronunciation.
