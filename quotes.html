@@ -1,16 +1,19 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
 
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Quotes Library & Studio — Quotebook</title>
-  <meta name="description" content="Explore over 1 million curated quotes across 57 categories paired with live photography from Pixabay.">
-  
+  <meta name="description"
+    content="Explore over 1 million curated quotes across 57 categories paired with live photography from Pixabay.">
+
   <!-- Canonical & Social Meta -->
   <link rel="canonical" href="https://quotebook.me/quotes.html">
   <meta property="og:title" content="Explore 1 Million+ Curated Quotes & Studio — Quotebook">
-  <meta property="og:description" content="Explore over 1 million curated quotes across 57 categories paired with live photography from Pixabay and custom poster studio.">
+  <meta property="og:description"
+    content="Explore over 1 million curated quotes across 57 categories paired with live photography from Pixabay and custom poster studio.">
   <meta property="og:url" content="https://quotebook.me/quotes.html">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://quotebook.me/data/img/logo.svg">
@@ -19,23 +22,27 @@
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&family=Fira+Code:wght@400;500&display=swap"
+    rel="stylesheet">
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <link rel="stylesheet" href="src/css/style.css">  <link rel="icon" type="image/png" sizes="32x32" href="data/img/favicon-32x32.png">
+  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="icon" type="image/png" sizes="32x32" href="data/img/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="data/img/favicon-16x16.png">
   <link rel="apple-touch-icon" sizes="180x180" href="data/img/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="192x192" href="data/img/android-chrome-192x192.png">
   <link rel="icon" type="image/png" sizes="512x512" href="data/img/android-chrome-512x512.png">
 </head>
+
 <body class="light-theme quotes-page page-loaded">
 
 
 
   <!-- App Header -->
-  <head>
+  <header class="app-header">
 
     <div class="header-container">
       <a href="index.html" class="brand-logo" id="brandLogo">
@@ -49,11 +56,15 @@
       <div class="header-search" id="headerSearch">
         <div class="search-input-wrapper" id="searchWrapper">
           <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input type="text" id="searchInput" placeholder="Search 1 Million+ quotes by author, topic, or keyword..." autocomplete="off">
-          <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
-          <button class="close-search-btn" id="closeSearchBtn" aria-label="Close Search"><i class="fa-solid fa-arrow-left"></i></button>
+          <input type="text" id="searchInput" placeholder="Search 1 Million+ quotes by author, topic, or keyword..."
+            autocomplete="off">
+          <button class="clear-search-btn" id="clearSearchBtn" aria-label="Clear Search"><i
+              class="fa-solid fa-xmark"></i></button>
+          <button class="close-search-btn" id="closeSearchBtn" aria-label="Close Search"><i
+              class="fa-solid fa-arrow-left"></i></button>
           <!-- Page Suggestion Dropdown -->
-          <div class="page-suggestions-dropdown" id="pageSuggestionsDropdown" role="listbox" aria-label="Page suggestions">
+          <div class="page-suggestions-dropdown" id="pageSuggestionsDropdown" role="listbox"
+            aria-label="Page suggestions">
             <div class="suggestions-header">
               <i class="fa-solid fa-compass"></i>
               <span>Jump to a collection</span>
@@ -106,7 +117,8 @@
           <input type="text" id="drawerSearchInput" placeholder="Search 1 Million+ quotes..." autocomplete="off">
           <button id="drawerSearchSubmit" aria-label="Search"><i class="fa-solid fa-arrow-right"></i></button>
           <!-- Drawer Page Suggestion Dropdown -->
-          <div class="page-suggestions-dropdown" id="drawerSuggestionsDropdown" role="listbox" aria-label="Page suggestions">
+          <div class="page-suggestions-dropdown" id="drawerSuggestionsDropdown" role="listbox"
+            aria-label="Page suggestions">
             <div class="suggestions-header">
               <i class="fa-solid fa-compass"></i>
               <span>Jump to a collection</span>
@@ -256,7 +268,8 @@
         <div class="empty-icon"><i class="fa-solid fa-quote-left"></i></div>
         <h3>No quotes found matching your search</h3>
         <p>Try adjusting your search keywords or switching category filters.</p>
-        <button class="btn-secondary" id="btnResetFilters"><i class="fa-solid fa-rotate-left"></i> Reset Filters</button>
+        <button class="btn-secondary" id="btnResetFilters"><i class="fa-solid fa-rotate-left"></i> Reset
+          Filters</button>
       </div>
 
       <!-- Pagination / Load More Bar -->
@@ -296,7 +309,8 @@
           <div class="control-section">
             <label class="control-label"><i class="fa-solid fa-image"></i> Pixabay Image Background</label>
             <div class="pixabay-search-box">
-              <input type="text" id="pixabayQueryInput" placeholder="Search Pixabay photos (e.g. sunset, mountains, library)...">
+              <input type="text" id="pixabayQueryInput"
+                placeholder="Search Pixabay photos (e.g. sunset, mountains, library)...">
               <button id="btnSearchPixabay"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
             <div class="pixabay-thumbs-scroll" id="pixabayThumbs">
@@ -365,7 +379,8 @@
         <button class="zen-ctrl-btn" id="zenBtnPrev"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="zen-ctrl-btn play" id="zenBtnPlay"><i class="fa-solid fa-pause"></i></button>
         <button class="zen-ctrl-btn" id="zenBtnNext"><i class="fa-solid fa-chevron-right"></i></button>
-        <button class="zen-ctrl-btn" id="zenBtnAudio" title="Toggle Speech Aloud"><i class="fa-solid fa-volume-high"></i></button>
+        <button class="zen-ctrl-btn" id="zenBtnAudio" title="Toggle Speech Aloud"><i
+            class="fa-solid fa-volume-high"></i></button>
       </div>
     </div>
   </div>
@@ -393,7 +408,7 @@
       <!-- Segmented progress bars injected via JS -->
     </div>
     <button class="close-modal-btn" id="closeStoryModal"><i class="fa-solid fa-xmark"></i></button>
-    
+
     <div class="story-header" id="storyHeader">
       <img src="" alt="Author" class="story-header-avatar" id="storyHeaderAvatar">
       <span class="story-header-name" id="storyHeaderName">Author Name</span>
@@ -402,7 +417,7 @@
     <div class="story-content" id="storyContent">
       <blockquote class="story-quote-text" id="storyQuoteText">Quote goes here</blockquote>
     </div>
-    
+
     <div class="story-cta-content hidden" id="storyCtaContent">
       <h2 class="story-cta-title">Read more quotes from <span id="storyCtaAuthor"></span></h2>
       <a href="#" class="btn-primary" id="storyCtaBtn">View Author Profile <i class="fa-solid fa-arrow-right"></i></a>
@@ -429,7 +444,8 @@
       </div>
 
       <div class="drawer-footer">
-        <button class="btn-secondary danger" id="btnClearBookmarks"><i class="fa-solid fa-trash-can"></i> Clear All</button>
+        <button class="btn-secondary danger" id="btnClearBookmarks"><i class="fa-solid fa-trash-can"></i> Clear
+          All</button>
         <button class="btn-primary" id="btnExportBookmarks"><i class="fa-solid fa-file-export"></i> Export JSON</button>
       </div>
     </aside>
@@ -479,4 +495,5 @@
   <script src="src/js/config.js"></script>
   <script src="src/js/app.js"></script>
 </body>
+
 </html>
