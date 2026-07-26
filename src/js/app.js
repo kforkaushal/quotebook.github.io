@@ -318,7 +318,9 @@ async function initHomeDeviceShowcase() {
 
   if (speakBtn) {
     speakBtn.addEventListener('click', () => {
-      const q = state.allQuotes[mockupCurrentIndex];
+      const shortQuotes = state.allQuotes.filter(q => q.quote.length <= 85);
+      const pool = shortQuotes.length > 0 ? shortQuotes : state.allQuotes;
+      const q = pool[mockupCurrentIndex % pool.length];
       if (q) speakQuote(q.quote, q.author);
     });
   }
@@ -326,7 +328,11 @@ async function initHomeDeviceShowcase() {
 
 async function updateHomeDeviceQuote() {
   if (state.allQuotes.length === 0) return;
-  const q = state.allQuotes[mockupCurrentIndex] || state.allQuotes[0];
+  
+  // Filter for shorter quotes so the Zen Mode mockup looks clean and doesn't overflow
+  const shortQuotes = state.allQuotes.filter(q => q.quote.length <= 85);
+  const pool = shortQuotes.length > 0 ? shortQuotes : state.allQuotes;
+  const q = pool[mockupCurrentIndex % pool.length];
 
   const tagEl = document.getElementById('mockupTag');
   const quoteEl = document.getElementById('mockupQuote');

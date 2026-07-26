@@ -101,19 +101,25 @@
 
       <!-- Left-Weighted Hero Text & Badge -->
       <div class="hero-text-col fade-in-up">
-        <div class="hero-badge-pill">
-          <span class="pulse-dot"></span>
-          <span>1 Million+ Curated Quotes & Pixabay Photography</span>
+        <div class="daily-quote-card" style="margin-bottom: 2rem; padding: 1.25rem 1.5rem; background: var(--surface-card); border: 1px solid var(--border-light); border-radius: 12px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--accent-primary);">
+          <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+            <i class="fa-solid fa-calendar-day" style="color: var(--accent-primary);"></i> Quote of the Day
+          </div>
+          <p id="dailyQuoteText" style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.4; font-style: italic;">
+            "The only way to do great work is to love what you do."
+          </p>
+          <div id="dailyQuoteAuthor" style="font-size: 0.95rem; color: var(--text-secondary); font-weight: 500;">
+            — Steve Jobs
+          </div>
         </div>
 
         <h1 class="home-hero-title">
-          Timeless Wisdom. <br>
-          <span class="text-highlight-primary">Breathtaking Visuals.</span>
+          Discover Timeless Quotes. <br>
+          <span class="text-highlight-primary">Inspire Every Day.</span>
         </h1>
 
         <p class="home-hero-desc">
-          Step into an immersive collection of daily inspiration. Pair quotes with high-resolution photography, listen
-          with natural speech synthesis, or design custom posters.
+          Browse over 1 million inspirational, motivational, famous, and life quotes with stunning photography.
         </p>
 
         <div class="home-hero-buttons">
@@ -151,9 +157,9 @@
             <div class="mockup-zen-content">
               <span class="mockup-tag" id="mockupTag">ZEN MODE • WISDOM</span>
               <blockquote class="mockup-quote" id="mockupQuote">
-                "The man who does not read has no advantage over the man who cannot read."
+                "The only true wisdom is in knowing you know nothing."
               </blockquote>
-              <span class="mockup-author" id="mockupAuthor">— Mark Twain</span>
+              <span class="mockup-author" id="mockupAuthor">— Socrates</span>
             </div>
 
             <div class="mockup-controls">
@@ -540,6 +546,40 @@
   <!-- Scripts -->
   <script src="src/js/config.js"></script>
   <script src="src/js/app.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const dailyQuotes = [
+        { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+        { text: "It is not the mountains ahead to climb that wear you out; it's the pebble in your shoe.", author: "Muhammad Ali" },
+        { text: "We cannot solve problems with the kind of thinking we employed when we came up with them.", author: "Albert Einstein" },
+        { text: "Learn as if you will live forever, live like you will die tomorrow.", author: "Mahatma Gandhi" },
+        { text: "It is better to fail in originality than to succeed in imitation.", author: "Herman Melville" },
+        { text: "Success is not final; failure is not fatal: It is the courage to continue that counts.", author: "Winston S. Churchill" },
+        { text: "If you are working on something that you really care about, you don't have to be pushed. The vision pulls you.", author: "Steve Jobs" },
+        { text: "You don't have to be great to start, but you have to start to be great.", author: "Zig Ziglar" },
+        { text: "I never dreamed about success. I worked for it.", author: "Estée Lauder" },
+        { text: "Do not wait for the perfect time and place to enter, for you are already onstage.", author: "Unknown" },
+        { text: "Limit your 'always' and your 'nevers'.", author: "Amy Poehler" },
+        { text: "Nothing is impossible. The word itself says 'I'm possible!'", author: "Audrey Hepburn" },
+        { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
+        { text: "To see what is right and not do it is a lack of courage.", author: "Confucius" }
+      ];
+      
+      const now = new Date();
+      const start = new Date(now.getFullYear(), 0, 0);
+      const diff = now - start;
+      const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
+      
+      const q = dailyQuotes[dayOfYear % dailyQuotes.length];
+      
+      const textEl = document.getElementById('dailyQuoteText');
+      const authorEl = document.getElementById('dailyQuoteAuthor');
+      if (textEl && authorEl) {
+        textEl.textContent = '"' + q.text + '"';
+        authorEl.textContent = "— " + q.author;
+      }
+    });
+  </script>
 </body>
 
 </html>
