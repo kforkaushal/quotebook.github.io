@@ -26,8 +26,8 @@ foreach ($scriptPath in $scriptsToUpdate) {
     }
 
     # 3. Update Canonical URL definition
-    $searchUrl = '$canonicalUrl = "https://quotebook.example.com/quotes/$slug.html"'
-    $replaceUrl = '$canonicalUrl = "https://quotebook.example.com/quotes/$catSlug/$slug.html"'
+    $searchUrl = '$canonicalUrl = "https://quotebook.me/quotes/$slug.html"'
+    $replaceUrl = '$canonicalUrl = "https://quotebook.me/quotes/$catSlug/$slug.html"'
     if ($content -match [regex]::Escape($searchUrl)) {
         $content = $content.Replace($searchUrl, $replaceUrl)
     }
@@ -57,14 +57,14 @@ foreach ($scriptPath in $scriptsToUpdate) {
     $searchSitemap = @"
 foreach (`$file in Get-ChildItem -Path `$quotesDir -Filter "*.html") {
     `$fileSlug = `$file.BaseName
-    `$canonical = "https://quotebook.example.com/quotes/`$fileSlug.html"
+    `$canonical = "https://quotebook.me/quotes/`$fileSlug.html"
 "@
     $replaceSitemap = @"
 foreach (`$dir in Get-ChildItem -Path `$quotesDir -Directory) {
     foreach (`$file in Get-ChildItem -Path `$dir.FullName -Filter "*.html") {
         `$fileSlug = `$file.BaseName
         `$catSlugFolder = `$dir.Name
-        `$canonical = "https://quotebook.example.com/quotes/`$catSlugFolder/`$fileSlug.html"
+        `$canonical = "https://quotebook.me/quotes/`$catSlugFolder/`$fileSlug.html"
 "@
     if ($content -match [regex]::Escape($searchSitemap)) {
         $content = $content.Replace($searchSitemap, $replaceSitemap)

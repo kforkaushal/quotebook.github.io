@@ -1,4 +1,4 @@
-﻿$jsonPath = "data\social_media_quotes.json"
+$jsonPath = "data\social_media_quotes.json"
 $quotesDir = "quotes"
 $sitemapPath = "sitemap.xml"
 
@@ -93,7 +93,7 @@ $footerHtml = @"
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
+      <p>� 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
 "@
@@ -143,7 +143,7 @@ foreach ($catProp in $categories.psobject.properties) {
         )
         $randomIntro = $introTemplates | Get-Random
         $pageDesc = $randomIntro.Replace("{count}", $quotesCount).Replace("{intent}", "$cleanCat Quotes for $cleanSub")
-        $canonicalUrl = "https://quotebook.example.com/quotes/$catSlug/$slug.html"
+        $canonicalUrl = "https://quotebook.me/quotes/$catSlug/$slug.html"
         
         $sitemapUrls.Add($canonicalUrl)
         
@@ -208,8 +208,8 @@ foreach ($catProp in $categories.psobject.properties) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://quotebook.example.com/index.html"},
-        {"@type": "ListItem", "position": 2, "name": "Quotes", "item": "https://quotebook.example.com/quotes.html"},
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://quotebook.me/index.html"},
+        {"@type": "ListItem", "position": 2, "name": "Quotes", "item": "https://quotebook.me/quotes.html"},
         {"@type": "ListItem", "position": 3, "name": "$pageTitle", "item": "$canonicalUrl"}
       ]
     }

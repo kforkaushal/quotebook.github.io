@@ -13,7 +13,7 @@ foreach ($file in $files) {
     
     # 1. Replace placeholder domain
     if ($content -match "quotebook\.example\.com") {
-        $content = $content -replace "quotebook\.example\.com", "quotebook.com"
+        $content = $content -replace "quotebook\.example\.com", "quotebook.me"
         $modified = $true
     }
     
@@ -38,7 +38,7 @@ foreach ($f in @("..\index.html", "..\quotes.html")) {
     if (Test-Path $fullPath) {
         $content = Get-Content $fullPath -Raw -Encoding UTF8
         if ($content -match "quotebook\.example\.com") {
-            $content = $content -replace "quotebook\.example\.com", "quotebook.com"
+            $content = $content -replace "quotebook\.example\.com", "quotebook.me"
             [System.IO.File]::WriteAllText($fullPath, $content, [System.Text.Encoding]::UTF8)
             Write-Host "Fixed domain in $($f)"
         }

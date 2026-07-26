@@ -17,8 +17,8 @@ const categories = rawData.categories || {};
 
 // We also want to accumulate all URLs for sitemap.xml
 const sitemapUrls = [
-  'https://quotebook.example.com/index.html',
-  'https://quotebook.example.com/quotes.html'
+  'https://quotebook.me/index.html',
+  'https://quotebook.me/quotes.html'
 ];
 
 // Helper to escape HTML characters
@@ -114,7 +114,7 @@ Object.keys(categories).forEach(catName => {
   
   const pageTitle = `Explore ${escapeHtml(catName)} Quotes — Quotebook`;
   const pageDesc = `Discover curated quotes on ${escapeHtml(catName)} by timeless authors. Pair with HD backgrounds and generate custom posters.`;
-  const canonicalUrl = `https://quotebook.example.com/quotes/${slug}.html`;
+  const canonicalUrl = `https://quotebook.me/quotes/${slug}.html`;
   sitemapUrls.push(canonicalUrl);
 
   const quotesListHtml = staticQuotes.map(q => {
@@ -240,7 +240,7 @@ sortedAuthors.forEach(author => {
   
   const pageTitle = `${escapeHtml(author)} Quotes — Quotebook`;
   const pageDesc = `Discover timeless wisdom and quotes by ${escapeHtml(author)}. Read aloud and design custom quotes posters.`;
-  const canonicalUrl = `https://quotebook.example.com/authors/${slug}.html`;
+  const canonicalUrl = `https://quotebook.me/authors/${slug}.html`;
   sitemapUrls.push(canonicalUrl);
 
   const quotesListHtml = staticQuotes.map(q => {

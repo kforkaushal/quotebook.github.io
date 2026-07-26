@@ -12,8 +12,8 @@ $rawData = Get-Content -Raw -Path $quotesJsonPath -Encoding UTF8 | ConvertFrom-J
 $categories = $rawData.categories
 
 $sitemapUrls = [System.Collections.Generic.List[string]]::new()
-$sitemapUrls.Add("https://quotebook.example.com/index.html")
-$sitemapUrls.Add("https://quotebook.example.com/quotes.html")
+$sitemapUrls.Add("https://quotebook.me/index.html")
+$sitemapUrls.Add("https://quotebook.me/quotes.html")
 
 function Escape-Html($text) {
     if ($null -eq $text) { return "" }
@@ -114,7 +114,7 @@ foreach ($prop in $categories.psobject.properties) {
     
     $pageTitle = "Explore $(Escape-Html $catName) Quotes - Quotebook"
     $pageDesc = "Discover curated quotes on $(Escape-Html $catName) by timeless authors. Pair with HD backgrounds and generate custom posters."
-    $canonicalUrl = "https://quotebook.example.com/quotes/$slug.html"
+    $canonicalUrl = "https://quotebook.me/quotes/$slug.html"
     $sitemapUrls.Add($canonicalUrl)
 
     $quotesListHtml = ""
@@ -258,7 +258,7 @@ foreach ($author in $sortedAuthorsList) {
     
     $pageTitle = "$(Escape-Html $author) Quotes - Quotebook"
     $pageDesc = "Discover timeless wisdom and quotes by $(Escape-Html $author). Read aloud and design custom quotes posters."
-    $canonicalUrl = "https://quotebook.example.com/authors/$slug.html"
+    $canonicalUrl = "https://quotebook.me/authors/$slug.html"
     $sitemapUrls.Add($canonicalUrl)
 
     $quotesListHtml = ""

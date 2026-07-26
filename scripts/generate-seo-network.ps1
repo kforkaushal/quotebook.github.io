@@ -1,4 +1,4 @@
-﻿$enrichedJsonPath = "data\quotes_enriched.json"
+$enrichedJsonPath = "data\quotes_enriched.json"
 $quotesDir = "quotes"
 $sitemapPath = "sitemap.xml"
 
@@ -148,15 +148,15 @@ $footerHtml = @"
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
+      <p>� 2026 Quotebook. Powered by Pixabay API & Open Quote Datasets.</p>
     </div>
   </footer>
 "@
 
 # Keep list of generated page URLs for sitemap index
 $sitemapUrls = [System.Collections.Generic.List[string]]::new()
-$sitemapUrls.Add("https://quotebook.example.com/index.html")
-$sitemapUrls.Add("https://quotebook.example.com/quotes.html")
+$sitemapUrls.Add("https://quotebook.me/index.html")
+$sitemapUrls.Add("https://quotebook.me/quotes.html")
 
 # Track generated vs skipped counts
 $generatedCount = 0
@@ -249,7 +249,7 @@ foreach ($combo in $registry) {
     $pageDesc = $combo.desc
     $h1Text = $combo.h1
     $intentText = $combo.intentText
-    $canonicalUrl = "https://quotebook.example.com/quotes/$catSlug/$slug.html"
+    $canonicalUrl = "https://quotebook.me/quotes/$catSlug/$slug.html"
     $sitemapUrls.Add($canonicalUrl)
 
     # 1. Select random intro template
@@ -340,8 +340,8 @@ foreach ($combo in $registry) {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       "itemListElement": [
-        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://quotebook.example.com/index.html"},
-        {"@type": "ListItem", "position": 2, "name": "Quotes", "item": "https://quotebook.example.com/quotes.html"},
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://quotebook.me/index.html"},
+        {"@type": "ListItem", "position": 2, "name": "Quotes", "item": "https://quotebook.me/quotes.html"},
         {"@type": "ListItem", "position": 3, "name": "$pageTitle", "item": "$canonicalUrl"}
       ]
     }
@@ -459,7 +459,7 @@ foreach ($dir in Get-ChildItem -Path $quotesDir -Directory) {
     foreach ($file in Get-ChildItem -Path $dir.FullName -Filter "*.html") {
         $fileSlug = $file.BaseName
         $catSlugFolder = $dir.Name
-        $canonical = "https://quotebook.example.com/quotes/$catSlugFolder/$fileSlug.html"
+        $canonical = "https://quotebook.me/quotes/$catSlugFolder/$fileSlug.html"
     if (!$sitemapUrls.Contains($canonical)) {
         $sitemapUrls.Add($canonical)
     }
@@ -471,7 +471,7 @@ $authorsDir = "authors"
 if (Test-Path -Path $authorsDir) {
     foreach ($file in Get-ChildItem -Path $authorsDir -Filter "*.html") {
         $fileSlug = $file.BaseName
-        $canonical = "https://quotebook.example.com/authors/$fileSlug.html"
+        $canonical = "https://quotebook.me/authors/$fileSlug.html"
         if (!$sitemapUrls.Contains($canonical)) {
             $sitemapUrls.Add($canonical)
         }

@@ -103,7 +103,7 @@ for (const [catName, catData] of Object.entries(categories)) {
     const pageTitle = `${quotesList.length}+ Best ${cleanCat} for ${cleanSub} (2026)`;
     const pageDesc = `Explore the best collection of ${cleanSub} ${cleanCat}. Copy, bookmark, or generate beautiful quote posters directly in your browser.`;
     const h1Text = `${cleanCat} - ${cleanSub}`;
-    const canonicalUrl = `https://quotebook.example.com/quotes/${slug}.html`;
+    const canonicalUrl = `https://quotebook.me/quotes/${slug}.html`;
 
     sitemapUrls.push(canonicalUrl);
 
