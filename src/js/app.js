@@ -1,12 +1,3 @@
-// Auto-redirect any lingering .html visits to the clean URL — GitHub Pages
-// has no server-side 301, so this is the closest equivalent for real visitors.
-(function () {
-  if (window.location.pathname.endsWith('.html')) {
-    const clean = window.location.pathname.replace(/\.html$/, '') + window.location.search + window.location.hash;
-    window.location.replace(clean);
-  }
-})();
-
 /**
  * QUOTEBOOK - Main Application Logic
  * Integrates 39,000+ quotes JSON data, Pixabay API photography, Web Speech synthesis, and Poster Studio.

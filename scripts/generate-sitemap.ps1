@@ -25,16 +25,10 @@ foreach ($file in $files) {
     while ($rel.Contains("//")) { $rel = $rel.Replace("//", "/") }
     
     $prio, $freq = Get-Priority $rel
-
-    if ($rel -eq "index.html") {
-        $cleanUrl = "$domain/"
-    } else {
-        $cleanPath = $rel -replace '\.html$', ''
-        $cleanUrl = "$domain/$cleanPath"
-    }
+    $loc = "$domain/$rel"
 
     $xmlLines.Add("  <url>")
-    $xmlLines.Add("    <loc>$cleanUrl</loc>")
+    $xmlLines.Add("    <loc>$loc</loc>")
     $xmlLines.Add("    <lastmod>$today</lastmod>")
     $xmlLines.Add("    <changefreq>$freq</changefreq>")
     $xmlLines.Add("    <priority>$prio</priority>")
@@ -45,4 +39,4 @@ $xmlLines.Add('</urlset>')
 
 $outPath = Join-Path $baseDir "sitemap.xml"
 [System.IO.File]::WriteAllLines($outPath, $xmlLines, [System.Text.Encoding]::UTF8)
-Write-Host "Sitemap successfully regenerated with $($files.Count) clean URLs!"
+Write-Host "Sitemap successfully regenerated with $($files.Count) .html URLs!"
