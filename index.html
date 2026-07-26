@@ -8,7 +8,7 @@
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7WSN8P37J"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+    function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
 
     gtag('config', 'G-P7WSN8P37J');
@@ -101,11 +101,14 @@
 
       <!-- Left-Weighted Hero Text & Badge -->
       <div class="hero-text-col fade-in-up">
-        <div class="daily-quote-card" style="margin-bottom: 2rem; padding: 1.25rem 1.5rem; background: var(--surface-card); border: 1px solid var(--border-light); border-radius: 12px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--accent-primary);">
-          <div style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
+        <div class="daily-quote-card"
+          style="margin-bottom: 2rem; padding: 1.25rem 1.5rem; background: var(--surface-card); border: 1px solid var(--border-light); border-radius: 12px; box-shadow: var(--shadow-sm); border-left: 4px solid var(--accent-primary);">
+          <div
+            style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 600; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem;">
             <i class="fa-solid fa-calendar-day" style="color: var(--accent-primary);"></i> Quote of the Day
           </div>
-          <p id="dailyQuoteText" style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.4; font-style: italic;">
+          <p id="dailyQuoteText"
+            style="font-family: var(--font-serif); font-size: 1.35rem; color: var(--text-primary); margin-bottom: 0.5rem; line-height: 1.4; font-style: italic;">
             "The only way to do great work is to love what you do."
           </p>
           <div id="dailyQuoteAuthor" style="font-size: 0.95rem; color: var(--text-secondary); font-weight: 500;">
@@ -263,25 +266,32 @@
     </div>
   </section>
 
-  <!-- Key Statistics Banner -->
   <section class="stats-banner-section">
     <div class="stats-container">
       <div class="stat-card">
+        <i class="fa-solid fa-quote-right"
+          style="color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
         <span class="stat-number">1 Million+</span>
         <span class="stat-label">Curated Unique Quotes</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-card">
+        <i class="fa-solid fa-layer-group"
+          style="color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
         <span class="stat-number">57</span>
         <span class="stat-label">Topic Categories</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-card">
+        <i class="fa-solid fa-camera-retro"
+          style="color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
         <span class="stat-number">HD</span>
         <span class="stat-label">Pixabay Photography</span>
       </div>
       <div class="stat-divider"></div>
       <div class="stat-card">
+        <i class="fa-solid fa-wand-magic-sparkles"
+          style="color: var(--accent-primary); font-size: 1.5rem; margin-bottom: 0.5rem;"></i>
         <span class="stat-number">1-Click</span>
         <span class="stat-label">Canvas Poster Studio</span>
       </div>
@@ -564,14 +574,14 @@
         { text: "You are never too old to set another goal or to dream a new dream.", author: "C.S. Lewis" },
         { text: "To see what is right and not do it is a lack of courage.", author: "Confucius" }
       ];
-      
+
       const now = new Date();
       const start = new Date(now.getFullYear(), 0, 0);
       const diff = now - start;
       const dayOfYear = Math.floor(diff / (1000 * 60 * 60 * 24));
-      
+
       const q = dailyQuotes[dayOfYear % dailyQuotes.length];
-      
+
       const textEl = document.getElementById('dailyQuoteText');
       const authorEl = document.getElementById('dailyQuoteAuthor');
       if (textEl && authorEl) {

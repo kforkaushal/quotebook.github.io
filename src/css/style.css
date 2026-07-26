@@ -297,8 +297,15 @@ body.page-loaded {
 }
 
 @keyframes suggestionsFadeIn {
-  from { opacity: 0; transform: translateY(-6px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .suggestions-header {
@@ -1212,7 +1219,8 @@ body.page-loaded {
   border-radius: var(--radius-sm);
   border: 1px solid var(--border-light);
   font-family: var(--font-sans);
-  font-size: 16px; /* 16px prevents iOS auto-zoom */
+  font-size: 16px;
+  /* 16px prevents iOS auto-zoom */
 }
 
 .pixabay-search-box button {
@@ -1770,7 +1778,8 @@ body.page-loaded {
 
   .suggestion-item {
     padding: 0.75rem 1rem;
-    min-height: 44px; /* Comfortable mobile touch target */
+    min-height: 44px;
+    /* Comfortable mobile touch target */
   }
 
   .suggestion-title {
@@ -4768,6 +4777,7 @@ body.data-saver-active .quote-card-header::before {
   margin-bottom: 1rem;
   resize: vertical;
 }
+
 .story-cta-content {
   display: flex;
   flex-direction: column;
@@ -4948,7 +4958,8 @@ body.data-saver-active .quote-card-header::before {
   border-radius: var(--radius-sm);
   padding: 0.75rem 1rem;
   font-family: var(--font-sans);
-  font-size: 16px; /* 16px prevents iOS auto-zoom on focus */
+  font-size: 16px;
+  /* 16px prevents iOS auto-zoom on focus */
   color: var(--text-primary);
   transition: all 0.3s ease;
   margin-bottom: 1rem;
@@ -4976,11 +4987,12 @@ body.data-saver-active .quote-card-header::before {
     top: 70px;
     z-index: 20;
     background: var(--bg-main);
-    box-shadow: 0 10px 20px -10px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.1);
   }
-  
+
   .full-page-editor .poster-preview-panel .canvas-wrapper {
-    max-height: 35vh; /* Keep the canvas small so keyboard fits */
+    max-height: 35vh;
+    /* Keep the canvas small so keyboard fits */
   }
 
   .full-page-editor .poster-controls-panel.scrollable-controls {
@@ -4996,7 +5008,8 @@ body.data-saver-active .quote-card-header::before {
   margin-bottom: 1rem;
 }
 
-.emoji-btn, .icon-btn {
+.emoji-btn,
+.icon-btn {
   background: var(--bg-main);
   border: 1px solid var(--border-light);
   border-radius: var(--radius-sm);
@@ -5010,7 +5023,8 @@ body.data-saver-active .quote-card-header::before {
   color: var(--text-primary);
 }
 
-.emoji-btn:hover, .icon-btn:hover {
+.emoji-btn:hover,
+.icon-btn:hover {
   background: var(--bg-secondary);
   border-color: var(--accent-primary);
   transform: translateY(-2px);
@@ -5222,6 +5236,7 @@ body.data-saver-active .quote-card-header::before {
    ========================================================================== */
 
 @media (max-width: 768px) {
+
   /* Mobile Header & Search Adjustments */
   .quotes-page .header-container {
     padding: 0.75rem 1rem;
