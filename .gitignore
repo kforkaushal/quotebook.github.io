@@ -1,0 +1,3 @@
+# Ignore heavy build-time raw data artifacts (>50MB)
+data/quotes_enriched.json
+data/quotes_8000_plus.json

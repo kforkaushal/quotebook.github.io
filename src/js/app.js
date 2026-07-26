@@ -131,14 +131,35 @@ async function initApp() {
 
     if (isQuotesPage) {
       if (catParam) {
+        let matchedCat = null;
         if (state.categoriesMap[catParam]) {
-          state.activeCategory = catParam;
+          matchedCat = catParam;
         } else if (catParam.includes(' - ')) {
           const baseCategory = catParam.split(' - ')[0].trim();
           if (state.categoriesMap[baseCategory]) {
-            state.activeCategory = baseCategory;
+            matchedCat = baseCategory;
           }
         }
+        
+        // Fuzzy & Slug matching fallback
+        if (!matchedCat) {
+          const catClean = catParam.toLowerCase().replace(/[^a-z0-9]/g, '');
+          Object.keys(state.categoriesMap).forEach(key => {
+            const keyClean = key.toLowerCase().replace(/[^a-z0-9]/g, '');
+            if (keyClean === catClean || keyClean.includes(catClean) || catClean.includes(keyClean)) {
+              matchedCat = key;
+            }
+          });
+        }
+
+        if (matchedCat) {
+          state.activeCategory = matchedCat;
+        }
+      }
+
+      // Auto lazy-load category chunk data before UI render!
+      if (state.activeCategory !== 'all') {
+        await window.lazyLoadCategory(state.activeCategory);
       }
 
       renderCategoryPills();
@@ -349,57 +370,55 @@ async function loadQuotesData() {
   }
 
   // Stage 2: Load metadata to populate category dropdowns
-  setTimeout(async () => {
-    try {
-      const resMeta = await fetch('data/metadata.json');
-      if (resMeta.ok) {
-        const metadata = await resMeta.json();
-        
-        // Initialize empty categories map from metadata
-        Object.keys(metadata.categories).forEach(catName => {
-          if (!state.categoriesMap[catName]) {
-            state.categoriesMap[catName] = { quotes: [], _meta: metadata.categories[catName], loaded: false };
-          }
-        });
-
-        const badge = document.getElementById('quoteCountBadge');
-        if (badge) {
-          let total = 0;
-          Object.values(metadata.categories).forEach(c => total += c.count);
-          badge.textContent = `${total.toLocaleString()} Quotes Available`;
+  try {
+    const resMeta = await fetch('data/metadata.json');
+    if (resMeta.ok) {
+      const metadata = await resMeta.json();
+      
+      // Initialize empty categories map from metadata
+      Object.keys(metadata.categories).forEach(catName => {
+        if (!state.categoriesMap[catName]) {
+          state.categoriesMap[catName] = { quotes: [], _meta: metadata.categories[catName], loaded: false };
         }
+      });
 
-        if (typeof renderCategoryPills === 'function') renderCategoryPills();
-        if (typeof populateAuthorDropdown === 'function') populateAuthorDropdown();
-        
-        // Initialize Web Worker for massive global searching
-        if (window.Worker && !state.searchWorker) {
-            state.searchWorker = new Worker('src/js/searchWorker.js');
-            const files = Object.values(metadata.categories).map(c => c.file);
-            state.searchWorker.postMessage({ type: 'INIT', payload: { files } });
-            
-            state.searchWorker.onmessage = function(e) {
-                const { type, payload } = e.data;
-                if (type === 'RESULTS') {
-                    // Append new unique results
-                    payload.results.forEach(r => {
-                        if (!state.workerSearchResults.some(existing => existing.quote === r.quote)) {
-                            state.workerSearchResults.push(r);
-                        }
-                    });
-                    
-                    // If still on the same query and in global view, re-render!
-                    if (state.activeCategory === 'all' && state.searchQuery && state.searchQuery === state.currentWorkerQuery) {
-                        applyFilters(true); // true = skip triggering a new search
-                    }
-                }
-            };
-        }
+      const badge = document.getElementById('quoteCountBadge');
+      if (badge) {
+        let total = 0;
+        Object.values(metadata.categories).forEach(c => total += c.count);
+        badge.textContent = `${total.toLocaleString()} Quotes Available`;
       }
-    } catch (err) {
-      console.warn("Metadata background load notice:", err);
+
+      if (typeof renderCategoryPills === 'function') renderCategoryPills();
+      if (typeof populateAuthorDropdown === 'function') populateAuthorDropdown();
+      
+      // Initialize Web Worker for massive global searching
+      if (window.Worker && !state.searchWorker) {
+          state.searchWorker = new Worker('src/js/searchWorker.js');
+          const files = Object.values(metadata.categories).map(c => c.file);
+          state.searchWorker.postMessage({ type: 'INIT', payload: { files } });
+          
+          state.searchWorker.onmessage = function(e) {
+              const { type, payload } = e.data;
+              if (type === 'RESULTS') {
+                  // Append new unique results
+                  payload.results.forEach(r => {
+                      if (!state.workerSearchResults.some(existing => existing.quote === r.quote)) {
+                          state.workerSearchResults.push(r);
+                      }
+                  });
+                  
+                  // If still on the same query and in global view, re-render!
+                  if (state.activeCategory === 'all' && state.searchQuery && state.searchQuery === state.currentWorkerQuery) {
+                      applyFilters(true); // true = skip triggering a new search
+                  }
+              }
+          };
+      }
     }
-  }, 100);
+  } catch (err) {
+    console.warn("Metadata background load notice:", err);
+  }
 }
 
 // Lazy load a specific category when selected

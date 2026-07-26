@@ -1,2 +1,1 @@
-*.json filter=lfs diff=lfs merge=lfs -text
-data/quotes_enriched.json filter=lfs diff=lfs merge=lfs -text
+# Standard Git tracking for website assets
