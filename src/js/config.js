@@ -1,0 +1,3 @@
+window.CONFIG = {
+    PIXABAY_API_KEY: '31635482-a6219e4788c28c0983dbc0cd0'
+};
