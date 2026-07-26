@@ -1829,13 +1829,13 @@ async function loadAuthorProfile(authorName, container) {
   `;
 
   try {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
     // MediaWiki REST API v1
     const endpoint = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(authorName)}`;
-    const response = await fetch(endpoint, {
-      headers: {
-        'User-Agent': 'QuotebookApp/1.0 (https://example.com; contact@example.com)'
-      }
-    });
+    const response = await fetch(endpoint, { signal: controller.signal });
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       // Graceful fallback if not found
@@ -1953,7 +1953,7 @@ document.addEventListener('DOMContentLoaded', () => {
       el.className = 'story-item';
       el.innerHTML = `
         <div class="story-ring">
-          <img src="${authorData.imgSrc}" alt="${authorData.cleanName}" class="story-avatar" id="storyAvatar-${index}">
+          <img src="${authorData.imgSrc}" alt="${authorData.cleanName}" class="story-avatar" id="storyAvatar-${index}" loading="lazy" onerror="this.src='data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22%25238C8079%22%3E%3Cpath%20d%3D%22M12%202C6.48%202%202%206.48%202%2012s4.48%2010%2010%2010%2010-4.48%2010-10S17.52%202%2012%202zm0%203c1.66%200%203%201.34%203%203s-1.34%203-3%203-3-1.34-3-3%201.34-3%203-3zm0%2014.2c-2.5%200-4.71-1.28-6-3.22.03-1.99%204-3.08%206-3.08%201.99%200%205.97%201.09%206%203.08-1.29%201.94-3.5%203.22-6%203.22z%22%2F%3E%3C%2Fsvg%3E'; this.onerror=null;">
         </div>
         <span class="story-author-name">${authorData.displayName}</span>
       `;
