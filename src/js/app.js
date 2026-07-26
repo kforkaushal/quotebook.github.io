@@ -1146,23 +1146,6 @@ function setupEventListeners() {
     if (el) el.addEventListener(event, callback);
   };
 
-  // Mobile Menu Drawer Toggle Handlers
-  const setupDrawerToggle = (btnId, drawerId) => {
-    const btn = document.getElementById(btnId);
-    const drawer = document.getElementById(drawerId);
-    if (btn && drawer) {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = drawer.classList.contains('active');
-        drawer.classList.toggle('active', !isOpen);
-        btn.setAttribute('aria-expanded', !isOpen);
-      });
-    }
-  };
-
-  setupDrawerToggle('quotesMenuToggle', 'quotesMobileDrawer');
-  setupDrawerToggle('mobileMenuToggle', 'homeNavLinks');
-
   // Search Bar
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearSearchBtn');
