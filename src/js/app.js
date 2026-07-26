@@ -88,6 +88,10 @@ const categoryImageMap = {
 // UI Elements
 let posterStudioInstance = null;
 
+window.addEventListener('pageshow', () => {
+  document.body.classList.add('page-loaded');
+});
+
 document.addEventListener('DOMContentLoaded', () => {
   // Page load fade-in
   document.body.classList.add('page-loaded');
@@ -1578,13 +1582,10 @@ function showToast(message) {
 function initPageTransitions() {
   document.querySelectorAll('a').forEach(link => {
     const href = link.getAttribute('href');
-    if (href && (href.startsWith('index.html') || href.startsWith('quotes.html') || href === 'index.html' || href === 'quotes.html')) {
+    if (href && !href.startsWith('#') && !href.startsWith('javascript:') && !href.startsWith('mailto:')) {
       link.addEventListener('click', (e) => {
-        e.preventDefault();
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
         document.body.classList.remove('page-loaded');
-        setTimeout(() => {
-          window.location.href = href;
-        }, 180);
       });
     }
   });
