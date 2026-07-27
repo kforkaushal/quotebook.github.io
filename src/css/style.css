@@ -2857,48 +2857,80 @@ body.page-loaded {
   margin: 0 auto;
 }
 
-.popular-cats-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.25rem;
+.accordion-cats-gallery {
+  display: flex;
+  width: 100%;
+  height: 400px;
+  gap: 1rem;
 }
 
-.cat-highlight-card {
-  background: #ffffff;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  padding: 1.5rem 1.25rem;
-  text-align: center;
-  text-decoration: none;
-  color: var(--text-primary);
-  transition: all var(--transition-smooth);
-  box-shadow: var(--shadow-sm);
+.accordion-cat-card {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 20px;
+  transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s ease;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
+  justify-content: flex-end;
+  text-decoration: none;
+  color: #fff;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
 }
 
-.cat-highlight-card:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--accent-primary);
+.accordion-cat-card:hover {
+  flex: 3;
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-.cat-card-icon {
-  font-size: 1.8rem;
-  color: var(--accent-primary);
-  margin-bottom: 0.25rem;
+.acc-icon-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3.5rem;
+  opacity: 0.8;
+  transition: all 0.5s ease;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
 }
 
-.cat-card-name {
+.accordion-cat-card:hover .acc-icon-wrapper {
+  top: 1.5rem;
+  left: 1.5rem;
+  transform: translate(0, 0);
+  font-size: 2rem;
+  opacity: 1;
+}
+
+.acc-cat-content {
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.4s ease 0.1s;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+.accordion-cat-card:hover .acc-cat-content {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.acc-cat-name {
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 1.2rem;
+  margin-bottom: 0.2rem;
 }
 
-.cat-card-count {
-  font-size: 0.78rem;
-  color: var(--text-muted);
+.acc-cat-count {
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
 
@@ -2962,6 +2994,38 @@ body.page-loaded {
   text-align: center;
   font-size: 0.82rem;
   color: var(--text-muted);
+}
+/* Mobile Responsiveness for Accordion */
+@media (max-width: 768px) {
+  .accordion-cats-gallery {
+    flex-direction: column;
+    height: 80vh;
+    min-height: 650px;
+    gap: 0.75rem;
+  }
+  .accordion-cat-card {
+    border-radius: 15px;
+    padding: 1rem;
+  }
+  .acc-icon-wrapper {
+    font-size: 2.2rem;
+  }
+  .accordion-cat-card:hover {
+    flex: 4;
+    transform: scale(1.02);
+    z-index: 10;
+  }
+  .accordion-cat-card:hover .acc-icon-wrapper {
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.4rem;
+  }
+  .acc-cat-content {
+    padding: 0.75rem;
+  }
+  .acc-cat-name {
+    font-size: 1.1rem;
+  }
 }
 
 /* Responsive Footer Adjustments */
