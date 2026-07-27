@@ -416,30 +416,86 @@
           </div>
         </div>
 
-        <!-- Tighter row of secondary features -->
-        <div class="secondary-features-grid">
-          <div class="feature-card small-feature">
-            <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
-            <h3>57 Categorized Topics</h3>
-            <p>From Philosophy to Motivation — discover quotes matching any state of mind.</p>
-          </div>
+        <!-- Tighter row of secondary features (Marquee) -->
+        <style>
+          .features-marquee-wrapper {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 1rem;
+            position: relative;
+            /* Optional: subtle fade at edges for polish */
+            -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+            mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+          }
+          
+          .features-marquee-track {
+            display: flex;
+            gap: 1.5rem;
+            width: max-content;
+            animation: scrollMarquee 25s linear infinite;
+          }
+          
+          .features-marquee-track:hover {
+            animation-play-state: paused;
+          }
+          
+          .marquee-card {
+            width: 280px;
+            flex-shrink: 0;
+            white-space: normal;
+          }
+          
+          @keyframes scrollMarquee {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-50% - 0.75rem)); }
+          }
+        </style>
+        
+        <div class="features-marquee-wrapper">
+          <div class="features-marquee-track">
+            <!-- First Set -->
+            <div class="feature-card small-feature marquee-card">
+              <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+              <h3>57 Categorized Topics</h3>
+              <p>From Philosophy to Motivation — discover quotes matching any state of mind.</p>
+            </div>
+            <div class="feature-card small-feature marquee-card">
+              <div class="feature-icon"><i class="fa-solid fa-image"></i></div>
+              <h3>Pixabay Integration</h3>
+              <p>Automated keyword lookup matches quote categories to beautiful images.</p>
+            </div>
+            <div class="feature-card small-feature marquee-card">
+              <div class="feature-icon"><i class="fa-solid fa-volume-high"></i></div>
+              <h3>Audio Synthesis</h3>
+              <p>Natural text-to-speech reads quotes aloud with clear pronunciation.</p>
+            </div>
+            <div class="feature-card small-feature marquee-card">
+              <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
+              <h3>Bookmarks Drawer</h3>
+              <p>Save your favorite wisdom locally with one click and export as JSON.</p>
+            </div>
 
-          <div class="feature-card small-feature">
-            <div class="feature-icon"><i class="fa-solid fa-image"></i></div>
-            <h3>Pixabay Integration</h3>
-            <p>Automated keyword lookup matches quote categories to beautiful images.</p>
-          </div>
-
-          <div class="feature-card small-feature">
-            <div class="feature-icon"><i class="fa-solid fa-volume-high"></i></div>
-            <h3>Audio Synthesis</h3>
-            <p>Natural text-to-speech reads quotes aloud with clear pronunciation.</p>
-          </div>
-
-          <div class="feature-card small-feature">
-            <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
-            <h3>Bookmarks Drawer</h3>
-            <p>Save your favorite wisdom locally with one click and export as JSON.</p>
+            <!-- Duplicate Set for Seamless Loop -->
+            <div class="feature-card small-feature marquee-card" aria-hidden="true">
+              <div class="feature-icon"><i class="fa-solid fa-layer-group"></i></div>
+              <h3>57 Categorized Topics</h3>
+              <p>From Philosophy to Motivation — discover quotes matching any state of mind.</p>
+            </div>
+            <div class="feature-card small-feature marquee-card" aria-hidden="true">
+              <div class="feature-icon"><i class="fa-solid fa-image"></i></div>
+              <h3>Pixabay Integration</h3>
+              <p>Automated keyword lookup matches quote categories to beautiful images.</p>
+            </div>
+            <div class="feature-card small-feature marquee-card" aria-hidden="true">
+              <div class="feature-icon"><i class="fa-solid fa-volume-high"></i></div>
+              <h3>Audio Synthesis</h3>
+              <p>Natural text-to-speech reads quotes aloud with clear pronunciation.</p>
+            </div>
+            <div class="feature-card small-feature marquee-card" aria-hidden="true">
+              <div class="feature-icon"><i class="fa-solid fa-heart"></i></div>
+              <h3>Bookmarks Drawer</h3>
+              <p>Save your favorite wisdom locally with one click and export as JSON.</p>
+            </div>
           </div>
         </div>
       </div>
