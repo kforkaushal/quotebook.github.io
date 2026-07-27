@@ -40,6 +40,7 @@
   --text-secondary: var(--ink-600);
   --text-muted: var(--ink-400);
   --accent-primary: var(--orange-600);
+  --accent-primary-rgb: 193, 89, 44;
   --accent-primary-hover: var(--orange-700);
   --accent-gold: var(--orange-600);
   --accent-gold-hover: var(--orange-700);
@@ -2857,80 +2858,112 @@ body.page-loaded {
   margin: 0 auto;
 }
 
-.accordion-cats-gallery {
-  display: flex;
-  width: 100%;
-  height: 400px;
-  gap: 1rem;
+.cat-card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
 }
 
-.accordion-cat-card {
-  flex: 1;
+.cat-highlight-tile {
   position: relative;
-  overflow: hidden;
-  border-radius: 20px;
-  transition: flex 0.5s cubic-bezier(0.25, 1, 0.5, 1), transform 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  text-decoration: none;
-  color: #fff;
+  height: 260px;
   padding: 1.5rem;
-  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  text-decoration: none;
+  box-shadow: var(--shadow-md);
+  transition: transform var(--transition-smooth), box-shadow var(--transition-smooth);
 }
 
-.accordion-cat-card:hover {
-  flex: 3;
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+.cat-highlight-tile:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
 }
 
-.acc-icon-wrapper {
+.cat-highlight-tile:hover::before {
+  transform: scale(1.08);
+}
+
+/* Background image zoom on hover, applied via a pseudo-element so it can animate
+   independently of the tile's own translateY hover transform */
+.cat-highlight-tile::before {
+  content: '';
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3.5rem;
-  opacity: 0.8;
-  transition: all 0.5s ease;
-  color: #fff;
-  text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+  inset: 0;
+  background: inherit;
+  background-size: cover;
+  background-position: center;
+  transition: transform 0.6s ease;
+  z-index: 0;
 }
 
-.accordion-cat-card:hover .acc-icon-wrapper {
-  top: 1.5rem;
-  left: 1.5rem;
-  transform: translate(0, 0);
-  font-size: 2rem;
-  opacity: 1;
+.cat-tile-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(15, 23, 42, 0.88) 10%, rgba(15, 23, 42, 0.25) 60%, rgba(15, 23, 42, 0.05) 100%);
+  z-index: 1;
 }
 
-.acc-cat-content {
+.cat-tile-icon-badge {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  z-index: 2;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-size: 1.1rem;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+
+.cat-highlight-tile:hover .cat-tile-icon-badge {
+  background: var(--accent-primary);
+}
+
+.cat-tile-content {
+  position: relative;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.4s ease 0.1s;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(5px);
-  padding: 1rem;
-  border-radius: 12px;
+  gap: 0.25rem;
 }
 
-.accordion-cat-card:hover .acc-cat-content {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.acc-cat-name {
+.cat-tile-name {
   font-weight: 700;
-  font-size: 1.2rem;
-  margin-bottom: 0.2rem;
+  font-size: 1.15rem;
+  color: #ffffff;
 }
 
-.acc-cat-count {
-  font-size: 0.9rem;
-  opacity: 0.9;
+.cat-tile-count {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+@media (max-width: 900px) {
+  .cat-card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .cat-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cat-highlight-tile {
+    height: 200px;
+  }
 }
 
 
@@ -2995,38 +3028,8 @@ body.page-loaded {
   font-size: 0.82rem;
   color: var(--text-muted);
 }
-/* Mobile Responsiveness for Accordion */
-@media (max-width: 768px) {
-  .accordion-cats-gallery {
-    flex-direction: column;
-    height: 80vh;
-    min-height: 650px;
-    gap: 0.75rem;
-  }
-  .accordion-cat-card {
-    border-radius: 15px;
-    padding: 1rem;
-  }
-  .acc-icon-wrapper {
-    font-size: 2.2rem;
-  }
-  .accordion-cat-card:hover {
-    flex: 4;
-    transform: scale(1.02);
-    z-index: 10;
-  }
-  .accordion-cat-card:hover .acc-icon-wrapper {
-    top: 1rem;
-    left: 1rem;
-    font-size: 1.4rem;
-  }
-  .acc-cat-content {
-    padding: 0.75rem;
-  }
-  .acc-cat-name {
-    font-size: 1.1rem;
-  }
-}
+
+
 
 /* Responsive Footer Adjustments */
 @media (max-width: 768px) {
@@ -5489,6 +5492,7 @@ body.data-saver-active .quote-card-header::before {
     gap: 0.35rem;
   }
 }
+
 /* Breadcrumb Navigation */
 .breadcrumb-nav {
   display: flex;
@@ -5500,6 +5504,7 @@ body.data-saver-active .quote-card-header::before {
   color: var(--text-muted);
   margin-bottom: 1rem;
 }
+
 .breadcrumb-nav a {
   color: var(--text-secondary);
   text-decoration: none;
@@ -5508,14 +5513,76 @@ body.data-saver-active .quote-card-header::before {
   align-items: center;
   gap: 0.4rem;
 }
+
 .breadcrumb-nav a:hover {
   color: var(--accent-primary);
 }
+
 .breadcrumb-separator {
   color: var(--border-light);
   font-size: 0.8rem;
 }
+
 .breadcrumb-current {
   color: var(--text-primary);
   font-weight: 600;
+}
+
+/* ==========================================================================
+   ZEN MODE 3-PHONE SHOWCASE
+   ========================================================================== */
+.zen-showcase-section {
+  padding: 5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.zen-showcase-container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.zen-showcase-phones {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 3rem 1rem 2rem;
+}
+
+/* Soft ambient glow behind the phone cluster (the "shadow in background") */
+.zen-showcase-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70%;
+  max-width: 640px;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(15, 23, 42, 0.12) 0%, rgba(15, 23, 42, 0) 70%);
+  filter: blur(40px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.zen-showcase-img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 960px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+}
+
+.zen-showcase-img:hover {
+  transform: translateY(-6px) scale(1.015);
+  filter: drop-shadow(0 30px 45px rgba(248, 186, 160, 0.35));
+}
+
+.zen-showcase-cta {
+  text-align: center;
+  margin-top: 1.5rem;
 }

@@ -363,8 +363,31 @@
       </div>
     </div>
   </section>
+  <!-- Zen Mode Showcase (3-Phone Display) -->
+  <section class="zen-showcase-section" id="zenShowcase">
+    <div class="zen-showcase-container">
+      <div class="section-title-box">
+        <span class="sub-title">DISTRACTION-FREE READING</span>
+        <h2 class="main-title">Step Into Zen Mode</h2>
+        <p class="title-desc">A full-screen, auto-playing quote experience — calm typography over crossfading
+          photography, for whenever you need a moment of stillness.</p>
+      </div>
 
+      <div class="zen-showcase-phones">
+        <div class="zen-showcase-glow"></div>
+        <img src="data/img/zen-mode-showcase.webp"
+          alt="Three phone screens showing Quotebook's Zen Mode with different quotes and full-screen photography"
+          class="zen-showcase-img" loading="lazy">
+      </div>
 
+      <div class="zen-showcase-cta">
+        <a href="quotes.html" class="btn-hero-primary">
+          <i class="fa-solid fa-expand"></i>
+          <span>Try Zen Mode</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <!-- Features Showcase Section -->
   <section class="features-section" id="features">
@@ -427,30 +450,35 @@
             -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
             mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
           }
-          
+
           .features-marquee-track {
             display: flex;
             gap: 1.5rem;
             width: max-content;
             animation: scrollMarquee 25s linear infinite;
           }
-          
+
           .features-marquee-track:hover {
             animation-play-state: paused;
           }
-          
+
           .marquee-card {
             width: 280px;
             flex-shrink: 0;
             white-space: normal;
           }
-          
+
           @keyframes scrollMarquee {
-            from { transform: translateX(0); }
-            to { transform: translateX(calc(-50% - 0.75rem)); }
+            from {
+              transform: translateX(0);
+            }
+
+            to {
+              transform: translateX(calc(-50% - 0.75rem));
+            }
           }
         </style>
-        
+
         <div class="features-marquee-wrapper">
           <div class="features-marquee-track">
             <!-- First Set -->
@@ -511,52 +539,64 @@
         <p class="title-desc">Click any topic to browse quotes directly in the library.</p>
       </div>
 
-      <div class="accordion-cats-gallery">
-        <a href="quotes.html?category=Wisdom+%26+Knowledge" class="accordion-cat-card" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://picsum.photos/seed/wisdom/800/600') center/cover no-repeat;">
-          <div class="acc-icon-wrapper"><i class="fa-solid fa-brain"></i></div>
-          <div class="acc-cat-content">
-            <span class="acc-cat-name">Wisdom & Knowledge</span>
-            <span class="acc-cat-count">1,840+ Quotes</span>
+      <div class="cat-card-grid">
+        <a href="quotes.html?category=Wisdom+%26+Knowledge" class="cat-highlight-tile"
+          style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80');">
+          <div class="cat-tile-overlay"></div>
+          <div class="cat-tile-icon-badge"><i class="fa-solid fa-brain"></i></div>
+          <div class="cat-tile-content">
+            <span class="cat-tile-name">Wisdom & Knowledge</span>
+            <span class="cat-tile-count">1,840+ Quotes</span>
           </div>
         </a>
 
-        <a href="quotes.html?category=Books+%26+Reading" class="accordion-cat-card" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://picsum.photos/seed/books/800/600') center/cover no-repeat;">
-          <div class="acc-icon-wrapper"><i class="fa-solid fa-book-open"></i></div>
-          <div class="acc-cat-content">
-            <span class="acc-cat-name">Books & Reading</span>
-            <span class="acc-cat-count">1,650+ Quotes</span>
+        <a href="quotes.html?category=Books+%26+Reading" class="cat-highlight-tile"
+          style="background-image: url('https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=800&q=80');">
+          <div class="cat-tile-overlay"></div>
+          <div class="cat-tile-icon-badge"><i class="fa-solid fa-book-open"></i></div>
+          <div class="cat-tile-content">
+            <span class="cat-tile-name">Books & Reading</span>
+            <span class="cat-tile-count">1,650+ Quotes</span>
           </div>
         </a>
 
-        <a href="quotes.html?category=Philosophy+%26+Thinking" class="accordion-cat-card" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://picsum.photos/seed/philosophy/800/600') center/cover no-repeat;">
-          <div class="acc-icon-wrapper"><i class="fa-solid fa-landmark"></i></div>
-          <div class="acc-cat-content">
-            <span class="acc-cat-name">Philosophy & Thinking</span>
-            <span class="acc-cat-count">1,420+ Quotes</span>
+        <a href="quotes.html?category=Philosophy+%26+Thinking" class="cat-highlight-tile"
+          style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80');">
+          <div class="cat-tile-overlay"></div>
+          <div class="cat-tile-icon-badge"><i class="fa-solid fa-landmark"></i></div>
+          <div class="cat-tile-content">
+            <span class="cat-tile-name">Philosophy & Thinking</span>
+            <span class="cat-tile-count">1,420+ Quotes</span>
           </div>
         </a>
 
-        <a href="quotes.html?category=Love+%26+Relationships" class="accordion-cat-card" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://picsum.photos/seed/love/800/600') center/cover no-repeat;">
-          <div class="acc-icon-wrapper"><i class="fa-solid fa-heart"></i></div>
-          <div class="acc-cat-content">
-            <span class="acc-cat-name">Love & Relationships</span>
-            <span class="acc-cat-count">2,100+ Quotes</span>
+        <a href="quotes.html?category=Love+%26+Relationships" class="cat-highlight-tile"
+          style="background-image: url('https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=800&q=80');">
+          <div class="cat-tile-overlay"></div>
+          <div class="cat-tile-icon-badge"><i class="fa-solid fa-heart"></i></div>
+          <div class="cat-tile-content">
+            <span class="cat-tile-name">Love & Relationships</span>
+            <span class="cat-tile-count">2,100+ Quotes</span>
           </div>
         </a>
 
-        <a href="quotes.html?category=Motivation+%26+Inspiration" class="accordion-cat-card" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://picsum.photos/seed/motivation/800/600') center/cover no-repeat;">
-          <div class="acc-icon-wrapper"><i class="fa-solid fa-fire"></i></div>
-          <div class="acc-cat-content">
-            <span class="acc-cat-name">Motivation & Inspiration</span>
-            <span class="acc-cat-count">1,950+ Quotes</span>
+        <a href="quotes.html?category=Motivation+%26+Inspiration" class="cat-highlight-tile"
+          style="background-image: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?auto=format&fit=crop&w=800&q=80');">
+          <div class="cat-tile-overlay"></div>
+          <div class="cat-tile-icon-badge"><i class="fa-solid fa-fire"></i></div>
+          <div class="cat-tile-content">
+            <span class="cat-tile-name">Motivation & Inspiration</span>
+            <span class="cat-tile-count">1,950+ Quotes</span>
           </div>
         </a>
 
-        <a href="quotes.html?category=Art+%26+Creativity" class="accordion-cat-card" style="background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('https://picsum.photos/seed/art/800/600') center/cover no-repeat;">
-          <div class="acc-icon-wrapper"><i class="fa-solid fa-palette"></i></div>
-          <div class="acc-cat-content">
-            <span class="acc-cat-name">Art & Creativity</span>
-            <span class="acc-cat-count">1,280+ Quotes</span>
+        <a href="quotes.html?category=Art+%26+Creativity" class="cat-highlight-tile"
+          style="background-image: url('https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=800&q=80');">
+          <div class="cat-tile-overlay"></div>
+          <div class="cat-tile-icon-badge"><i class="fa-solid fa-palette"></i></div>
+          <div class="cat-tile-content">
+            <span class="cat-tile-name">Art & Creativity</span>
+            <span class="cat-tile-count">1,280+ Quotes</span>
           </div>
         </a>
       </div>
@@ -575,8 +615,7 @@
         </a>
       </div>
       <div class="cta-illustration">
-        <img src="https://i.ibb.co/JFkKmsL4/pngtree-alot-of-books-illustration-png-image-11519708.png"
-          alt="Inspirational Workspace" class="cta-img" />
+        <img src="data/img/zen-mode-showcase1.png" alt="Inspirational Workspace" class="cta-img" />
       </div>
     </div>
   </section>
