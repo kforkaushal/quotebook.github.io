@@ -5489,3 +5489,33 @@ body.data-saver-active .quote-card-header::before {
     gap: 0.35rem;
   }
 }
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 1rem;
+}
+.breadcrumb-nav a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.breadcrumb-nav a:hover {
+  color: var(--accent-primary);
+}
+.breadcrumb-separator {
+  color: var(--border-light);
+  font-size: 0.8rem;
+}
+.breadcrumb-current {
+  color: var(--text-primary);
+  font-weight: 600;
+}
