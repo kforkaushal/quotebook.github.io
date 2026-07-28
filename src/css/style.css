@@ -2120,6 +2120,8 @@ body.page-loaded {
   inset: 0;
   z-index: 0;
   display: flex;
+  align-items: flex-start;
+  overflow: hidden;
   gap: 1rem;
   padding: 0 1rem;
   opacity: 0.16;
