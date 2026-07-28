@@ -258,6 +258,8 @@ async function initHomeHeroCard() {
     if (images.length > 0) {
       const bgUrl = images[Math.floor(Math.random() * images.length)].largeImageURL;
       bgEl.style.backgroundImage = `url('${bgUrl}')`;
+    } else if (!bgEl.style.backgroundImage) {
+      bgEl.style.backgroundImage = 'linear-gradient(160deg, #0f2027 0%, #203a43 50%, #2c5364 100%)';
     }
   }
 
@@ -349,6 +351,9 @@ async function updateHomeDeviceQuote() {
     if (images.length > 0) {
       const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
       setSmoothBackgroundImage(bgEl, bgUrl);
+    } else if (!bgEl.style.backgroundImage) {
+      bgEl.style.backgroundImage = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #2d3561 100%)';
+      bgEl.style.opacity = '1';
     }
   }
 }
@@ -582,13 +587,20 @@ async function selectHeroQuote(quote = null) {
   // Update Hero Pixabay Background Image
   const query = categoryImageMap[h.category] || h.category;
   const images = await fetchPixabayImages(query, 5);
+  const heroBackdrop = document.getElementById('heroBackdrop');
   if (images.length > 0) {
     const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
-    setSmoothBackgroundImage(document.getElementById('heroBackdrop'), bgUrl);
+    setSmoothBackgroundImage(heroBackdrop, bgUrl);
+  } else if (heroBackdrop && !heroBackdrop.style.backgroundImage) {
+    // Graceful fallback: warm editorial gradient when Pixabay is unavailable
+    heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #2C3E50 0%, #3D5A80 40%, #8B5E52 100%)';
+    heroBackdrop.style.opacity = '1';
   }
 }
 
 // 5. Pixabay API Integration
+// NOTE: Your Pixabay API key must have your domain approved at https://pixabay.com/api/
+// Add 'quotebook.me' and 'kforkaushal.github.io' to approved domains in your Pixabay account.
 async function fetchPixabayImages(query, perPage = 10) {
   if (state.dataSaver) {
     return []; // Disable API request in Lite Mode to save user bandwidth
@@ -604,7 +616,8 @@ async function fetchPixabayImages(query, perPage = 10) {
 
   try {
     const url = `https://pixabay.com/api/?key=${state.pixabayApiKey}&q=${encodeURIComponent(cleanQuery)}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}`;
-    const res = await fetch(url);
+    // Send full referrer so Pixabay can verify the approved domain
+    const res = await fetch(url, { referrerPolicy: 'no-referrer-when-downgrade' });
     if (!res.ok) throw new Error(`Pixabay API error HTTP ${res.status}`);
     const data = await res.json();
     let hits = data.hits || [];
@@ -612,7 +625,7 @@ async function fetchPixabayImages(query, perPage = 10) {
     // If no hits for specific query, fallback to scenic nature photography
     if (hits.length === 0 && cleanQuery !== 'nature') {
       const fallbackUrl = `https://pixabay.com/api/?key=${state.pixabayApiKey}&q=nature&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}`;
-      const fbRes = await fetch(fallbackUrl);
+      const fbRes = await fetch(fallbackUrl, { referrerPolicy: 'no-referrer-when-downgrade' });
       if (fbRes.ok) {
         const fbData = await fbRes.json();
         hits = fbData.hits || [];
@@ -622,7 +635,17 @@ async function fetchPixabayImages(query, perPage = 10) {
     state.pixabayCache[cleanQuery] = hits;
     return hits;
   } catch (err) {
-    console.warn("Pixabay API fetch failed:", err);
+    // Check if this is a CORS block (domain not approved on Pixabay)
+    if (err instanceof TypeError && err.message.includes('fetch')) {
+      console.error(
+        '%c[Quotebook] Pixabay CORS Block Detected!',
+        'color: #e55; font-weight: bold;',
+        '\nFix: Log in to https://pixabay.com/api/ and add your domain to the approved list.',
+        '\nDomains to add: quotebook.me, kforkaushal.github.io'
+      );
+    } else {
+      console.warn('Pixabay API fetch failed:', err);
+    }
     return [];
   }
 }
