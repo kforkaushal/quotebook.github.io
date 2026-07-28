@@ -64,12 +64,7 @@
   --transition-fast: 0.18s cubic-bezier(0.4, 0, 0.2, 1);
   --transition-smooth: 0.38s cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Bento wall background colours */
-  --bento-amber: #F5C84C;
-  --bento-indigo: #6C63FF;
-  --bento-emerald: #3EBD7E;
-  --bento-blue: #4C6FBE;
-  --bento-charcoal: #1F2430;
+
 }
 
 /* Global Reset */
@@ -2120,8 +2115,6 @@ body.page-loaded {
   inset: 0;
   z-index: 0;
   display: flex;
-  align-items: flex-start;
-  overflow: hidden;
   gap: 1rem;
   padding: 0 1rem;
   opacity: 0.16;
@@ -2194,6 +2187,11 @@ body.page-loaded {
   justify-content: center;
   font-size: 0.65rem;
   flex-shrink: 0;
+}
+
+.bento-card[style*="--orange-300"] .bento-avatar,
+.bento-card[style*="--teal-100"] .bento-avatar {
+  background: rgba(33, 29, 26, 0.1);
 }
 
 @media (max-width: 900px) {
