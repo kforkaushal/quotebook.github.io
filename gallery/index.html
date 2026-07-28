@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P7WSN8P37J"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-P7WSN8P37J');
+  </script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quotes Gallery — Download Beautiful Quote Posters</title>
+  <meta name="description" content="Browse our gallery of stunning quotes overlaid on high-quality Pixabay photography. Download them instantly for social media.">
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+
+  <link rel="canonical" href="https://quotebook.me/gallery/index.html">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="../src/css/style.css">
+  <link rel="stylesheet" href="gallery.css">
+  
+  <link rel="icon" type="image/png" sizes="32x32" href="../data/img/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../data/img/favicon-16x16.png">
+</head>
+<body class="light-theme quotes-page page-loaded">
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
+        <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+        <div class="logo-text">
+          <span class="logo-title">Quotebook</span>
+          <span class="logo-subtitle" id="quoteCountBadge">Poster Gallery</span>
+        </div>
+      </a>
+      <div class="header-actions" id="headerActions">
+        <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="gallery-main">
+    <section class="gallery-hero">
+      <h1>Visual Quotes Gallery</h1>
+      <p>Discover beautiful quotes paired with high-quality photography. Click to download and share them anywhere.</p>
+    </section>
+
+    <section class="quotes-grid-container" style="padding-top: 2rem;">
+      <div class="quotes-grid" id="galleryGrid">
+        <div class="loading-state">
+          <i class="fa-solid fa-circle-notch fa-spin"></i> Loading gallery posters...
+        </div>
+      </div>
+      
+      <!-- Pagination / Load More Bar -->
+      <div class="load-more-container hidden" id="loadMoreContainer" style="text-align: center; margin-top: 3rem;">
+        <button class="btn-load-more" id="btnLoadMore" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; cursor: pointer; border: 1px solid #ccc; background: #fff; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.3s;">
+          <span>Load More Quotes</span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo">
+          <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
+          <span class="logo-title">Quotebook</span>
+        </div>
+        <p>A modern editorial web application for discovering quotes, listening aloud, and generating canvas posters
+          with Pixabay photography.</p>
+      </div>
+
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigation</h4>
+          <a href="../index.html">Home</a>
+          <a href="../quotes.html">Quotes Library</a>
+          <a href="../quotes.html?action=poster">Poster Studio</a>
+          <a href="../about.html">About Us</a>
+          <a href="../contact.html">Contact Us</a>
+        </div>
+
+        <div class="footer-col">
+          <h4>Categories</h4>
+          <a href="../quotes/popular-quotes.html">Popular Quotes</a>
+          <a href="../quotes.html?category=Wisdom+%26+Knowledge">Wisdom</a>
+          <a href="../quotes.html?category=Philosophy+%26+Thinking">Philosophy</a>
+          <a href="../quotes.html?category=Books+%26+Reading">Books</a>
+          <a href="../terms.html">Terms & Conditions</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2026 Quotebook. Powered by Pixabay API &amp; Open Quote Datasets.</p>
+    </div>
+  </footer>
+
+  <!-- Hidden Canvas used for generating the downloadable image -->
+  <canvas id="downloadCanvas" class="hidden-canvas"></canvas>
+
+  <script src="../src/js/config.js"></script>
+  <script src="gallery.js"></script>
+</body>
+</html>
