@@ -17,8 +17,7 @@ const state = {
   filteredQuotes: [],
   bookmarks: JSON.parse(localStorage.getItem('qb_bookmarks') || '[]'),
   heroQuote: null,
-  pixabayCache: {},
-  pixabayApiKey: (window.CONFIG && window.CONFIG.PIXABAY_API_KEY) || 'YOUR_PIXABAY_API_KEY_HERE',
+  imageCache: {},  // Shared cache for Picsum images
   zenInterval: null,
   zenIsPlaying: false,
   zenCurrentIndex: 0,
@@ -598,57 +597,117 @@ async function selectHeroQuote(quote = null) {
   }
 }
 
-// 5. Pixabay API Integration
-// NOTE: Your Pixabay API key must have your domain approved at https://pixabay.com/api/
-// Add 'quotebook.me' and 'kforkaushal.github.io' to approved domains in your Pixabay account.
-async function fetchPixabayImages(query, perPage = 10) {
-  if (state.dataSaver) {
-    return []; // Disable API request in Lite Mode to save user bandwidth
-  }
-  
-  // Use first 2 words for maximum Pixabay search hits
-  const words = (query || '').toLowerCase().replace(/[^a-z0-9 ]/g, '').trim().split(/\s+/).filter(Boolean);
-  const cleanQuery = words.slice(0, 2).join(' ') || 'nature';
+// ─────────────────────────────────────────────────────────────────────
+// 5.  IMAGE API  —  Picsum Photos (picsum.photos)
+//     • No API key required   • No domain registration needed
+//     • CORS-safe from any browser / domain   • Beautiful HD photos
+//     • Deterministic seeds: same category → same image every time
+// ─────────────────────────────────────────────────────────────────────
 
-  if (state.pixabayCache[cleanQuery]) {
-    return state.pixabayCache[cleanQuery];
-  }
+// Map every quote category to a stable Picsum photo seed (integer 1–1000)
+const categoryPicsumSeed = {
+  'Age & Aging':                 27,
+  'Ambition & Goals':            18,
+  'Art & Creativity':            103,
+  'Beauty & Aesthetics':         74,
+  'Books & Reading':             24,
+  'Change & Growth':             15,
+  'Character & Integrity':       42,
+  'Courage & Bravery':           116,
+  'Death & Mortality':           64,
+  'Dreams & Aspirations':        11,
+  'Education & Learning':        29,
+  'Equality & Justice':          60,
+  'Experience & Practice':       39,
+  'Failure & Resilience':        85,
+  'Faith & Spirituality':        96,
+  'Family & Parenting':          43,
+  'Famous Quotes':               80,
+  'Fear & Courage':              112,
+  'Freedom & Liberty':            4,
+  'Friendship & Companionship':   50,
+  'Future & Progress':           200,
+  'Gratitude & Thankfulness':    57,
+  'Happiness & Joy':             58,
+  'Health & Wellness':           237,
+  'Hope & Optimism':             23,
+  'Humor & Wit':                 99,
+  'Imagination & Creativity':    167,
+  'Kindness & Compassion':       63,
+  'Life & Living':               33,
+  'Love & Relationships':        76,
+  'Mind & Consciousness':        119,
+  'Money & Wealth':              155,
+  'Motivation & Inspiration':    177,
+  'Music & Art':                 145,
+  'Nature & Environment':         3,
+  'Patience & Perseverance':     190,
+  'Peace & Harmony':             91,
+  'Philosophy & Thinking':       129,
+  'Power & Leadership':          65,
+  'Purpose & Meaning':           321,
+  'Science & Discovery':         250,
+  'Self & Identity':             117,
+  'Simplicity & Minimalism':     137,
+  'Strength & Resilience':       166,
+  'Success & Achievement':       380,
+  'Technology & Innovation':     202,
+  'Time & Patience':             231,
+  'Truth & Honesty':             98,
+  'Wisdom & Knowledge':          122,
+  'Work & Career':               274
+};
 
-  try {
-    const url = `https://pixabay.com/api/?key=${state.pixabayApiKey}&q=${encodeURIComponent(cleanQuery)}&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}`;
-    // Send full referrer so Pixabay can verify the approved domain
-    const res = await fetch(url, { referrerPolicy: 'no-referrer-when-downgrade' });
-    if (!res.ok) throw new Error(`Pixabay API error HTTP ${res.status}`);
-    const data = await res.json();
-    let hits = data.hits || [];
-    
-    // If no hits for specific query, fallback to scenic nature photography
-    if (hits.length === 0 && cleanQuery !== 'nature') {
-      const fallbackUrl = `https://pixabay.com/api/?key=${state.pixabayApiKey}&q=nature&image_type=photo&orientation=horizontal&safesearch=true&per_page=${perPage}`;
-      const fbRes = await fetch(fallbackUrl, { referrerPolicy: 'no-referrer-when-downgrade' });
-      if (fbRes.ok) {
-        const fbData = await fbRes.json();
-        hits = fbData.hits || [];
-      }
-    }
-
-    state.pixabayCache[cleanQuery] = hits;
-    return hits;
-  } catch (err) {
-    // Check if this is a CORS block (domain not approved on Pixabay)
-    if (err instanceof TypeError && err.message.includes('fetch')) {
-      console.error(
-        '%c[Quotebook] Pixabay CORS Block Detected!',
-        'color: #e55; font-weight: bold;',
-        '\nFix: Log in to https://pixabay.com/api/ and add your domain to the approved list.',
-        '\nDomains to add: quotebook.me, kforkaushal.github.io'
-      );
-    } else {
-      console.warn('Pixabay API fetch failed:', err);
-    }
-    return [];
-  }
+/**
+ * Build a Picsum image object for a given seed and size.
+ * Returns an object compatible with all call-sites:
+ *   .url        — the full-size image for backgrounds / canvas
+ *   .previewUrl — smaller thumbnail for the photo picker grid
+ *   .fullUrl    — alias for .url (for poster canvas)
+ *   .id         — numeric seed (for keying)
+ */
+function buildPicsumImage(seed, width = 1280, height = 853) {
+  const base = `https://picsum.photos/seed/${seed}`;
+  return {
+    id:         seed,
+    url:        `${base}/${width}/${height}`,
+    fullUrl:    `${base}/${width}/${height}`,
+    previewUrl: `${base}/320/214`,
+    // Legacy aliases so existing code using .webformatURL / .largeImageURL still works:
+    webformatURL:  `${base}/${width}/${height}`,
+    largeImageURL: `${base}/${width}/${height}`,
+    previewURL:    `${base}/320/214`,
+    tags: `picsum seed ${seed}`
+  };
 }
+
+/**
+ * Returns an array of image objects for a given category / search query.
+ * Primary source: Picsum Photos (always works, no key needed).
+ * Generates `count` varied seeds based on the category's base seed.
+ */
+async function fetchImages(query, count = 10) {
+  if (state.dataSaver) return [];
+
+  const cacheKey = `${query}:${count}`;
+  if (state.imageCache[cacheKey]) return state.imageCache[cacheKey];
+
+  // Derive a base seed from the category or query string
+  const baseSeed = categoryPicsumSeed[query]
+    || Math.abs([...String(query)].reduce((h, c) => (h * 31 + c.charCodeAt(0)) | 0, 0)) % 900 + 50;
+
+  // Generate `count` varied seeds around the base (offset by prime steps)
+  const primeOffsets = [0, 7, 17, 37, 53, 71, 89, 103, 127, 149, 163, 181];
+  const images = primeOffsets.slice(0, count).map(offset =>
+    buildPicsumImage(baseSeed + offset)
+  );
+
+  state.imageCache[cacheKey] = images;
+  return images;
+}
+
+// ─── Legacy alias so any remaining fetchPixabayImages calls still work ───
+const fetchPixabayImages = fetchImages;
 
 // 6. Filtering & Rendering Logic
 function applyFilters(skipWorkerTrigger = false) {
@@ -992,8 +1051,11 @@ async function openPosterStudio(qObj) {
   loadPixabayThumbs(query);
 }
 
+// ─── Photo picker for Poster Studio (replaces Pixabay thumbnail loader) ───
 async function loadPixabayThumbs(query) {
   const thumbsContainer = document.getElementById('pixabayThumbs');
+  if (!thumbsContainer) return;
+
   if (state.dataSaver) {
     thumbsContainer.innerHTML = `
       <div class="data-saver-notice" style="text-align:center; padding:1.5rem; color:var(--text-secondary); font-family:var(--font-sans);">
@@ -1003,34 +1065,42 @@ async function loadPixabayThumbs(query) {
       </div>
     `;
     const btn = document.getElementById('btnDisableLiteMode');
-    if (btn) {
-      btn.addEventListener('click', (e) => {
-        e.preventDefault();
-        toggleDataSaverMode();
-      });
-    }
+    if (btn) btn.addEventListener('click', (e) => { e.preventDefault(); toggleDataSaverMode(); });
     return;
   }
 
-  thumbsContainer.innerHTML = `<div class="pixabay-thumb-item loading">Searching Pixabay photos...</div>`;
+  // Loading state
+  thumbsContainer.innerHTML = `
+    <div style="text-align:center; padding:1.5rem; color:var(--text-secondary); font-family:var(--font-sans); font-size:0.875rem;">
+      <i class="fa-solid fa-spinner fa-spin" style="font-size:1.5rem; margin-bottom:0.5rem; display:block; color:var(--orange-600);"></i>
+      Loading beautiful photos…
+    </div>`;
 
-  const photos = await fetchPixabayImages(query, 12);
+  const photos = await fetchImages(query, 12);
+
   if (photos.length === 0) {
-    thumbsContainer.innerHTML = `<div class="pixabay-thumb-item">No photos found.</div>`;
+    thumbsContainer.innerHTML = `<div class="pixabay-thumb-item" style="text-align:center; padding:1rem;">No photos found for "${query}"</div>`;
     return;
   }
 
-  // Set first image as background
-  posterStudioInstance.setBgImage(photos[0].webformatURL);
+  // Auto-apply first photo to canvas
+  posterStudioInstance.setBgImage(photos[0].url);
 
+  // Build thumbnail grid
   let thumbsHtml = '';
   photos.forEach((photo, idx) => {
-    thumbsHtml += `<img src="${photo.previewURL}" class="pixabay-thumb ${idx === 0 ? 'active' : ''}" data-full="${photo.webformatURL}" alt="${photo.tags}">`;
+    thumbsHtml += `<img
+      src="${photo.previewUrl}"
+      class="pixabay-thumb ${idx === 0 ? 'active' : ''}"
+      data-full="${photo.url}"
+      alt="Photo ${photo.id}"
+      loading="lazy"
+      onerror="this.style.display='none'"
+    >`;
   });
-
   thumbsContainer.innerHTML = thumbsHtml;
 
-  // Thumb click listener
+  // Click listener
   thumbsContainer.querySelectorAll('.pixabay-thumb').forEach(thumb => {
     thumb.addEventListener('click', () => {
       thumbsContainer.querySelectorAll('.pixabay-thumb').forEach(t => t.classList.remove('active'));
