@@ -347,26 +347,57 @@ async function updateHomeDeviceQuote() {
   if (bgEl) {
     const query = categoryImageMap[q.category] || q.category;
     const images = await fetchPixabayImages(query, 3);
-    if (images.length > 0) {
-      const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
-      setSmoothBackgroundImage(bgEl, bgUrl);
-    } else if (!bgEl.style.backgroundImage) {
+    const applyMockupFallback = () => {
       bgEl.style.backgroundImage = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #2d3561 100%)';
       bgEl.style.opacity = '1';
+    };
+    if (images.length > 0) {
+      const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
+      setSmoothBackgroundImage(bgEl, bgUrl, applyMockupFallback);
+    } else {
+      applyMockupFallback();
     }
   }
 }
 
-// Helper: Preload Image & Crossfade Smoothly
-function setSmoothBackgroundImage(element, imageUrl) {
+// Helper: Preload image then crossfade it in as a CSS background.
+// onFail (optional) is called if the image errors OR stalls for >6 s — use it
+// to apply a fallback gradient so the element is never left blank forever.
+// NOTE: crossOrigin is intentionally NOT set here — these backgrounds are only
+// ever used as CSS background-image, never drawn onto <canvas>, so CORS headers
+// are not needed and setting crossOrigin would add an extra failure mode for free.
+function setSmoothBackgroundImage(element, imageUrl, onFail) {
   if (!element || !imageUrl) return;
+
   const tempImg = new Image();
-  tempImg.crossOrigin = "Anonymous";
+  let settled = false;
+
+  // Safety net: if the image neither loads nor errors within 6 s (stalled request
+  // on a slow/offline connection), stop waiting and fall back gracefully.
+  const fallbackTimer = setTimeout(() => {
+    if (settled) return;
+    settled = true;
+    console.warn('[Quotebook] Background image timed out:', imageUrl);
+    if (typeof onFail === 'function') onFail();
+  }, 6000);
+
   tempImg.onload = () => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(fallbackTimer);
     element.style.transition = 'opacity 0.4s ease-in-out, background-image 0.4s ease-in-out';
     element.style.backgroundImage = `url('${imageUrl}')`;
     element.style.opacity = '1';
   };
+
+  tempImg.onerror = () => {
+    if (settled) return;
+    settled = true;
+    clearTimeout(fallbackTimer);
+    console.warn('[Quotebook] Background image failed to load:', imageUrl);
+    if (typeof onFail === 'function') onFail();
+  };
+
   tempImg.src = imageUrl;
 }
 
@@ -587,13 +618,16 @@ async function selectHeroQuote(quote = null) {
   const query = categoryImageMap[h.category] || h.category;
   const images = await fetchPixabayImages(query, 5);
   const heroBackdrop = document.getElementById('heroBackdrop');
-  if (images.length > 0) {
-    const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
-    setSmoothBackgroundImage(heroBackdrop, bgUrl);
-  } else if (heroBackdrop && !heroBackdrop.style.backgroundImage) {
-    // Graceful fallback: warm editorial gradient when Pixabay is unavailable
+  const applyHeroFallback = () => {
+    if (!heroBackdrop) return;
     heroBackdrop.style.backgroundImage = 'linear-gradient(135deg, #2C3E50 0%, #3D5A80 40%, #8B5E52 100%)';
     heroBackdrop.style.opacity = '1';
+  };
+  if (images.length > 0) {
+    const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
+    setSmoothBackgroundImage(heroBackdrop, bgUrl, applyHeroFallback);
+  } else {
+    applyHeroFallback();
   }
 }
 
@@ -1180,9 +1214,17 @@ async function updateZenSlide() {
 
     const query = categoryImageMap[q.category] || q.category;
     const images = await fetchPixabayImages(query, 4);
+    const zenBgEl = document.getElementById('zenBgSlide');
+    const applyZenFallback = () => {
+      if (!zenBgEl) return;
+      zenBgEl.style.backgroundImage = 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #2d3561 100%)';
+      zenBgEl.style.opacity = '1';
+    };
     if (images.length > 0) {
       const bgUrl = images[Math.floor(Math.random() * images.length)].webformatURL;
-      setSmoothBackgroundImage(document.getElementById('zenBgSlide'), bgUrl);
+      setSmoothBackgroundImage(zenBgEl, bgUrl, applyZenFallback);
+    } else {
+      applyZenFallback();
     }
     
     if (content) content.classList.remove('fade-out');
