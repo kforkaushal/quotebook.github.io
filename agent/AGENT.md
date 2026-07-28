@@ -98,7 +98,7 @@ Quotebook/
 
 ## 7. Coding conventions for this repo
 
-- **Git Workflow**: Do NOT push updates to git yourself (`git push`) unless the user explicitly commands or asks you to do so.
+- **Git Workflow**: Do NOT commit (`git commit`) or push updates to git yourself (`git push`) unless the user explicitly commands or asks you to do so.
 - All colors must reference the existing CSS custom properties in `:root` — never hardcode a new hex color directly in a rule or inline `style=""` attribute (the generated `quotes/*.html` pages currently do use some inline styles — don't propagate that pattern further; move it into `style.css` when touching those files).
 - Any new generated page (category, author, or new intent page) must include: unique title with real count, unique meta description, canonical URL (real domain, not `.example.com`), OG + Twitter tags, JSON-LD (upgrade from generic `WebPage` to `Quotation`/`CreativeWork` + `BreadcrumbList` per `PRD-programmatic-seo.md` §5.2/§7.3), and a unique, real (non-templated-feeling) intro paragraph.
 - Before generating any new occasion/relationship/tone combination page, verify real matching quotes actually exist and are actually on-topic (see Known Issue #2) — do not let the page go live on a "General" fallback category standing in for the requested topic.
