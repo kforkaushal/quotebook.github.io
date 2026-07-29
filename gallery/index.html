@@ -40,6 +40,13 @@
           <span class="logo-subtitle" id="quoteCountBadge">Poster Gallery</span>
         </div>
       </a>
+      <div class="header-search" id="headerSearch">
+        <div class="search-input-wrapper" id="searchWrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="gallerySearchInput" placeholder="Search this gallery by quote or author..." autocomplete="off">
+          <button class="clear-search-btn" id="galleryClearSearchBtn" aria-label="Clear Search"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
       <div class="header-actions" id="headerActions">
         <a href="../index.html" class="icon-btn-text" title="Go to Home Landing">
           <i class="fa-solid fa-house"></i>
@@ -50,15 +57,35 @@
           <span>Explore Quotes</span>
         </a>
       </div>
+      <button class="mobile-menu-toggle" id="galleryMenuToggle" aria-label="Open Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
     </div>
+    
+    <nav class="quotes-mobile-drawer" id="galleryMobileDrawer" aria-hidden="true">
+      <div class="drawer-inner">
+        <div class="drawer-search-box" id="galleryDrawerSearchWrapper">
+          <i class="fa-solid fa-magnifying-glass drawer-search-icon"></i>
+          <input type="text" id="drawerSearchInput" placeholder="Search this gallery by quote or author..." autocomplete="off">
+        </div>
+
+        <a href="../index.html" class="drawer-item">
+          <i class="fa-solid fa-house"></i>
+          <span>Home</span>
+        </a>
+        <a href="../quotes.html" class="drawer-item">
+          <i class="fa-solid fa-compass"></i>
+          <span>Explore Quotes</span>
+        </a>
+      </div>
+    </nav>
   </header>
 
-  <main class="gallery-main">
+  <main class="main-container">
     <section class="gallery-hero">
       <h1>Visual Quotes Gallery</h1>
       <p>Discover beautiful quotes paired with high-quality photography. Click to download and share them anywhere.</p>
     </section>
-
     <section class="quotes-grid-container" style="padding-top: 2rem;">
       <div class="quotes-grid" id="galleryGrid">
         <div class="loading-state">
@@ -68,7 +95,7 @@
       
       <!-- Pagination / Load More Bar -->
       <div class="load-more-container hidden" id="loadMoreContainer" style="text-align: center; margin-top: 3rem;">
-        <button class="btn-load-more" id="btnLoadMore" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: 30px; cursor: pointer; border: 1px solid #ccc; background: #fff; display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.3s;">
+        <button class="btn-load-more" id="btnLoadMore" style="padding: 1rem 3rem; font-size: 1.1rem; border-radius: var(--radius-pill); cursor: pointer; border: 1px solid var(--border-light); background: var(--surface-card); color: var(--text-primary); display: inline-flex; align-items: center; gap: 0.5rem; transition: background 0.3s;">
           <span>Load More Quotes</span>
           <i class="fa-solid fa-chevron-down"></i>
         </button>

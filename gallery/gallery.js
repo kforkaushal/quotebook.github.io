@@ -3,6 +3,7 @@
  */
 
 let allGalleryQuotes = [];
+let galleryFilteredQuotes = null; // null = no active filter, show allGalleryQuotes
 let currentRenderIndex = 0;
 const CHUNK_SIZE = 60; // How many to load per click
 
@@ -52,6 +53,76 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Initial Render
     renderNextChunk(grid, loadMoreContainer);
     
+    function applyGallerySearch(term) {
+      const normalized = term.trim().toLowerCase();
+
+      if (!normalized) {
+        galleryFilteredQuotes = null;
+      } else {
+        galleryFilteredQuotes = allGalleryQuotes.filter(q =>
+          (q.quote && q.quote.toLowerCase().includes(normalized)) ||
+          (q.author && q.author.toLowerCase().includes(normalized))
+        );
+      }
+
+      currentRenderIndex = 0;
+      grid.innerHTML = '';
+      renderNextChunk(grid, loadMoreContainer);
+    }
+
+    const searchInput = document.getElementById('gallerySearchInput');
+    const drawerSearchInput = document.getElementById('drawerSearchInput');
+    const clearBtn = document.getElementById('galleryClearSearchBtn');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', () => applyGallerySearch(searchInput.value));
+    }
+
+    if (drawerSearchInput) {
+      drawerSearchInput.addEventListener('input', () => {
+        if (searchInput) searchInput.value = drawerSearchInput.value;
+        applyGallerySearch(drawerSearchInput.value);
+      });
+    }
+
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        if (searchInput) searchInput.value = '';
+        if (drawerSearchInput) drawerSearchInput.value = '';
+        applyGallerySearch('');
+      });
+    }
+
+    // Mobile hamburger drawer toggle
+    const menuToggleBtn = document.getElementById('galleryMenuToggle');
+    const mobileDrawer = document.getElementById('galleryMobileDrawer');
+
+    if (menuToggleBtn && mobileDrawer) {
+      menuToggleBtn.addEventListener('click', () => {
+        const isOpen = mobileDrawer.classList.toggle('active');
+        mobileDrawer.setAttribute('aria-hidden', String(!isOpen));
+        menuToggleBtn.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      // Close when tapping a link/item inside the drawer
+      mobileDrawer.querySelectorAll('.drawer-item').forEach(item => {
+        item.addEventListener('click', () => {
+          mobileDrawer.classList.remove('active');
+          mobileDrawer.setAttribute('aria-hidden', 'true');
+          menuToggleBtn.setAttribute('aria-expanded', 'false');
+        });
+      });
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileDrawer.classList.contains('active')) {
+          mobileDrawer.classList.remove('active');
+          mobileDrawer.setAttribute('aria-hidden', 'true');
+          menuToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+    
     // Load More listener
     loadMoreBtn.addEventListener('click', () => {
       renderNextChunk(grid, loadMoreContainer);
@@ -66,7 +137,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function renderNextChunk(grid, loadMoreContainer) {
-  const nextChunk = allGalleryQuotes.slice(currentRenderIndex, currentRenderIndex + CHUNK_SIZE);
+  const sourceList = galleryFilteredQuotes !== null ? galleryFilteredQuotes : allGalleryQuotes;
+  const nextChunk = sourceList.slice(currentRenderIndex, currentRenderIndex + CHUNK_SIZE);
   
   nextChunk.forEach((q, i) => {
     // We use a globally unique index so the picsum seed doesn't repeat per chunk
@@ -116,7 +188,7 @@ function renderNextChunk(grid, loadMoreContainer) {
   currentRenderIndex += CHUNK_SIZE;
   
   // Toggle Load More button visibility
-  if (currentRenderIndex >= allGalleryQuotes.length || currentRenderIndex > 1000) {
+  if (currentRenderIndex >= sourceList.length || currentRenderIndex > 1000) {
     loadMoreContainer.style.display = 'none';
   } else {
     loadMoreContainer.style.display = 'block';
