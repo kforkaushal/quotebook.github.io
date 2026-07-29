@@ -5412,13 +5412,6 @@ body.data-saver-active .quote-card-header::before {
     display: none;
   }
 
-  .quotes-page .header-actions {
-    gap: 0.35rem;
-  }
-
-  .quotes-page .header-actions .icon-btn:not(.mobile-search-trigger-btn):not(#btnOpenBookmarks) {
-    display: none;
-  }
 
   .quotes-mobile-drawer.active {
     display: block !important;

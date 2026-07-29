@@ -929,7 +929,15 @@ function speakQuote(text, author) {
   showToast('Reading quote aloud...');
 }
 
+const _bookmarkDebounce = new WeakMap();
 function toggleBookmark(qObj, btnEl) {
+  // Guard: prevent double-fire from concurrent event listeners on the same button
+  if (btnEl) {
+    if (_bookmarkDebounce.get(btnEl)) return;
+    _bookmarkDebounce.set(btnEl, true);
+    setTimeout(() => _bookmarkDebounce.delete(btnEl), 300);
+  }
+
   const index = state.bookmarks.findIndex(b => b.quote === qObj.quote && b.author === qObj.author);
   if (index > -1) {
     state.bookmarks.splice(index, 1);
@@ -953,7 +961,11 @@ function toggleBookmark(qObj, btnEl) {
 }
 
 function updateBookmarkBadge() {
-  document.getElementById('bookmarkCount').textContent = state.bookmarks.length;
+  const count = state.bookmarks.length;
+  const badge = document.getElementById('bookmarkCount');
+  if (badge) badge.textContent = count;
+  const drawerBadge = document.getElementById('bookmarkCountDrawer');
+  if (drawerBadge) drawerBadge.textContent = count > 0 ? count : '';
 }
 
 // 8. Poster Studio Integration
@@ -1246,6 +1258,7 @@ function closeZenMode() {
 // 10. Bookmarks Drawer
 function renderBookmarksList() {
   const listEl = document.getElementById('bookmarksList');
+  if (!listEl) return; // drawer not present on this page
   if (state.bookmarks.length === 0) {
     listEl.innerHTML = `
       <div class="empty-drawer">
