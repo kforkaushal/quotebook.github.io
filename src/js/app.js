@@ -863,7 +863,7 @@ function renderQuotesGrid() {
       <article class="quote-card" data-index="${idx}">
         <div class="quote-card-header">
           <span class="quote-category-tag">${q.category}</span>
-          <span class="quote-pop-badge"><i class="fa-solid fa-fire"></i> ${(q.popularity * 100).toFixed(1)}</span>
+          <span class="quote-pop-badge"><i class="fa-solid fa-fire"></i> ${((q.popularity || 0) * 100).toFixed(1)}</span>
         </div>
         
         <div class="card-quote-body">
@@ -2297,6 +2297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     'wedding':                   { label: 'Wedding',              icon: 'fa-solid fa-ring' },
     'whatsapp-status':           { label: 'WhatsApp Status',      icon: 'fa-brands fa-whatsapp' },
     'writing-literature':        { label: 'Writing & Literature', icon: 'fa-solid fa-feather-pointed' },
+    'author':                    { label: 'Author',               icon: 'fa-solid fa-user-pen' },
   };
   const DEFAULT_ICON = 'fa-solid fa-quote-left';
 
