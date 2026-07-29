@@ -929,28 +929,29 @@ function speakQuote(text, author) {
   showToast('Reading quote aloud...');
 }
 
-const _bookmarkDebounce = new WeakMap();
+const _bookmarkDebounce = new Set();
 function toggleBookmark(qObj, btnEl) {
-  // Guard: prevent double-fire from concurrent event listeners on the same button
-  if (btnEl) {
-    if (_bookmarkDebounce.get(btnEl)) return;
-    _bookmarkDebounce.set(btnEl, true);
-    setTimeout(() => _bookmarkDebounce.delete(btnEl), 300);
-  }
+  if (!qObj || !qObj.quote) return;
+
+  // Guard: prevent double-fire for the same quote within 500ms (e.g. mobile touch + click)
+  const key = `${qObj.quote}:::${qObj.author || ''}`;
+  if (_bookmarkDebounce.has(key)) return;
+  _bookmarkDebounce.add(key);
+  setTimeout(() => _bookmarkDebounce.delete(key), 500);
 
   const index = state.bookmarks.findIndex(b => b.quote === qObj.quote && b.author === qObj.author);
   if (index > -1) {
     state.bookmarks.splice(index, 1);
     if (btnEl) {
       const icon = btnEl.querySelector('i');
-      icon.className = 'fa-regular fa-heart';
+      if (icon) icon.className = 'fa-regular fa-heart';
     }
     showToast('Removed from saved quotes');
   } else {
     state.bookmarks.push(qObj);
     if (btnEl) {
       const icon = btnEl.querySelector('i');
-      icon.className = 'fa-solid fa-heart active text-danger';
+      if (icon) icon.className = 'fa-solid fa-heart active text-danger';
     }
     showToast('Saved to bookmarks!');
   }
