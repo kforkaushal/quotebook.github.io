@@ -25,6 +25,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://quotebook.me/authors/pablo-picasso.html</loc>
+    <lastmod>2026-08-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://quotebook.me/authors/a-d-posey.html</loc>
     <lastmod>2026-07-26</lastmod>
     <changefreq>monthly</changefreq>
