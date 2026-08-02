@@ -5675,3 +5675,306 @@ body.data-saver-active .quote-card-header::before {
   text-align: center;
   margin-top: 1.5rem;
 }
+
+/* ==========================================================================
+   VISUAL QUOTES GALLERY SHOWCASE MARQUEE (HOMEPAGE)
+   ========================================================================== */
+
+.gallery-showcase-section {
+  padding: 4.5rem 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  overflow: hidden;
+  position: relative;
+}
+
+.gallery-showcase-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+.showcase-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.section-title-box {
+  max-width: 680px;
+}
+
+.section-title-box .sub-title {
+  display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--accent-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 0.4rem;
+}
+
+.section-title-box .main-title {
+  font-family: var(--font-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.25;
+  margin-bottom: 0.4rem;
+}
+
+.section-title-box .title-desc {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.showcase-header-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.75rem 1.4rem;
+  background: var(--accent-primary);
+  color: #ffffff !important;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: transform var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+  white-space: nowrap;
+}
+
+.showcase-header-btn:hover {
+  background: var(--accent-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.poster-marquee-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 0.5rem 0;
+  touch-action: pan-y;
+}
+
+.marquee-fade-left,
+.marquee-fade-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 120px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.marquee-fade-left {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-secondary) 0%, transparent 100%);
+}
+
+.marquee-fade-right {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-secondary) 0%, transparent 100%);
+}
+
+.poster-marquee-row {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.poster-marquee-track {
+  display: inline-flex;
+  gap: 1.25rem;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+.poster-marquee-row.scroll-left .poster-marquee-track {
+  animation: posterScrollLeft 45s linear infinite;
+}
+
+.poster-marquee-row.scroll-right .poster-marquee-track {
+  animation: posterScrollRight 45s linear infinite;
+}
+
+.poster-marquee-row:hover .poster-marquee-track,
+.poster-marquee-row:active .poster-marquee-track {
+  animation-play-state: paused;
+}
+
+.poster-marquee-item {
+  flex: 0 0 auto;
+  width: 220px;
+  height: 275px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  background: var(--surface-card);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  display: block;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.poster-marquee-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.poster-marquee-item:hover {
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent-primary);
+}
+
+.showcase-bottom-cta {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.showcase-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.9rem 2.2rem;
+  background: var(--surface-card);
+  color: var(--text-primary) !important;
+  border: 2px solid var(--border-light);
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.showcase-cta-btn:hover {
+  border-color: var(--accent-primary);
+  color: var(--accent-primary) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+@keyframes posterScrollLeft {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes posterScrollRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile Responsive Optimizations */
+@media (max-width: 768px) {
+  .gallery-showcase-section {
+    padding: 3rem 0;
+  }
+
+  .gallery-showcase-container {
+    padding: 0 1rem;
+  }
+
+  .showcase-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .section-title-box .main-title {
+    font-size: 1.75rem;
+  }
+
+  .section-title-box .title-desc {
+    font-size: 0.95rem;
+  }
+
+  .showcase-header-btn {
+    align-self: flex-start;
+    padding: 0.65rem 1.2rem;
+    font-size: 0.9rem;
+  }
+
+  .poster-marquee-wrapper {
+    gap: 0.85rem;
+  }
+
+  .poster-marquee-track {
+    gap: 0.85rem;
+  }
+
+  .poster-marquee-item {
+    width: 160px;
+    height: 200px;
+    border-radius: var(--radius-md);
+  }
+
+  .poster-marquee-row.scroll-left .poster-marquee-track,
+  .poster-marquee-row.scroll-right .poster-marquee-track {
+    animation-duration: 32s;
+  }
+
+  .marquee-fade-left,
+  .marquee-fade-right {
+    width: 45px;
+  }
+
+  .showcase-bottom-cta {
+    margin-top: 1.75rem;
+  }
+
+  .showcase-cta-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 0.8rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .gallery-showcase-section {
+    padding: 2.25rem 0;
+  }
+
+  .section-title-box .main-title {
+    font-size: 1.45rem;
+  }
+
+  .poster-marquee-item {
+    width: 135px;
+    height: 170px;
+    border-radius: var(--radius-sm);
+  }
+
+  .poster-marquee-row.scroll-left .poster-marquee-track,
+  .poster-marquee-row.scroll-right .poster-marquee-track {
+    animation-duration: 26s;
+  }
+
+  .marquee-fade-left,
+  .marquee-fade-right {
+    width: 30px;
+  }
+}

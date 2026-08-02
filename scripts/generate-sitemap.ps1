@@ -4,7 +4,7 @@ $baseDir = "c:\Users\bitbu\OneDrive\Documents\GitHub\Quotebook"
 
 $xmlLines = [System.Collections.Generic.List[string]]::new()
 $xmlLines.Add('<?xml version="1.0" encoding="UTF-8"?>')
-$xmlLines.Add('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">')
+$xmlLines.Add('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">')
 
 function Get-Priority ($relPath) {
     if ($relPath -eq "index.html") { return "1.0", "daily" }
@@ -15,6 +15,9 @@ function Get-Priority ($relPath) {
     if ($relPath -like "authors/*") { return "0.6", "monthly" }
     return "0.5", "weekly"
 }
+
+# Image dataset for Google Image Search sitemap indexing
+$quoteImages = Get-ChildItem -Path (Join-Path $baseDir "data\img\quotes") -Filter "*.webp" -ErrorAction SilentlyContinue
 
 $files = Get-ChildItem -Path $baseDir -Recurse -Filter *.html | Where-Object {
     $_.FullName -notmatch '\\\.git\\' -and $_.FullName -notmatch '\\node_modules\\'
@@ -32,6 +35,20 @@ foreach ($file in $files) {
     $xmlLines.Add("    <lastmod>$today</lastmod>")
     $xmlLines.Add("    <changefreq>$freq</changefreq>")
     $xmlLines.Add("    <priority>$prio</priority>")
+
+    # Add Google Image sitemap nodes for homepage and gallery page
+    if ($rel.ToLower() -eq "index.html" -or $rel.ToLower() -eq "gallery/index.html") {
+        foreach ($img in $quoteImages) {
+            $cleanTitle = $img.Name.Replace("Quotebook-", "").Replace(".webp", "").Replace("_", " ")
+            $imgUrl = "$domain/data/img/quotes/$($img.Name)"
+            $xmlLines.Add("    <image:image>")
+            $xmlLines.Add("      <image:loc>$imgUrl</image:loc>")
+            $xmlLines.Add("      <image:title>$cleanTitle Quote Poster</image:title>")
+            $xmlLines.Add("      <image:caption>High resolution visual quote typography poster featuring $cleanTitle.</image:caption>")
+            $xmlLines.Add("    </image:image>")
+        }
+    }
+
     $xmlLines.Add("  </url>")
 }
 
@@ -39,4 +56,4 @@ $xmlLines.Add('</urlset>')
 
 $outPath = Join-Path $baseDir "sitemap.xml"
 [System.IO.File]::WriteAllLines($outPath, $xmlLines, [System.Text.Encoding]::UTF8)
-Write-Host "Sitemap successfully regenerated with $($files.Count) .html URLs!"
+Write-Host "Sitemap successfully regenerated with $($files.Count) .html URLs and image sitemap extensions!"
