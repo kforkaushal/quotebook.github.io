@@ -1,4 +1,15 @@
 User-agent: *
 Allow: /
 
+# Block parameterised versions of the quotes explorer — these are
+# JS-rendered filter states, not unique pages. The canonical on
+# quotes.html already points to the clean URL, but blocking here
+# prevents wasted crawl budget and eliminates the
+# "Discovered — currently not indexed" entries in GSC.
+Disallow: /quotes.html?
+
+# Block extension-less index variants that GitHub Pages serves as
+# redirects — they show up as "Page with redirect" in GSC.
+Disallow: /index$
+
 Sitemap: https://quotebook.me/sitemap.xml
