@@ -9,6 +9,7 @@ $xmlLines.Add('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns
 function Get-Priority ($relPath) {
     if ($relPath -eq "index.html") { return "1.0", "daily" }
     if ($relPath -eq "quotes.html") { return "0.9", "daily" }
+    if ($relPath -like "quote-of-the-day/*") { return "0.8", "daily" }
     if ($relPath -eq "poster.html") { return "0.8", "weekly" }
     if ($relPath -eq "404.html") { return "0.3", "monthly" }
     if ($relPath -like "quotes/*") { return "0.7", "weekly" }
