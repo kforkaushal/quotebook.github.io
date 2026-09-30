@@ -8,8 +8,4 @@ Allow: /
 # "Discovered — currently not indexed" entries in GSC.
 Disallow: /quotes.html?
 
-# Block extension-less index variants that GitHub Pages serves as
-# redirects — they show up as "Page with redirect" in GSC.
-Disallow: /index$
-
 Sitemap: https://quotebook.me/sitemap.xml
