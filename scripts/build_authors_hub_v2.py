@@ -26,7 +26,6 @@ for path in files:
         parts = raw_name.split(',', 1)
         clean_name = parts[0].strip()
         subtitle = parts[1].strip()
-        # Clean subtitle if too long
         if len(subtitle) > 40:
             subtitle = subtitle[:37] + "..."
     elif ' - ' in raw_name:
@@ -87,7 +86,7 @@ color_classes = [
 alpha_pills_list = ['<button class="alpha-pill active" data-letter="all">All</button>']
 for l in alphabet:
     alpha_pills_list.append(f'<button class="alpha-pill" data-letter="{l}">{l}</button>')
-alpha_pills_html = "\n      ".join(alpha_pills_list)
+alpha_pills_html = "\n        ".join(alpha_pills_list)
 
 # Generate Author Sections
 sections_list = []
@@ -442,7 +441,7 @@ html_page = f'''<!DOCTYPE html>
       top: 4.8rem;
       z-index: 40;
       margin-bottom: 3.5rem;
-      background: rgba(250, 246, 240, 0.92);
+      background: rgba(250, 246, 240, 0.94);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border-light);
@@ -494,7 +493,7 @@ html_page = f'''<!DOCTYPE html>
     /* Author Group Sections */
     .alpha-group-section {{
       margin-bottom: 4rem;
-      scroll-margin-top: 9rem;
+      scroll-margin-top: 9.5rem;
     }}
     .alpha-group-header {{
       display: flex;
@@ -669,16 +668,81 @@ html_page = f'''<!DOCTYPE html>
       background: var(--accent-primary-hover);
     }}
 
+    /* Mobile Responsive Header & Nav Drawer */
     @media (max-width: 768px) {{
       .authors-hero-title {{ font-size: 2.2rem; }}
-      .alpha-sticky-container {{ top: 4rem; padding: 0.4rem; }}
+      .alpha-sticky-container {{ top: 4.2rem; padding: 0.4rem; }}
       .author-items-grid {{ grid-template-columns: 1fr; }}
       .spotlight-grid {{ grid-template-columns: 1fr; }}
       .spotlight-section {{ padding: 1.5rem; }}
+      
+      .mobile-menu-toggle {{
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        padding: 0.5rem;
+      }}
+      .header-actions {{
+        display: none !important;
+      }}
+      .home-nav-links {{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--surface-header);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem 1.5rem;
+        gap: 1rem;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: all var(--transition-smooth);
+        z-index: 1000;
+      }}
+      .home-nav-links.active {{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }}
+      .home-nav-links .nav-link {{
+        font-size: 1.05rem;
+        padding: 0.4rem 0;
+        color: var(--text-primary);
+        font-weight: 500;
+      }}
+      .home-nav-links .nav-link.active {{
+        color: var(--accent-primary);
+        font-weight: 700;
+      }}
+      .mobile-only-cta {{
+        display: inline-flex !important;
+        justify-content: center;
+        align-items: center;
+        background: var(--accent-primary);
+        color: #ffffff !important;
+        padding: 0.75rem 1.25rem !important;
+        border-radius: var(--radius-pill);
+        font-weight: 600 !important;
+        margin-top: 0.5rem;
+        text-align: center;
+      }}
     }}
   </style>
 </head>
-<body class="light-theme quotes-page page-loaded">
+<body class="light-theme home-page page-loaded">
 
   <!-- Header Navigation -->
   <header class="app-header">
@@ -691,13 +755,19 @@ html_page = f'''<!DOCTYPE html>
         </div>
       </a>
 
-      <!-- Desktop header navigation -->
+      <!-- Burger Menu Toggle Button for Mobile -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
+        <i class="fa-solid fa-bars-staggered"></i>
+      </button>
+
+      <!-- Header Navigation Links -->
       <nav class="home-nav-links" id="homeNavLinks">
         <a href="/" class="nav-link">Home</a>
         <a href="/quotes.html" class="nav-link">Explore Quotes</a>
         <a href="/quotes/" class="nav-link">Categories</a>
         <a href="/authors/" class="nav-link active">Authors</a>
         <a href="/poster.html" class="nav-link">Poster Studio</a>
+        <a href="/blog/" class="nav-link">Blog</a>
         <a href="/quotes.html" class="nav-link mobile-only-cta">Explore 1 Million+ Quotes</a>
       </nav>
 
@@ -707,41 +777,7 @@ html_page = f'''<!DOCTYPE html>
           <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
-
-      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
-        <i class="fa-solid fa-bars-staggered"></i>
-      </button>
     </div>
-
-    <!-- Mobile slide-down nav drawer -->
-    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
-      <div class="drawer-inner">
-        <a href="/" class="drawer-item">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </a>
-        <a href="/quotes.html" class="drawer-item">
-          <i class="fa-solid fa-compass"></i>
-          <span>Explore 1 Million+ Quotes</span>
-        </a>
-        <a href="/quotes/" class="drawer-item">
-          <i class="fa-solid fa-folder-open"></i>
-          <span>Categories</span>
-        </a>
-        <a href="/authors/" class="drawer-item active">
-          <i class="fa-solid fa-users"></i>
-          <span>Authors A–Z</span>
-        </a>
-        <a href="/poster.html" class="drawer-item">
-          <i class="fa-solid fa-palette"></i>
-          <span>Poster Studio</span>
-        </a>
-        <a href="/blog/" class="drawer-item">
-          <i class="fa-solid fa-newspaper"></i>
-          <span>Blog &amp; Captions</span>
-        </a>
-      </div>
-    </nav>
   </header>
 
   <!-- Main Container -->
@@ -851,16 +887,34 @@ html_page = f'''<!DOCTYPE html>
   <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {{
-      // Mobile Drawer Toggle
-      const menuToggle = document.getElementById('quotesMenuToggle');
-      const mobileDrawer = document.getElementById('quotesMobileDrawer');
+      // Mobile Navigation Menu Toggle
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const homeNavLinks = document.getElementById('homeNavLinks');
 
-      if (menuToggle && mobileDrawer) {{
-        menuToggle.addEventListener('click', () => {{
-          const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
-          menuToggle.setAttribute('aria-expanded', !isExpanded);
-          mobileDrawer.setAttribute('aria-hidden', isExpanded);
-          mobileDrawer.classList.toggle('open');
+      if (mobileMenuToggle && homeNavLinks) {{
+        mobileMenuToggle.addEventListener('click', (e) => {{
+          e.stopPropagation();
+          const isActive = homeNavLinks.classList.toggle('active');
+          mobileMenuToggle.classList.toggle('active', isActive);
+          mobileMenuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        }});
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {{
+          if (!homeNavLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {{
+            homeNavLinks.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          }}
+        }});
+
+        // Close menu when clicking any nav link
+        homeNavLinks.querySelectorAll('.nav-link').forEach(link => {{
+          link.addEventListener('click', () => {{
+            homeNavLinks.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          }});
         }});
       }}
 
@@ -933,7 +987,7 @@ html_page = f'''<!DOCTYPE html>
         }});
       }}
 
-      // Alphabet Jump Scrolling
+      // Alphabet Jump Scrolling with Proper Offset
       const alphaPills = document.querySelectorAll('.alpha-pill');
       alphaPills.forEach(pill => {{
         pill.addEventListener('click', () => {{
@@ -947,11 +1001,39 @@ html_page = f'''<!DOCTYPE html>
           }} else {{
             const targetSection = document.getElementById(`group-${{letter}}`);
             if (targetSection) {{
-              targetSection.scrollIntoView({{ behavior: 'smooth' }});
+              const totalOffset = 150; // Accounting for fixed header + sticky alphabet bar
+              const elementPosition = targetSection.getBoundingClientRect().top;
+              const offsetPosition = elementPosition + window.pageYOffset - totalOffset;
+
+              window.scrollTo({{
+                top: offsetPosition,
+                behavior: 'smooth'
+              }});
             }}
           }}
         }});
       }});
+
+      // Auto-highlight active alphabet pill on scroll
+      if ('IntersectionObserver' in window) {{
+        const observer = new IntersectionObserver((entries) => {{
+          entries.forEach(entry => {{
+            if (entry.isIntersecting) {{
+              const group = entry.target.getAttribute('data-group');
+              alphaPills.forEach(p => {{
+                if (p.getAttribute('data-letter') === group) {{
+                  p.classList.add('active');
+                  p.scrollIntoView({{ behavior: 'smooth', inline: 'nearest', block: 'nearest' }});
+                }} else {{
+                  p.classList.remove('active');
+                }}
+              }});
+            }}
+          }});
+        }}, {{ rootMargin: '-140px 0px -70% 0px' }});
+
+        groups.forEach(sec => observer.observe(sec));
+      }}
     }});
   </script>
 </body>
