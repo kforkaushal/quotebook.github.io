@@ -1,7 +1,23 @@
-import json
+import os
+import glob
 
-with open('categories_list.json', 'r', encoding='utf-8-sig') as f:
-    categories = json.load(f)
+categories = []
+for d in sorted(glob.glob('quotes/*')):
+    if os.path.isdir(d):
+        slug = os.path.basename(d)
+        title = slug.replace('-', ' ').title()
+        files = sorted(glob.glob(os.path.join(d, '*.html')))
+        pages = []
+        for f in files:
+            p_base = os.path.basename(f)
+            p_name = p_base.replace(slug + '-', '').replace('.html', '').replace('-', ' ').title()
+            pages.append({'File': f'{slug}/{p_base}', 'Name': p_name})
+        categories.append({
+            'Slug': slug,
+            'Title': title,
+            'Count': len(files),
+            'Pages': pages
+        })
 
 # Sort categories alphabetically
 categories.sort(key=lambda x: x['Title'])
@@ -146,30 +162,30 @@ html_content = f'''<!DOCTYPE html>
   </script>
 
   <style>
-    .quotes-hub {{ max-width: 1200px; margin: 0 auto; padding: 2.5rem 1.5rem 5rem; }}
-    .hub-header {{ text-align: center; margin-bottom: 3rem; }}
-    .hub-badge {{ display: inline-flex; align-items: center; gap: 0.5rem; background: var(--orange-100); color: var(--orange-700); padding: 0.35rem 1rem; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 600; margin-bottom: 1rem; }}
-    .hub-title {{ font-family: var(--font-serif); font-size: clamp(2.2rem, 5vw, 3.4rem); color: var(--text-primary); margin-bottom: 1rem; font-weight: 700; }}
-    .hub-desc {{ font-family: var(--font-sans); color: var(--text-secondary); max-width: 700px; margin: 0 auto 2rem; font-size: 1.1rem; line-height: 1.6; }}
+    .quotes-hub {{ max-width: 1380px; margin: 0 auto; padding: 1.5rem 1.5rem 5rem; }}
+    .hub-header {{ text-align: center; margin-bottom: 3rem; max-width: 820px; margin-left: auto; margin-right: auto; }}
+    .hub-badge {{ display: inline-flex; align-items: center; gap: 0.5rem; background: var(--orange-50); color: var(--orange-700); border: 1px solid var(--orange-100); padding: 0.4rem 1.15rem; border-radius: var(--radius-pill); font-size: 0.85rem; font-weight: 700; margin-bottom: 1.25rem; }}
+    .hub-title {{ font-family: var(--font-serif); font-size: clamp(2.4rem, 5vw, 3.6rem); color: var(--text-primary); margin-bottom: 1rem; font-weight: 700; line-height: 1.15; }}
+    .hub-desc {{ font-family: var(--font-sans); color: var(--text-secondary); font-size: 1.15rem; line-height: 1.65; margin-bottom: 2rem; }}
 
-    .hub-search-bar {{ max-width: 540px; margin: 0 auto 2.5rem; position: relative; }}
-    .hub-search-input {{ width: 100%; padding: 0.9rem 1.25rem 0.9rem 3rem; border: 1.5px solid var(--border-medium); border-radius: var(--radius-pill); font-family: var(--font-sans); font-size: 1rem; background: var(--surface-card); color: var(--text-primary); outline: none; transition: border-color var(--transition-fast), box-shadow var(--transition-fast); }}
-    .hub-search-input:focus {{ border-color: var(--accent-primary); box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15); }}
-    .hub-search-icon {{ position: absolute; left: 1.15rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.05rem; }}
+    .hub-search-bar {{ max-width: 580px; margin: 0 auto 2.5rem; position: relative; }}
+    .hub-search-input {{ width: 100%; padding: 0.95rem 1.25rem 0.95rem 3.25rem; border: 1.5px solid var(--border-light); border-radius: var(--radius-pill); font-family: var(--font-sans); font-size: 1.05rem; background: var(--surface-card); color: var(--text-primary); outline: none; box-shadow: var(--shadow-sm); transition: all var(--transition-fast); }}
+    .hub-search-input:focus {{ border-color: var(--accent-primary); box-shadow: 0 0 0 4px rgba(193, 89, 44, 0.12); }}
+    .hub-search-icon {{ position: absolute; left: 1.35rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-size: 1.1rem; }}
 
-    .popular-banner {{ background: linear-gradient(135deg, var(--teal-900), var(--teal-700)); border-radius: var(--radius-lg); padding: 2.2rem 2.5rem; color: #fff; margin-bottom: 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; box-shadow: var(--shadow-md); }}
+    .popular-banner {{ background: linear-gradient(135deg, var(--teal-700), #0d2e2d); border-radius: var(--radius-lg); padding: 2.2rem 2.5rem; color: #fff; margin-bottom: 3.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; box-shadow: var(--shadow-md); }}
     .popular-content {{ max-width: 650px; }}
     .popular-tag {{ display: inline-flex; align-items: center; gap: 0.4rem; background: rgba(255,255,255,0.2); padding: 0.3rem 0.85rem; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.75rem; }}
     .popular-title {{ font-family: var(--font-serif); font-size: 1.85rem; margin-bottom: 0.5rem; font-weight: 700; color: #fff; }}
     .popular-text {{ font-size: 0.95rem; color: rgba(255,255,255,0.85); line-height: 1.6; margin: 0; }}
-    .popular-btn {{ display: inline-flex; align-items: center; gap: 0.6rem; background: #fff; color: var(--teal-900); padding: 0.85rem 1.6rem; border-radius: var(--radius-pill); text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: transform var(--transition-fast), box-shadow var(--transition-fast); flex-shrink: 0; }}
+    .popular-btn {{ display: inline-flex; align-items: center; gap: 0.6rem; background: #fff; color: var(--teal-700); padding: 0.85rem 1.6rem; border-radius: var(--radius-pill); text-decoration: none; font-weight: 700; font-size: 0.95rem; transition: transform var(--transition-fast), box-shadow var(--transition-fast); flex-shrink: 0; }}
     .popular-btn:hover {{ transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }}
 
     .categories-grid {{ display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.75rem; }}
-    .category-card {{ background: var(--surface-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth); }}
+    .category-card {{ background: var(--surface-card); border: 1px solid var(--border-light); border-radius: var(--radius-lg); padding: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; box-shadow: var(--shadow-sm); transition: transform var(--transition-smooth), box-shadow var(--transition-smooth), border-color var(--transition-smooth); }}
     .category-card:hover {{ transform: translateY(-4px); box-shadow: var(--shadow-md); border-color: var(--accent-primary); }}
     .cat-card-header {{ display: flex; align-items: center; gap: 1rem; }}
-    .cat-icon-badge {{ width: 50px; height: 50px; border-radius: 12px; background: linear-gradient(135deg, var(--orange-100), var(--orange-50)); color: var(--orange-700); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; }}
+    .cat-icon-badge {{ width: 50px; height: 50px; border-radius: 14px; background: var(--orange-50); color: var(--orange-700); border: 1px solid var(--orange-100); display: flex; align-items: center; justify-content: center; font-size: 1.35rem; flex-shrink: 0; }}
     .cat-meta {{ display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }}
     .cat-title {{ font-family: var(--font-serif); font-size: 1.35rem; font-weight: 700; margin: 0; color: var(--text-primary); }}
     .cat-title a {{ text-decoration: none; color: inherit; transition: color var(--transition-fast); }}
@@ -177,76 +193,125 @@ html_content = f'''<!DOCTYPE html>
     .cat-pages-count {{ font-size: 0.8rem; color: var(--text-muted); font-weight: 500; }}
 
     .subtopics-wrap {{ display: flex; flex-wrap: wrap; gap: 0.5rem; }}
-    .subtopic-chip {{ display: inline-flex; align-items: center; padding: 0.35rem 0.85rem; border-radius: var(--radius-pill); font-size: 0.85rem; text-decoration: none; background: var(--paper-100); color: var(--text-secondary); border: 1px solid var(--border-light); transition: all var(--transition-fast); }}
+    .subtopic-chip {{ display: inline-flex; align-items: center; padding: 0.4rem 0.9rem; border-radius: var(--radius-pill); font-size: 0.85rem; text-decoration: none; background: var(--paper-100); color: var(--text-secondary); border: 1px solid var(--border-light); transition: all var(--transition-fast); }}
     .subtopic-chip:hover {{ background: var(--accent-primary); color: #fff; border-color: var(--accent-primary); }}
-    .subtopic-more {{ display: inline-flex; align-items: center; padding: 0.35rem 0.75rem; border-radius: var(--radius-pill); font-size: 0.8rem; font-weight: 600; text-decoration: none; background: transparent; color: var(--accent-primary); border: 1px dashed var(--accent-primary); }}
+    .subtopic-more {{ display: inline-flex; align-items: center; padding: 0.4rem 0.85rem; border-radius: var(--radius-pill); font-size: 0.82rem; font-weight: 600; text-decoration: none; background: transparent; color: var(--accent-primary); border: 1px dashed var(--accent-primary); }}
     .subtopic-more:hover {{ background: var(--orange-50); }}
 
     @media (max-width: 768px) {{
       .quotes-hub {{ padding: 1.5rem 1rem 3rem; }}
       .categories-grid {{ grid-template-columns: 1fr; }}
       .popular-banner {{ padding: 1.75rem; flex-direction: column; align-items: flex-start; }}
+      .mobile-menu-toggle {{
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+        background: none;
+        border: none;
+        font-size: 1.4rem;
+        color: var(--text-primary);
+        cursor: pointer;
+        padding: 0.5rem;
+      }}
+      .header-actions {{
+        display: none !important;
+      }}
+      .home-nav-links {{
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--surface-header);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border-bottom: 1px solid var(--border-light);
+        display: flex;
+        flex-direction: column;
+        padding: 1.25rem 1.5rem;
+        gap: 1rem;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(-8px);
+        transition: all var(--transition-smooth);
+        z-index: 1000;
+      }}
+      .home-nav-links.active {{
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+      }}
+      .home-nav-links .nav-link {{
+        font-size: 1.05rem;
+        padding: 0.4rem 0;
+        color: var(--text-primary);
+        font-weight: 500;
+      }}
+      .home-nav-links .nav-link.active {{
+        color: var(--accent-primary);
+        font-weight: 700;
+      }}
+      .mobile-only-cta {{
+        display: inline-flex !important;
+        justify-content: center;
+        align-items: center;
+        background: var(--accent-primary);
+        color: #ffffff !important;
+        padding: 0.75rem 1.25rem !important;
+        border-radius: var(--radius-pill);
+        font-weight: 600 !important;
+        margin-top: 0.5rem;
+        text-align: center;
+      }}
     }}
   </style>
 </head>
-<body class="light-theme page-loaded">
+<body class="light-theme home-page page-loaded">
 
   <!-- App Header -->
   <header class="app-header">
     <div class="header-container">
-      <a href="/" class="brand-logo" id="brandLogo">
+      <a href="../index.html" class="brand-logo" id="brandLogo">
         <div class="logo-icon"><img src="../data/img/logo.svg" alt="Quotebook Logo" class="brand-logo-img"></div>
         <div class="logo-text">
           <span class="logo-title">Quotebook</span>
           <span class="logo-subtitle" id="quoteCountBadge">Timeless Wisdom &amp; Art</span>
         </div>
       </a>
-      <div class="header-actions" id="headerActions">
-        <a href="/" class="icon-btn-text" title="Go to Home Landing">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </a>
-        <a href="/quotes.html" class="icon-btn-text highlight" title="Explore Quotes">
-          <i class="fa-solid fa-compass"></i>
-          <span>Explore Quotes</span>
-        </a>
-      </div>
-      <button class="mobile-menu-toggle" id="quotesMenuToggle" aria-label="Open Menu" aria-expanded="false">
+
+      <!-- Burger Menu Toggle Button for Mobile -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle Navigation Menu" aria-expanded="false">
         <i class="fa-solid fa-bars-staggered"></i>
       </button>
-    </div>
-    <nav class="quotes-mobile-drawer" id="quotesMobileDrawer" aria-hidden="true">
-      <div class="drawer-inner">
-        <a href="/" class="drawer-item">
-          <i class="fa-solid fa-house"></i>
-          <span>Home</span>
-        </a>
-        <a href="/quotes.html" class="drawer-item highlight">
-          <i class="fa-solid fa-compass"></i>
+
+      <!-- Header Navigation Links -->
+      <nav class="home-nav-links" id="homeNavLinks">
+        <a href="../index.html" class="nav-link">Home</a>
+        <a href="../quotes.html" class="nav-link">Explore Quotes</a>
+        <a href="index.html" class="nav-link active">Categories</a>
+        <a href="../authors/index.html" class="nav-link">Authors</a>
+        <a href="../poster.html" class="nav-link">Poster Studio</a>
+        <a href="../blog/index.html" class="nav-link">Blog</a>
+        <a href="../quotes.html" class="nav-link mobile-only-cta">Explore 1 Million+ Quotes</a>
+      </nav>
+
+      <div class="header-actions" id="headerActions">
+        <a href="../quotes.html" class="cta-header-btn">
           <span>Explore 1 Million+ Quotes</span>
-        </a>
-        <a href="/poster.html" class="drawer-item">
-          <i class="fa-solid fa-palette"></i>
-          <span>Poster Studio</span>
-        </a>
-        <a href="/quotes/" class="drawer-item active">
-          <i class="fa-solid fa-folder-open"></i>
-          <span>Categories</span>
-        </a>
-        <a href="/authors/" class="drawer-item">
-          <i class="fa-solid fa-users"></i>
-          <span>Authors A–Z</span>
+          <i class="fa-solid fa-arrow-right"></i>
         </a>
       </div>
-    </nav>
+    </div>
   </header>
 
   <main class="quotes-hub">
     <!-- Breadcrumb Navigation -->
-    <nav class="breadcrumb-nav" aria-label="Breadcrumb" style="margin-bottom: 2rem;">
-      <a href="/" style="color:var(--text-secondary); text-decoration:none;"><i class="fa-solid fa-house"></i> Home</a>
-      <span class="breadcrumb-separator" style="margin: 0 0.5rem; color:var(--text-muted);"><i class="fa-solid fa-chevron-right"></i></span>
-      <span class="breadcrumb-current" style="color:var(--text-primary); font-weight:600;">Quotes Directory</span>
+    <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+      <a href="../index.html"><i class="fa-solid fa-house"></i> Home</a>
+      <span class="breadcrumb-separator"><i class="fa-solid fa-chevron-right"></i></span>
+      <span class="breadcrumb-current">Quotes Directory</span>
     </nav>
 
     <div class="hub-header">
@@ -293,22 +358,22 @@ html_content = f'''<!DOCTYPE html>
       <div class="footer-links">
         <div class="footer-col">
           <h4>Navigation</h4>
-          <a href="/">Home</a>
-          <a href="/quotes.html">Quotes Library</a>
-          <a href="/poster.html">Poster Studio</a>
-          <a href="/quotes/">Browse Categories</a>
-          <a href="/authors/">Browse Authors</a>
-          <a href="/about.html">About Us</a>
-          <a href="/contact.html">Contact Us</a>
+          <a href="../index.html">Home</a>
+          <a href="../quotes.html">Quotes Library</a>
+          <a href="index.html">Browse Categories</a>
+          <a href="../authors/index.html">Browse Authors</a>
+          <a href="../poster.html">Poster Studio</a>
+          <a href="../about.html">About Us</a>
+          <a href="../contact.html">Contact Us</a>
         </div>
 
         <div class="footer-col">
           <h4>Popular Topics</h4>
-          <a href="/quotes/popular-quotes.html">Popular Quotes</a>
-          <a href="/quotes/stoic-philosophy/stoic-philosophy-wisdom.html">Wisdom</a>
-          <a href="/quotes/stoic-philosophy/stoic-philosophy-general.html">Philosophy</a>
-          <a href="/quotes/love/love-general.html">Love</a>
-          <a href="/quotes/motivation-hustle/motivation-hustle-success-mindset.html">Motivation</a>
+          <a href="popular-quotes.html">Popular Quotes</a>
+          <a href="stoic-philosophy/stoic-philosophy-wisdom.html">Wisdom</a>
+          <a href="stoic-philosophy/stoic-philosophy-general.html">Philosophy</a>
+          <a href="love/love-general.html">Love</a>
+          <a href="motivation-hustle/motivation-hustle-success-mindset.html">Motivation</a>
         </div>
       </div>
     </div>
@@ -319,20 +384,55 @@ html_content = f'''<!DOCTYPE html>
   </footer>
 
   <script>
-    // Live Search Filter for Categories
-    const searchInput = document.getElementById('categorySearch');
-    const cards = document.querySelectorAll('.category-card');
+    document.addEventListener('DOMContentLoaded', () => {{
+      // Mobile Navigation Menu Toggle
+      const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+      const homeNavLinks = document.getElementById('homeNavLinks');
 
-    searchInput.addEventListener('input', (e) => {{
-      const q = e.target.value.toLowerCase().trim();
-      cards.forEach(card => {{
-        const title = card.dataset.title;
-        if (!q || title.includes(q)) {{
-          card.style.display = 'flex';
-        }} else {{
-          card.style.display = 'none';
-        }}
-      }});
+      if (mobileMenuToggle && homeNavLinks) {{
+        mobileMenuToggle.addEventListener('click', (e) => {{
+          e.stopPropagation();
+          const isActive = homeNavLinks.classList.toggle('active');
+          mobileMenuToggle.classList.toggle('active', isActive);
+          mobileMenuToggle.setAttribute('aria-expanded', isActive ? 'true' : 'false');
+        }});
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {{
+          if (!homeNavLinks.contains(e.target) && !mobileMenuToggle.contains(e.target)) {{
+            homeNavLinks.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          }}
+        }});
+
+        // Close menu when clicking any nav link
+        homeNavLinks.querySelectorAll('.nav-link').forEach(link => {{
+          link.addEventListener('click', () => {{
+            homeNavLinks.classList.remove('active');
+            mobileMenuToggle.classList.remove('active');
+            mobileMenuToggle.setAttribute('aria-expanded', 'false');
+          }});
+        }});
+      }}
+
+      // Live Search Filter for Categories
+      const searchInput = document.getElementById('categorySearch');
+      const cards = document.querySelectorAll('.category-card');
+
+      if (searchInput) {{
+        searchInput.addEventListener('input', (e) => {{
+          const q = e.target.value.toLowerCase().trim();
+          cards.forEach(card => {{
+            const title = card.dataset.title;
+            if (!q || title.includes(q)) {{
+              card.style.display = 'flex';
+            }} else {{
+              card.style.display = 'none';
+            }}
+          }});
+        }});
+      }}
     }});
   </script>
 </body>
