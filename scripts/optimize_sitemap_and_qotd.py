@@ -1,12 +1,13 @@
 import os
 import glob
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # 1. Update robots meta tag in quote-of-the-day HTML files
 qotd_files = sorted(glob.glob('quote-of-the-day/2026-*.html'))
-today_str = "2026-09-30"
+today_str = "2026-10-16"
 today_dt = datetime.strptime(today_str, "%Y-%m-%d")
+window_start_dt = today_dt - timedelta(days=29)
 
 updated_noindex = 0
 updated_index = 0
@@ -22,9 +23,9 @@ for file_path in qotd_files:
     with open(file_path, 'r', encoding='utf-8', errors='ignore') as f:
         content = f.read()
 
-    # Rule: Keep last 30 days (September 2026 up to today) as indexable.
-    # Older archives (June, July, August) and future dates (Oct, Nov, Dec) get noindex, follow.
-    if page_dt.year == 2026 and page_dt.month == 9 and page_dt <= today_dt:
+    # Rule: Keep last 30 active days (up to today 2026-10-16) as indexable.
+    # Older archives and unreleased future dates get noindex, follow.
+    if window_start_dt <= page_dt <= today_dt:
         robots_directive = '<meta name="robots" content="index, follow">'
         updated_index += 1
     else:
@@ -54,20 +55,20 @@ print(f"QOTD meta robots updated: {updated_index} pages set to index, {updated_n
 urls = []
 
 # Core Root Pages
-urls.append(('https://quotebook.me/', '2026-09-30', 'daily', '1.0'))
-urls.append(('https://quotebook.me/quotes.html', '2026-09-30', 'daily', '0.9'))
-urls.append(('https://quotebook.me/quotes/', '2026-09-30', 'weekly', '0.9'))
-urls.append(('https://quotebook.me/authors/', '2026-09-30', 'weekly', '0.9'))
-urls.append(('https://quotebook.me/quotes/gandhi-jayanti-quotes.html', '2026-09-30', 'weekly', '0.85'))
-urls.append(('https://quotebook.me/quotes/popular-quotes.html', '2026-09-30', 'weekly', '0.85'))
-urls.append(('https://quotebook.me/poster.html', '2026-09-30', 'weekly', '0.8'))
-urls.append(('https://quotebook.me/blog/', '2026-09-30', 'weekly', '0.8'))
-urls.append(('https://quotebook.me/blog/attitude-status-captions.html', '2026-09-30', 'weekly', '0.8'))
-urls.append(('https://quotebook.me/quote-of-the-day/', '2026-09-30', 'daily', '0.8'))
-urls.append(('https://quotebook.me/gallery/', '2026-09-30', 'monthly', '0.7'))
-urls.append(('https://quotebook.me/about.html', '2026-09-30', 'monthly', '0.5'))
-urls.append(('https://quotebook.me/contact.html', '2026-09-30', 'monthly', '0.5'))
-urls.append(('https://quotebook.me/terms.html', '2026-09-30', 'monthly', '0.4'))
+urls.append(('https://quotebook.me/', '2026-10-16', 'daily', '1.0'))
+urls.append(('https://quotebook.me/quotes.html', '2026-10-16', 'daily', '0.9'))
+urls.append(('https://quotebook.me/quotes/', '2026-10-16', 'weekly', '0.9'))
+urls.append(('https://quotebook.me/authors/', '2026-10-16', 'weekly', '0.9'))
+urls.append(('https://quotebook.me/quotes/gandhi-jayanti-quotes.html', '2026-10-16', 'weekly', '0.85'))
+urls.append(('https://quotebook.me/quotes/popular-quotes.html', '2026-10-16', 'weekly', '0.85'))
+urls.append(('https://quotebook.me/poster.html', '2026-10-16', 'weekly', '0.8'))
+urls.append(('https://quotebook.me/blog/', '2026-10-16', 'weekly', '0.8'))
+urls.append(('https://quotebook.me/blog/attitude-status-captions.html', '2026-10-16', 'weekly', '0.8'))
+urls.append(('https://quotebook.me/quote-of-the-day/', '2026-10-16', 'daily', '0.8'))
+urls.append(('https://quotebook.me/gallery/', '2026-10-16', 'monthly', '0.7'))
+urls.append(('https://quotebook.me/about.html', '2026-10-16', 'monthly', '0.5'))
+urls.append(('https://quotebook.me/contact.html', '2026-10-16', 'monthly', '0.5'))
+urls.append(('https://quotebook.me/terms.html', '2026-10-16', 'monthly', '0.4'))
 
 # All 103 Author Pages
 author_files = sorted(glob.glob('authors/*.html'))
@@ -75,7 +76,7 @@ for af in author_files:
     bf = os.path.basename(af)
     if bf == 'index.html':
         continue
-    urls.append((f'https://quotebook.me/authors/{bf}', '2026-09-30', 'monthly', '0.7'))
+    urls.append((f'https://quotebook.me/authors/{bf}', '2026-10-16', 'monthly', '0.7'))
 
 # All Category Collection Pages under quotes/
 quote_files = sorted(glob.glob('quotes/**/*.html', recursive=True))
@@ -83,15 +84,15 @@ for qf in quote_files:
     rel = os.path.relpath(qf, 'quotes').replace('\\', '/')
     if rel in ['index.html', 'popular-quotes.html', 'gandhi-jayanti-quotes.html']:
         continue
-    urls.append((f'https://quotebook.me/quotes/{rel}', '2026-09-30', 'monthly', '0.7'))
+    urls.append((f'https://quotebook.me/quotes/{rel}', '2026-10-16', 'monthly', '0.7'))
 
-# Only the Recent 30 Daily Quote Pages (September 2026)
+# Only the Recent 30 Daily Quote Pages (Rolling window up to today)
 for file_path in qotd_files:
     fname = os.path.basename(file_path)
     date_str = fname.replace('.html', '')
     try:
         page_dt = datetime.strptime(date_str, "%Y-%m-%d")
-        if page_dt.year == 2026 and page_dt.month == 9 and page_dt <= today_dt:
+        if window_start_dt <= page_dt <= today_dt:
             urls.append((f'https://quotebook.me/quote-of-the-day/{fname}', date_str, 'monthly', '0.6'))
     except ValueError:
         continue

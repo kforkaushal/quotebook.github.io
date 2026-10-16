@@ -14,9 +14,9 @@
   </script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Quotebook — Timeless Quotes &amp; Visual Poster Studio</title>
+  <title>Quotebook: Famous Quotes &amp; Free Quote Poster Maker</title>
   <meta name="description"
-    content="Discover 1 Million+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+    content="Browse famous quotes by author and topic, listen to them read aloud, and turn any quote into a free HD poster with the Quotebook Poster Studio.">
   <meta name="keywords"
     content="famous quotes, inspirational quotes, quote generator, quote poster maker, motivational quotes, quote of the day, wisdom quotes, beautiful quotes online">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
@@ -30,43 +30,52 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Quotebook">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Quotebook — Timeless Quotes &amp; Visual Poster Studio">
+  <meta property="og:title" content="Quotebook: Famous Quotes &amp; Free Quote Poster Maker">
   <meta property="og:description"
-    content="Discover 1 Million+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+    content="Browse famous quotes by author and topic, listen to them read aloud, and turn any quote into a free HD poster with the Quotebook Poster Studio.">
   <meta property="og:url" content="https://quotebook.me/">
   <meta property="og:image" content="https://quotebook.me/data/img/quotebook-index.jpg">
   <meta property="og:image:secure_url" content="https://quotebook.me/data/img/quotebook-index.jpg">
   <meta property="og:image:type" content="image/jpeg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Quotebook — discover 1M+ quotes and create visual quote posters">
+  <meta property="og:image:alt" content="Quotebook — discover 1 Million+ quotes and create visual quote posters">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@quotebookme">
-  <meta name="twitter:title" content="Quotebook — Timeless Quotes &amp; Visual Poster Studio">
+  <meta name="twitter:title" content="Quotebook: Famous Quotes &amp; Free Quote Poster Maker">
   <meta name="twitter:description"
-    content="Discover 1 Million+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.">
+    content="Browse famous quotes by author and topic, listen to them read aloud, and turn any quote into a free HD poster with the Quotebook Poster Studio.">
   <meta name="twitter:image" content="https://quotebook.me/data/img/quotebook-index.jpg">
-  <meta name="twitter:image:alt" content="Quotebook — discover 1M+ quotes and create visual quote posters">
+  <meta name="twitter:image:alt" content="Quotebook — discover 1 Million+ quotes and create visual quote posters">
 
-  <!-- JSON-LD: WebSite + Organization -->
+  <!-- JSON-LD: WebSite + Organization (@graph per spec Section 5) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "Quotebook",
-    "url": "https://quotebook.me/",
-    "description": "Discover 1 Million+ curated quotes, listen with speech synthesis, and create high-resolution visual quote posters with Pixabay photography.",
-    "publisher": {
-      "@type": "Organization",
-      "name": "Quotebook",
-      "url": "https://quotebook.me/",
-      "logo": {
-        "@type": "ImageObject",
-        "url": "https://quotebook.me/data/img/logo.svg"
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://quotebook.me/#website",
+        "url": "https://quotebook.me/",
+        "name": "Quotebook",
+        "description": "Browse 1 Million+ famous quotes by author and topic, and create free HD quote posters with the Quotebook Poster Studio.",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": "https://quotebook.me/quotes.html?q={search_term_string}",
+          "query-input": "required name=search_term_string"
+        }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://quotebook.me/#org",
+        "name": "Quotebook",
+        "url": "https://quotebook.me/",
+        "logo": "https://quotebook.me/data/img/logo.svg",
+        "sameAs": ["https://twitter.com/quotebookme"]
       }
-    }
+    ]
   }
   </script>
 
@@ -371,6 +380,7 @@
         <a href="quotes/" class="nav-link">Categories</a>
         <a href="authors/" class="nav-link">Authors</a>
         <a href="poster.html" class="nav-link">Poster Studio</a>
+        <a href="blog/" class="nav-link">Blog</a>
         <a href="#posterGallery" class="nav-link">Poster Gallery</a>
         <a href="#features" class="nav-link">Features</a>
         <a href="quotes.html" class="nav-link mobile-only-cta">Explore 1 Million+ Quotes</a>
@@ -599,8 +609,8 @@
         </div>
 
         <h1 class="home-hero-title">
-          Discover Timeless Quotes. <br>
-          <span class="text-highlight-primary">Inspire Every Day.</span>
+          Famous Quotes by Topic and Author,<br>
+          <span class="text-highlight-primary">Made Into Posters.</span>
         </h1>
 
         <p class="home-hero-desc">
@@ -692,7 +702,7 @@
           <h2 class="main-title">Today's Quotes</h2>
           <p class="title-desc">A fresh selection of handpicked quotes to spark your imagination and elevate your day.</p>
         </div>
-        <a href="quote-of-the-day/index.html" class="showcase-header-btn" title="View Daily Quote Archive Calendar" style="margin-bottom: 0.5rem;">
+        <a href="quote-of-the-day/" class="showcase-header-btn" title="View Daily Quote Archive Calendar" style="margin-bottom: 0.5rem;">
           <i class="fa-solid fa-calendar-days"></i>
           <span>Browse Daily Archive</span>
         </a>
@@ -1303,6 +1313,8 @@
           <a href="quotes/">Browse Categories</a>
           <a href="authors/">Browse Authors</a>
           <a href="poster.html">Poster Studio</a>
+          <a href="blog/">Blog</a>
+          <a href="quote-of-the-day/">Quote of the Day</a>
           <a href="about.html">About Us</a>
           <a href="contact.html">Contact Us</a>
         </div>

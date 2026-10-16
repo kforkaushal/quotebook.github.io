@@ -122,6 +122,17 @@ async function initApp() {
   try {
     await loadQuotesData();
 
+    // Enforce noindex, follow on parameterized URLs (filter/search state) per SEO spec P0-2
+    if (window.location.search && window.location.search.length > 1) {
+      let robotsMeta = document.querySelector('meta[name="robots"]');
+      if (!robotsMeta) {
+        robotsMeta = document.createElement('meta');
+        robotsMeta.name = 'robots';
+        document.head.appendChild(robotsMeta);
+      }
+      robotsMeta.content = 'noindex, follow';
+    }
+
     // Check URL parameters (e.g. ?category=Philosophy or ?action=poster)
     const urlParams = new URLSearchParams(window.location.search);
     const catParam = urlParams.get('category');
